@@ -1,0 +1,106 @@
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { Shield, Zap, Target, Award, Leaf, ChevronRight } from 'lucide-react';
+import ParticleField from '../components/ParticleField';
+
+const STATS = [['9', '+', 'Years'], ['12', '+', 'Cities'], ['5000', '+', 'Riders'], ['100', '%', 'Electric']];
+const VALUES = [
+  { icon: <Target size={26} />, title: 'Mission', color: 'var(--elec)', desc: 'Make affordable, reliable electric vehicles accessible across every corner of Nepal.' },
+  { icon: <Leaf size={26} />, title: 'Sustainability', color: 'var(--nature)', desc: 'Every KM ridden on our vehicles offsets harmful CO₂. Nepal\'s green transport future starts here.' },
+  { icon: <Shield size={26} />, title: 'Safety', color: 'var(--power)', desc: 'Japanese-standard engineering with hill-climb sensors, anti-theft, and disc brakes built in.' },
+  { icon: <Award size={26} />, title: 'Quality', color: 'var(--elec)', desc: 'Lithium batteries with best-in-class range. Factory-backed warranty on all models.' },
+];
+
+const About = () => (
+  <div>
+    {/* Hero */}
+    <section style={{ minHeight: '90vh', display: 'flex', alignItems: 'center', padding: '140px 0 80px', position: 'relative', overflow: 'hidden' }}>
+      <ParticleField count={70} opacity={0.55} />
+
+      <div style={{ position: 'absolute', top: '-10%', right: '-5%', width: '55vw', height: '55vw', background: 'radial-gradient(ellipse, rgba(0,229,255,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', bottom: '-10%', left: '-5%', width: '40vw', height: '40vw', background: 'radial-gradient(ellipse, rgba(0,255,135,0.05) 0%, transparent 70%)', pointerEvents: 'none' }} />
+
+      <div className="container" style={{ position: 'relative', zIndex: 2, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
+        <motion.div initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.9 }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(0,255,135,0.08)', border: '1px solid rgba(0,255,135,0.2)', borderRadius: 999, padding: '7px 18px', marginBottom: 28 }}>
+            <Leaf size={14} color="var(--nature)" />
+            <span style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--nature)', textTransform: 'uppercase', letterSpacing: '3px' }}>Est. 2015 — Birgunj, Nepal</span>
+          </div>
+
+          <div className="ghost" style={{ fontSize: 'clamp(4rem,10vw,8rem)', marginBottom: -20, lineHeight: 0.8 }}>OUR</div>
+
+          <h1 style={{ fontSize: 'clamp(3rem, 5.5vw, 5.5rem)', fontWeight: 900, letterSpacing: '-3px', lineHeight: 1.05, marginBottom: 28, position: 'relative', zIndex: 2 }}>
+            Story &amp; <span className="electric-text">Mission</span>
+          </h1>
+          <p style={{ color: 'var(--txt-2)', fontSize: '1.1rem', lineHeight: 1.85, maxWidth: 480, marginBottom: 40 }}>
+            सन् २०१५ देखि कुशवाहा मोटर्सले नेपालमा गुणस्तरीय र किफायती विद्युतीय सवारी साधनहरू उपलब्ध गराउँदै आएको छ।
+            हाम्रो लक्ष्य नेपालको हरियो भविष्यको लागि दिगो यातायात समाधान प्रदान गर्नु हो।
+          </p>
+          <Link to="/contact" className="btn-nature" style={{ textDecoration: 'none' }}>
+            Get in Touch <ChevronRight size={18} />
+          </Link>
+        </motion.div>
+
+        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.95, delay: 0.1 }} style={{ position: 'relative' }}>
+          {/* Spinning ring */}
+          <div style={{ position: 'absolute', inset: -40, borderRadius: '50%', border: '1px solid rgba(0,229,255,0.1)', animation: 'rotate-slow 18s linear infinite', pointerEvents: 'none' }} />
+          <div style={{ position: 'absolute', inset: -10, borderRadius: '50%', border: '1px dashed rgba(0,255,135,0.08)', animation: 'rotate-slow 12s linear infinite reverse', pointerEvents: 'none' }} />
+
+          {/* Glow */}
+          <div style={{ position: 'absolute', bottom: '5%', left: '50%', transform: 'translateX(-50%)', width: '70%', height: 60, background: 'radial-gradient(ellipse, rgba(0,229,255,0.35) 0%, transparent 70%)', filter: 'blur(20px)', pointerEvents: 'none' }} />
+
+          <div className="elec-card float-3d" style={{ aspectRatio: '1', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', padding: 24 }}>
+            <img src="/scooter.png" alt="About" style={{ width: '100%', objectFit: 'contain', filter: 'drop-shadow(0 30px 50px rgba(0,229,255,0.4))' }} />
+          </div>
+        </motion.div>
+      </div>
+    </section>
+
+    {/* Stats Bar */}
+    <section style={{ borderTop: '1px solid rgba(0,229,255,0.08)', borderBottom: '1px solid rgba(0,229,255,0.08)', padding: '56px 0', position: 'relative' }}>
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, transparent, rgba(0,229,255,0.03), rgba(0,255,135,0.02), transparent)' }} />
+      <div className="container">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 40 }}>
+          {STATS.map(([num, suf, lbl], i) => (
+            <motion.div key={lbl} whileHover={{ y: -4 }} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: 'clamp(2.5rem,4vw,3.5rem)', fontWeight: 900, lineHeight: 1, letterSpacing: '-2px' }}>
+                <span className={i % 2 === 0 ? 'text-elec' : 'text-nature'}>{num}</span>
+                <span className="text-elec" style={{ fontSize: '60%' }}>{suf}</span>
+              </div>
+              <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '2px', marginTop: 8 }}>{lbl}</div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* Values */}
+    <section style={{ padding: '100px 0 120px' }}>
+      <div className="container">
+        <div style={{ textAlign: 'center', marginBottom: 60 }}>
+          <span className="label">Why Choose Us</span>
+          <h2 style={{ fontSize: 'clamp(2rem,4vw,3.5rem)', fontWeight: 900, letterSpacing: '-2px' }}>
+            Core <span className="electric-text">Values</span>
+          </h2>
+        </div>
+        <div className="grid-2">
+          {VALUES.map((v, i) => (
+            <motion.div key={v.title} className="elec-card" whileHover={{ y: -8, borderColor: `${v.color}40` }}
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
+              style={{ padding: 44, borderColor: `${v.color}15` }}
+            >
+              <div style={{ position: 'absolute', top: -20, left: -20, width: 200, height: 200, background: `radial-gradient(circle, ${v.color}15 0%, transparent 70%)`, pointerEvents: 'none' }} />
+              <div style={{ width: 60, height: 60, borderRadius: 14, background: `${v.color}12`, border: `1px solid ${v.color}25`, color: v.color, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 24, boxShadow: `0 0 20px ${v.color}25` }}>
+                {v.icon}
+              </div>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 12, color: v.color }}>{v.title}</h3>
+              <p style={{ color: 'var(--txt-2)', lineHeight: 1.8, fontSize: '0.98rem' }}>{v.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </div>
+);
+
+export default About;
