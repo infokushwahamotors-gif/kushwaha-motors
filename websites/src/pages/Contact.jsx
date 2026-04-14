@@ -107,7 +107,7 @@ const Contact = () => {
             initial={{ scale: 1.05, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1.5, ease: "easeOut" }}
-            src="/Banner/Clean_Contact.webp" 
+            src="/Banner/Clean_Contact.png" 
             alt="Contact Banner" 
             style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
           />

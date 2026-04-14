@@ -41,7 +41,7 @@ const Home = () => {
     '/Banner/Banner_GIF.gif',
     '/Banner/Gemini_Generated_Image_t0keb4t0keb4t0ke.webp',
     '/Banner/Gemini_Generated_Image_60b47v60b47v60b4.webp',
-    '/Banner/Clean_Hero_3.webp'
+    '/Banner/Clean_Hero_3.png'
   ];
 
   useEffect(() => {
