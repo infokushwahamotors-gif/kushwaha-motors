@@ -115,7 +115,7 @@ const TRAINING_DATA = {
       "what scooter", "which scooter", "electric bike", "e-scooter", "motor scooter"
     ],
     responses: [
-      "Our 2-Wheeler lineup is engineered for high performance in Nepal:\n\n⚡ **TM007 Pro** (Performance Series)\n• Motor: Heavy-duty 2000W\n• Range: Massive 130 KM per charge\n• Battery: 72V 60Ah Lithium\n• Top Speed: 62 km/h\n• Features: Cruise Control, Dual Disc Brake, LCD Display, Anti-Theft\n\n🌿 **V7G Urban** (Commuter Series)\n• Motor: 2000W\n• Range: 120 KM per charge\n• Battery: 72V 45Ah\n• Top Speed: 58 km/h\n• Features: Anti-Theft Lock, Touch Start, Reverse Gear for easy parking\n\nBoth come with **1-year motor & controller warranty**. Which one suits you?"
+      "हाम्रो 2-Wheeler (TM007, TM008, V7G) नयाँ संस्करणहरू विशेषताहरूले भरिएका छन्:\n\n⚡ **TM007 & TM008 & V7G** (इलेक्ट्रिक स्कुटर)\n• Motor: 4200W rated\n• Range: 150 KM per charge\n• Battery: 72V 45Ah Lithium\n• Top Speed: 78 km/h\n• Features: 2 years/20k km warranty, Cruise Control, Dual Disc Brake, Reverse Gear, Hill Hold, NFC & Remote, 165mm Clearance.\n\nAre you looking to book a FREE test ride?"
     ]
   },
 
@@ -358,7 +358,6 @@ const AIChatbot = () => {
               position: 'fixed', bottom: 90, right: 20, width: 380, zIndex: 9000,
               display: 'flex', flexDirection: 'column',
               maxHeight: 'calc(100vh - 120px)',
-              fontFamily: "'Outfit', sans-serif",
             }}
           >
             {/* Main Panel — White & Green */}
@@ -385,7 +384,7 @@ const AIChatbot = () => {
                 <div style={{ flex: 1 }}>
                   <div style={{ fontWeight: 900, fontSize: '0.95rem', color: 'var(--txt)', letterSpacing: '-0.3px', display: 'flex', alignItems: 'center', gap: 8 }}>
                     KM-AI Assistant
-                    <span style={{ fontSize: '0.58rem', fontFamily: "'Space Mono',monospace", background: 'rgba(19,123,57,0.1)', border: '1px solid rgba(19,123,57,0.2)', color: 'var(--elec)', padding: '2px 7px', borderRadius: 20, letterSpacing: '1px', fontWeight: 800 }}>ONLINE</span>
+                    <span style={{ fontSize: '0.58rem', background: 'rgba(19,123,57,0.1)', border: '1px solid rgba(19,123,57,0.2)', color: 'var(--elec)', padding: '2px 7px', borderRadius: 20, letterSpacing: '0.5px', fontWeight: 800 }}>ONLINE</span>
                   </div>
                   <div style={{ fontSize: '0.75rem', color: 'var(--nature)', fontWeight: 600 }}>Kushwaha Motors · EV Expert</div>
                 </div>
@@ -482,7 +481,7 @@ const AIChatbot = () => {
                     <Send size={16} />
                   </button>
                 </form>
-                <div style={{ marginTop: 8, fontSize: '0.65rem', color: 'var(--txt-3)', textAlign: 'center', fontFamily: "'Space Mono',monospace" }}>
+                <div style={{ marginTop: 8, fontSize: '0.65rem', color: 'var(--txt-3)', textAlign: 'center' }}>
                   KM-AI · Powered by Kushwaha Motors Intelligence
                 </div>
               </div>

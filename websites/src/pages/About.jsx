@@ -27,8 +27,6 @@ const About = () => (
             <span style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--nature)', textTransform: 'uppercase', letterSpacing: '3px' }}>Est. 2015 — Birgunj, Nepal</span>
           </div>
 
-          <div className="ghost" style={{ fontSize: 'clamp(4rem,10vw,8rem)', marginBottom: -20, lineHeight: 0.8 }}>OUR</div>
-
           <h1 style={{ fontSize: 'clamp(3rem, 5.5vw, 5.5rem)', fontWeight: 900, letterSpacing: '-3px', lineHeight: 1.05, marginBottom: 28, position: 'relative', zIndex: 2 }}>
             Story &amp; <span className="electric-text">Mission</span>
           </h1>
@@ -47,10 +45,24 @@ const About = () => (
           <div style={{ position: 'absolute', inset: -10, borderRadius: '50%', border: '1px dashed rgba(0,255,135,0.08)', animation: 'rotate-slow 12s linear infinite reverse', pointerEvents: 'none' }} />
 
           {/* Glow */}
-          <div style={{ position: 'absolute', bottom: '5%', left: '50%', transform: 'translateX(-50%)', width: '70%', height: 60, background: 'radial-gradient(ellipse, rgba(0,229,255,0.35) 0%, transparent 70%)', filter: 'blur(20px)', pointerEvents: 'none' }} />
+          <div style={{ position: 'absolute', bottom: '5%', left: '50%', transform: 'translateX(-50%)', width: '70%', height: 60, background: 'radial-gradient(ellipse, rgba(0,229,255,0.4) 0%, transparent 70%)', filter: 'blur(30px)', pointerEvents: 'none' }} />
 
-          <div className="elec-card float-3d" style={{ aspectRatio: '1', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', padding: 24 }}>
-            <img src="/scooter.png" alt="About" style={{ width: '100%', objectFit: 'contain', filter: 'drop-shadow(0 30px 50px rgba(0,229,255,0.4))' }} />
+          <div className="elec-card float-3d" style={{ aspectRatio: '1.4', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', padding: 0, border: '1px solid rgba(255,255,255,0.1)', background: '#000' }}>
+            {/* Layer 1: Ambient Background */}
+            <img 
+              src="/Banner/Gemini_Generated_Image_60b47v60b47v60b4.webp" 
+              alt="" 
+              style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'blur(30px) brightness(0.4)', opacity: 0.6 }} 
+            />
+            {/* Layer 2: Main Image (No Crop) */}
+            <motion.img 
+              initial={{ scale: 1.15 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 8, ease: "linear" }}
+              src="/Banner/Gemini_Generated_Image_60b47v60b47v60b4.webp" 
+              alt="Our Story" 
+              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain' }} 
+            />
           </div>
         </motion.div>
       </div>
@@ -75,8 +87,15 @@ const About = () => (
     </section>
 
     {/* Values */}
-    <section style={{ padding: '100px 0 120px' }}>
-      <div className="container">
+    <section style={{ padding: '100px 0 120px', position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+        <img 
+          src="/Banner/Gemini_Generated_Image_710s68710s68710s.webp" 
+          alt="Values BG" 
+          style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.03, filter: 'grayscale(100%)' }} 
+        />
+      </div>
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div style={{ textAlign: 'center', marginBottom: 60 }}>
           <span className="label">Why Choose Us</span>
           <h2 style={{ fontSize: 'clamp(2rem,4vw,3.5rem)', fontWeight: 900, letterSpacing: '-2px' }}>

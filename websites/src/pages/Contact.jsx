@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle2, Zap, AlertTriangle } from 'lucide-react';
 import ParticleField from '../components/ParticleField';
+import WhatsAppButton from '../components/WhatsAppButton';
 
 // ══════════════════════════════════════════════════════════════════
 const EMAILJS_SERVICE_ID  = 'service_u0ym8nu';       // ✅ Set
@@ -83,22 +84,49 @@ const Contact = () => {
         </div>
       )}
 
-      {/* ── Hero ── */}
-      <section style={{ padding: '160px 0 60px', position: 'relative', overflow: 'hidden' }}>
-        <ParticleField count={40} opacity={0.6} />
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 0%, rgba(66,169,46,0.06) 0%, transparent 60%)', pointerEvents: 'none' }} />
+      {/* ── Hero (Zero-Crop Full Page) ── */}
+      <section style={{ 
+        width: '100%', 
+        position: 'relative', 
+        overflow: 'hidden', 
+        background: '#000',
+        minHeight: '70vh'
+      }}>
+        <div style={{ 
+          width: '100%', 
+          aspectRatio: '1.8 / 1', 
+          position: 'relative', 
+          display: 'flex', 
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
 
+        {/* Background Image (Zero-Crop) */}
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+          <motion.img 
+            initial={{ scale: 1.05, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+            src="/Banner/Clean_Contact.webp" 
+            alt="Contact Banner" 
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+          />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.4), transparent 50%, rgba(0,0,0,0.8))' }} />
+        </div>
+
+        <ParticleField count={40} opacity={0.6} />
+        
         <div className="container text-center" style={{ position: 'relative', zIndex: 1 }}>
-          <div className="ghost" style={{ fontSize: 'clamp(5rem,13vw,12rem)', marginBottom: -50 }}>CONNECT</div>
           <div style={{ position: 'relative', zIndex: 2 }}>
-            <div className="hud-label" style={{ justifyContent: 'center' }}>Get In Touch</div>
-            <h1 style={{ fontSize: 'clamp(2.5rem,5vw,4.5rem)', fontWeight: 900, letterSpacing: '-2px', marginBottom: 20 }}>
+            <div className="hud-label" style={{ justifyContent: 'center', borderColor: '#fff' }}>Get In Touch</div>
+            <h1 style={{ fontSize: 'clamp(2.5rem,5vw,4.5rem)', fontWeight: 900, letterSpacing: '-2px', marginBottom: 20, color: '#fff' }}>
               Let's <span className="electric-text">Talk</span>
             </h1>
-            <p style={{ color: 'var(--txt-2)', fontSize: '1.05rem', maxWidth: 500, margin: '0 auto' }}>
+            <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.1rem', maxWidth: 600, margin: '0 auto', fontWeight: 500 }}>
               Test ride बुक गर्नुहोस्, मूल्य जान्नुहोस्, वा जुनसुकै प्रश्नको उत्तर पाउनुहोस् — हामी यहाँ छौं।
             </p>
           </div>
+        </div>
         </div>
       </section>
 
@@ -121,7 +149,7 @@ const Contact = () => {
                       {icon}
                     </div>
                     <div>
-                      <div style={{ fontFamily:"'Space Mono',monospace", fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: 5 }}>{label}</div>
+                      <div style={{ fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 5 }}>{label}</div>
                       <div style={{ fontWeight: 600, lineHeight: 1.5, fontSize: '0.92rem' }}>{value}</div>
                     </div>
                   </div>
@@ -172,24 +200,24 @@ const Contact = () => {
                       {/* Name + Phone */}
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                         <div>
-                          <label style={{ display: 'block', fontFamily:"'Space Mono',monospace", fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: 8 }}>Full Name *</label>
+                          <label style={{ display: 'block', fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>Full Name *</label>
                           <input type="text" name="name" required value={form.name} onChange={handleChange} placeholder="Your name" />
                         </div>
                         <div>
-                          <label style={{ display: 'block', fontFamily:"'Space Mono',monospace", fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: 8 }}>Phone *</label>
+                          <label style={{ display: 'block', fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>Phone *</label>
                           <input type="tel" name="phone" required value={form.phone} onChange={handleChange} placeholder="+977 98XXXXXXXX" />
                         </div>
                       </div>
 
                       {/* Email */}
                       <div>
-                        <label style={{ display: 'block', fontFamily:"'Space Mono',monospace", fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: 8 }}>Email Address</label>
+                        <label style={{ display: 'block', fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>Email Address</label>
                         <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="your@email.com (optional)" />
                       </div>
 
                       {/* Vehicle */}
                       <div>
-                        <label style={{ display: 'block', fontFamily:"'Space Mono',monospace", fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: 8 }}>Vehicle Interest</label>
+                        <label style={{ display: 'block', fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>Vehicle Interest</label>
                         <select name="vehicle" value={form.vehicle} onChange={handleChange}>
                           <option value="">Select a model…</option>
                           {VEHICLES.map(v => <option key={v}>{v}</option>)}
@@ -198,7 +226,7 @@ const Contact = () => {
 
                       {/* Message */}
                       <div>
-                        <label style={{ display: 'block', fontFamily:"'Space Mono',monospace", fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: 8 }}>Message *</label>
+                        <label style={{ display: 'block', fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>Message *</label>
                         <textarea name="message" required rows={5} value={form.message} onChange={handleChange} placeholder="How can we help you? Ask about price, test ride, specs…" />
                       </div>
 
@@ -235,11 +263,14 @@ const Contact = () => {
         <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', pointerEvents: 'none' }}>
           <div className="cyber-card" style={{ padding: '12px 18px', textAlign: 'center', whiteSpace: 'nowrap', borderRadius: '100px', background: 'rgba(255,255,255,0.95)' }}>
             <MapPin size={16} color="var(--elec)" style={{ marginBottom: 4 }} />
-            <div style={{ fontFamily:"'Space Mono',monospace", fontSize: '0.7rem', fontWeight: 800, color: 'var(--txt)' }}>KUSHWAHA MOTORS HQ</div>
+            <div style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--txt)' }}>KUSHWAHA MOTORS HQ</div>
             <div style={{ fontSize: '0.76rem', color: 'var(--txt-2)', marginTop: 2 }}>Trimurti Chowk, Birgunj</div>
           </div>
         </div>
       </div>
+
+      {/* WhatsApp floating button — Contact page only */}
+      <WhatsAppButton />
     </div>
   );
 };

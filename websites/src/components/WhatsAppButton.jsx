@@ -31,7 +31,7 @@ const WhatsAppButton = () => {
       }}
     >
       <img 
-        src="/whatsapp.png" 
+        src="/whatsapp.webp" 
         alt="Chat on WhatsApp" 
         style={{ 
           width: '100%', 

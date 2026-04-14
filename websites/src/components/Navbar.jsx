@@ -45,7 +45,7 @@ const Navbar = () => {
       <nav className={`navbar ${isScrolled || location.pathname !== '/' ? 'scrolled' : ''}`}>
         <div className="container nav-content">
           <Link to="/" className="nav-logo">
-            <img src="/logo.png" alt="Kushwaha Motors" />
+            <img src="/logo.webp" alt="Kushwaha Motors" />
           </Link>
 
           {/* Desktop Nav */}

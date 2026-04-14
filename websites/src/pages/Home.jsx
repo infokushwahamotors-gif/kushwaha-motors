@@ -34,129 +34,166 @@ const Counter = ({ target, suffix = '' }) => {
 const Home = () => {
   const [videoOpen, setVideoOpen] = useState(false);
   const [hoverFeature, setHoverFeature] = useState(null);
+  const [currentBanner, setCurrentBanner] = useState(0);
+
+  const BANNERS = [
+    '/Banner/Gemini_Generated_Image_5uep6t5uep6t5uep (1).webp',
+    '/Banner/Banner_GIF.gif',
+    '/Banner/Gemini_Generated_Image_t0keb4t0keb4t0ke.webp',
+    '/Banner/Gemini_Generated_Image_60b47v60b47v60b4.webp',
+    '/Banner/Clean_Hero_3.webp'
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentBanner((prev) => (prev + 1) % BANNERS.length);
+    }, 5000)// Slower transitions for premium feel
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div>
       <style>{`
         @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.6;transform:scale(1.5);}}
+        .banner-slider-container {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 1.8 / 1;
+          overflow: hidden;
+          background: #000;
+        }
+        .hud-sidebar {
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 100%;
+          width: 38%;
+          z-index: 10;
+          display: flex;
+          align-items: center;
+          padding-left: 5vw;
+          background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 70%, transparent 100%);
+        }
+        @media (max-width: 1024px) {
+          .hud-sidebar {
+            width: 100%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0.9) 100%);
+            align-items: flex-end;
+            padding-bottom: 80px;
+            padding-left: 20px;
+            padding-right: 20px;
+          }
+          .banner-slider-container { aspect-ratio: 1.2 / 1; }
+        }
       `}</style>
 
-      {/* ══ HERO ══════════════════════════════════════════════════════ */}
-      <section style={{ minHeight: '100vh', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', paddingTop: 100 }}>
-        {/* Falling leaves physics simulation */}
-        <ParticleField count={60} opacity={1} />
+      {/* ══ HERO SLIDER ══════════════════════════════════════════════════ */}
+      <section className="banner-slider-container">
+        {/* Background Ambient Fill & Foreground Focused Image */}
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentBanner}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.5, ease: "linear" }}
+              style={{ position: 'absolute', inset: 0, background: '#000' }}
+            >
+              {/* Single Image Layer (Zero-Crop) */}
+              <motion.img
+                key={`${currentBanner}-fg`}
+                initial={{ scale: 1.05 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 12, ease: "linear" }}
+                src={BANNERS[currentBanner]}
+                alt="Kushwaha Motors Banner"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
 
-        {/* Radial ambient sunlights */}
-        <div style={{ position: 'absolute', left: '-10%', top: '20%', width: '45vw', height: '45vw', background: 'radial-gradient(ellipse, rgba(66,169,46,0.1) 0%, transparent 70%)', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', right: '-5%', bottom: '10%', width: '35vw', height: '35vw', background: 'radial-gradient(ellipse, rgba(230,138,0,0.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', right: '40%', top: '-10%', width: '30vw', height: '30vw', background: 'radial-gradient(ellipse, rgba(19,123,57,0.06) 0%, transparent 70%)', pointerEvents: 'none' }} />
+              {/* Finishing HUD gradient */}
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.4) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.4) 100%)' }} />
+            </motion.div>
+          </AnimatePresence>
+        </div>
 
-        <div className="container" style={{ position: 'relative', zIndex: 2, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'center' }}>
-          {/* ─ Left: Text ── */}
-          <motion.div initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}>
+        {/* Professional Sidebar Hud */}
+        <div className="hud-sidebar">
+          <div style={{ maxWidth: 500 }}>
             {/* HUD top badge */}
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 28, background: 'rgba(66,169,46,0.1)', border: '1px solid rgba(66,169,46,0.2)', borderRadius: 100, padding: '7px 20px' }}>
-              <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--nature)', boxShadow: '0 0 10px var(--nature)', display: 'block', animation: 'pulse-dot 2s infinite' }} />
-              <span style={{ fontFamily: "'Space Mono',monospace", fontSize: '0.68rem', fontWeight: 800, color: 'var(--elec)', textTransform: 'uppercase', letterSpacing: '2px' }}>Nepal's Clean Energy Choice</span>
-              <ChevronRight size={12} color="var(--nature)" />
-            </div>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 20, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 100, padding: '6px 16px' }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--elec)', boxShadow: '0 0 10px var(--elec)', display: 'block', animation: 'pulse-dot 2s infinite' }} />
+              <span style={{ fontSize: '0.62rem', fontWeight: 800, color: '#fff', textTransform: 'uppercase', letterSpacing: '1px' }}>Authorized Dealer - Nepal</span>
+            </motion.div>
 
             {/* Main headline */}
-            <h1 style={{ fontSize: 'clamp(3.2rem, 5.8vw, 6.2rem)', fontWeight: 900, lineHeight: 0.98, letterSpacing: '-3px', marginBottom: 28 }}>
-              <motion.span style={{ display: 'block' }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+            <h1 style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', fontWeight: 900, lineHeight: 0.95, letterSpacing: '-2px', marginBottom: 20 }}>
+              <motion.span className="text-outline-white" style={{ display: 'block' }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.7 }}>
                 Electric.
               </motion.span>
-              <motion.span className="electric-text" style={{ display: 'block', fontSize: '107%' }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+              <motion.span className="electric-text text-outline-white" style={{ display: 'block', fontSize: '105%' }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }}>
                 Natural.
               </motion.span>
-              <motion.span style={{ display: 'block' }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+              <motion.span className="text-outline-white" style={{ display: 'block' }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.7 }}>
                 Powerful.
               </motion.span>
             </h1>
 
             {/* Subtext */}
-            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}
-              style={{ fontSize: '1.05rem', color: 'var(--txt-2)', maxWidth: 440, lineHeight: 1.85, marginBottom: 36 }}>
-              आधुनिक विद्युतीय प्रविधि र प्रकृतिसँगको हाम्रो प्रतिबद्धता — शून्य उत्सर्जन, अधिकतम शक्ति।
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 0.7 }}
+              style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.85)', maxWidth: 450, lineHeight: 1.6, marginBottom: 36, fontWeight: 500 }}>
+              शून्य उत्सर्जन, अधिकतम शक्ति — आधुनिक विद्युतीय प्रविधि र प्रकृतिसँगको हाम्रो प्रतिबद्धता।
             </motion.p>
 
             {/* CTA buttons */}
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}
-              style={{ display: 'flex', gap: 14, flexWrap: 'wrap', marginBottom: 52 }}>
-              <Link to="/vehicles" className="btn-cyber">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.7 }}
+              style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+              <Link to="/vehicles" className="btn-cyber" style={{ padding: '16px 36px', fontSize: '0.95rem' }}>
                 Explore Fleet <ArrowRight size={17} />
               </Link>
-              <button onClick={() => setVideoOpen(true)} className="btn-ghost">
-                <PlayCircle size={17} /> Watch Video
+              <button onClick={() => setVideoOpen(true)} className="btn-ghost" style={{ border: '1px solid rgba(255,255,255,0.3)', color: '#fff' }}>
+                <PlayCircle size={17} /> Video Tour
               </button>
             </motion.div>
+          </div>
+        </div>
 
-            {/* HUD stats row */}
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}
-              style={{ display: 'flex', gap: 0, borderTop: '1px solid rgba(19,123,57,0.1)' }}>
-              {[['9', '+', 'Years'], ['12', '+', 'Cities'], ['5000', '+', 'Riders']].map(([n, s, l], i) => (
-                <div key={l} style={{ flex: 1, padding: '20px 0', borderRight: i < 2 ? '1px solid rgba(19,123,57,0.1)' : 'none', paddingLeft: i > 0 ? 20 : 0 }}>
-                  <div style={{ fontFamily: "'Space Mono',monospace", fontSize: '2rem', fontWeight: 800, color: 'var(--elec)', lineHeight: 1, letterSpacing: '-1px' }}>
-                    <Counter target={Number(n)} suffix={s} />
-                  </div>
-                  <div style={{ fontFamily: "'Space Mono',monospace", fontSize: '0.65rem', color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '2px', marginTop: 6, fontWeight: 700 }}>{l}</div>
-                </div>
-              ))}
-            </motion.div>
-          </motion.div>
+        <ParticleField count={20} opacity={0.25} />
 
-          {/* ─ Right: Floating Scooter ── */}
-          <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1.1, delay: 0.2 }}
-            style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            
-            {/* Soft orbital rings */}
-            <div style={{ position: 'absolute', width: 520, height: 520, borderRadius: '50%', border: '1px solid rgba(66,169,46,0.15)', animation: 'orbit 30s linear infinite', pointerEvents: 'none' }}>
-              <div style={{ position: 'absolute', top: -4, left: '50%', width: 8, height: 8, borderRadius: '50%', background: 'var(--elec)', boxShadow: '0 0 12px var(--elec)', transform: 'translateX(-50%)' }} />
-            </div>
-            <div style={{ position: 'absolute', width: 380, height: 380, borderRadius: '50%', border: '1px dashed rgba(230,138,0,0.15)', animation: 'orbit-r 20s linear infinite', pointerEvents: 'none' }}>
-              <div style={{ position: 'absolute', bottom: -4, left: '50%', width: 6, height: 6, borderRadius: '50%', background: 'var(--power)', boxShadow: '0 0 8px var(--power)', transform: 'translateX(-50%)' }} />
-            </div>
 
-            {/* Ground soft shadow */}
-            <div style={{ position: 'absolute', bottom: '2%', left: '50%', transform: 'translateX(-50%)', width: '80%', height: 40, background: 'radial-gradient(ellipse, rgba(0,0,0,0.15) 0%, transparent 70%)', filter: 'blur(10px)', pointerEvents: 'none' }} />
-
-            {/* Floating scooter */}
-            <div className="float-3d" style={{ position: 'relative', zIndex: 2 }}>
-              <img src="/scooter.png" alt="Electric Scooter"
-                style={{ width: '120%', maxWidth: 700, filter: 'drop-shadow(0 30px 50px rgba(0,0,0,0.15)) drop-shadow(0 0 20px rgba(66,169,46,0.2)) brightness(1.02) saturate(1.1)' }}
-              />
-            </div>
-
-            {/* Floating Spec badges */}
-            {[
-              { label: 'MAX RANGE', value: '200 KM', color: 'var(--elec)', top: '12%', left: '-2%', icon: <Radio size={12} /> },
-              { label: 'EMISSIONS', value: '0 CO₂', color: 'var(--nature)', bottom: '22%', right: '-5%', icon: <Leaf size={12} /> },
-              { label: 'MOTOR', value: '3500W', color: 'var(--power)', top: '55%', left: '-8%', icon: <Zap size={12} /> },
-            ].map((b, i) => (
-              <motion.div key={b.label} animate={{ y: [0, -10 - i * 3, 0] }} transition={{ duration: 3.5 + i, repeat: Infinity, delay: i * 0.8 }}
-                style={{ position: 'absolute', zIndex: 5, ...b }}>
-                <div className="cyber-card" style={{ padding: '10px 18px', whiteSpace: 'nowrap', borderRadius: '100px', background: 'rgba(255,255,255,0.95)' }}>
-                  <div style={{ fontFamily: "'Space Mono',monospace", fontSize: '0.62rem', color: b.color, letterSpacing: '2px', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
-                    {b.icon} {b.label}
-                  </div>
-                  <div style={{ fontFamily: "'Space Mono',monospace", fontWeight: 900, fontSize: '1.2rem', color: 'var(--txt)', lineHeight: 1 }}>
-                    {b.value}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+        {/* Slider Navigation Dots */}
+        <div style={{ position: 'absolute', bottom: 40, display: 'flex', gap: 10, zIndex: 10 }}>
+          {BANNERS.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentBanner(i)}
+              style={{
+                width: currentBanner === i ? 30 : 10,
+                height: 6,
+                borderRadius: 3,
+                background: currentBanner === i ? 'var(--elec)' : 'rgba(255,255,255,0.3)',
+                border: 'none',
+                padding: 0,
+                cursor: 'pointer',
+                transition: 'all 0.3s ease'
+              }}
+            />
+          ))}
         </div>
 
         {/* Scroll indicator */}
-        <div style={{ position: 'absolute', bottom: 28, left: '50%', transform: 'translateX(-50%)', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontFamily: "'Space Mono',monospace", fontSize: '0.6rem', color: 'var(--txt-3)', textTransform: 'uppercase', letterSpacing: '3px', fontWeight: 700 }}>Scroll</span>
+        <div style={{ position: 'absolute', bottom: 28, right: 40, zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '1.5px', fontWeight: 700 }}>Scroll</span>
           <motion.div animate={{ y: [0, 7, 0] }} transition={{ duration: 1.5, repeat: Infinity }}
-            style={{ width: 22, height: 36, border: '2px solid rgba(19,123,57,0.2)', borderRadius: 12, display: 'flex', justifyContent: 'center', paddingTop: 6 }}>
+            style={{ width: 22, height: 36, border: '2px solid rgba(255,255,255,0.2)', borderRadius: 12, display: 'flex', justifyContent: 'center', paddingTop: 6 }}>
             <div style={{ width: 4, height: 8, borderRadius: 2, background: 'var(--elec)' }} />
           </motion.div>
         </div>
       </section>
+
 
       {/* ══ THREE PILLARS ════════════════════════════════════════════ */}
       <section style={{ padding: '80px 0 100px', borderTop: '1px solid rgba(19,123,57,0.06)', position: 'relative', overflow: 'hidden' }}>
@@ -193,8 +230,8 @@ const Home = () => {
                   <p style={{ color: 'var(--txt-2)', lineHeight: 1.8, marginBottom: 28, fontSize: '0.95rem' }}>{item.desc}</p>
 
                   <div style={{ borderTop: `1px solid ${item.color}15`, paddingTop: 22 }}>
-                    <div style={{ fontFamily: "'Space Mono',monospace", fontSize: '2.4rem', fontWeight: 900, color: item.color, lineHeight: 1 }}>{item.stat}</div>
-                    <div style={{ fontFamily: "'Space Mono',monospace", fontSize: '0.68rem', color: 'var(--txt-3)', textTransform: 'uppercase', letterSpacing: '2px', marginTop: 8, fontWeight: 700 }}>{item.stl}</div>
+                    <div style={{ fontSize: '2.4rem', fontWeight: 900, color: item.color, lineHeight: 1 }}>{item.stat}</div>
+                    <div style={{ fontSize: '0.68rem', color: 'var(--txt-3)', textTransform: 'uppercase', letterSpacing: '1px', marginTop: 8, fontWeight: 700 }}>{item.stl}</div>
                   </div>
                 </motion.div>
               </TiltCard>
@@ -203,8 +240,37 @@ const Home = () => {
         </div>
       </section>
 
+      {/* ══ LIFESTYLE BANNER ══════════════════════════════════════════ */}
+      <section style={{ height: '60vh', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ position: 'absolute', inset: 0 }}>
+          <img
+            src="/Banner/Banner.webp"
+            alt="Lifestyle"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }}
+          />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(0,0,0,0.8), transparent, rgba(0,0,0,0.8))' }} />
+        </div>
+        <div className="container" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
+          <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
+            <h2 style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', fontWeight: 900, color: '#fff', letterSpacing: '-2px', marginBottom: 20 }}>
+              The Road <span className="electric-text">Reimagined</span>
+            </h2>
+            <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.2rem', maxWidth: 600, margin: '0 auto' }}>
+              Designed for the mountains, built for the city. Experience the next generation of mobility.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ══ MODELS ═══════════════════════════════════════════════════ */}
       <section style={{ padding: '80px 0 120px', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+          <img
+            src="/Banner/Gemini_Generated_Image_t0keb4t0keb4t0ke.webp"
+            alt="Showroom BG"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.05, filter: 'grayscale(100%)' }}
+          />
+        </div>
         <ParticleField count={20} opacity={0.6} />
 
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
@@ -220,13 +286,13 @@ const Home = () => {
 
           <div className="grid-2">
             {[
-              { title: '2-Wheeler', sub: 'Urban Scooters', desc: 'Nimble & stylish. Built for Nepal\'s city roads.', img: '/red_scooter.png', color: 'var(--elec)', badge: 'Starting 1.8L' },
-              { title: '3-Wheeler', sub: 'Utility Fleet', desc: 'Passenger transport or cargo — raw power on every terrain.', img: '/passenger_blue.png', color: 'var(--nature)', badge: 'Starting 2.8L' },
+              { title: '2-Wheeler', sub: 'Urban Scooters', desc: 'Nimble & stylish. Built for Nepal\'s city roads.', img: '/red_scooter.webp', color: 'var(--elec)', badge: 'Starting 1.8L' },
+              { title: '3-Wheeler', sub: 'Utility Fleet', desc: 'Passenger transport or cargo — raw power on every terrain.', img: '/auto.webp', color: 'var(--nature)', badge: 'Starting 2.8L' },
             ].map((m, i) => (
               <TiltCard key={m.title}>
                 <motion.div className="cyber-card holo" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }}
                   style={{ overflow: 'hidden', padding: 0, borderColor: `${m.color}20`, height: 420 }}>
-                  
+
                   {/* Left: info */}
                   <div style={{ display: 'flex', height: '100%' }}>
                     <div style={{ flex: 1, padding: '40px 36px', display: 'flex', flexDirection: 'column', gap: 16, background: `linear-gradient(135deg, ${m.color}08 0%, transparent 70%)` }}>
@@ -235,7 +301,7 @@ const Home = () => {
                         <h3 style={{ fontSize: '1.8rem', fontWeight: 900, letterSpacing: '-1px', lineHeight: 1.1, marginBottom: 8, marginTop: 16, color: 'var(--txt)' }}>{m.sub}</h3>
                         <p style={{ color: 'var(--txt-2)', lineHeight: 1.7, fontSize: '0.98rem' }}>{m.desc}</p>
                       </div>
-                      <div style={{ fontFamily: "'Space Mono',monospace", fontSize: '0.75rem', fontWeight: 800, color: m.color, letterSpacing: '1.5px', border: `2px solid ${m.color}30`, borderRadius: 100, padding: '8px 16px', display: 'inline-block', alignSelf: 'flex-start' }}>
+                      <div style={{ fontSize: '0.75rem', fontWeight: 800, color: m.color, letterSpacing: '0.5px', border: `2px solid ${m.color}30`, borderRadius: 100, padding: '8px 16px', display: 'inline-block', alignSelf: 'flex-start' }}>
                         NPR {m.badge}
                       </div>
                       <Link to="/vehicles" className="btn-outline" style={{ textDecoration: 'none', borderColor: `${m.color}40`, color: m.color, alignSelf: 'flex-start', marginTop: 'auto' }}>
@@ -295,7 +361,7 @@ const Home = () => {
                     </div>
                     <div>
                       <div style={{ fontWeight: 800, color: 'var(--txt)', fontSize: '1.05rem', letterSpacing: '-0.5px' }}>{t.name}</div>
-                      <div style={{ fontFamily: "'Space Mono',monospace", fontSize: '0.65rem', color: t.color, textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700 }}>{t.role}</div>
+                      <div style={{ fontSize: '0.65rem', color: t.color, textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: 700 }}>{t.role}</div>
                     </div>
                   </div>
                 </motion.div>
@@ -310,7 +376,6 @@ const Home = () => {
         <div className="container">
           <div className="cyber-card holo" style={{ padding: '80px 60px', textAlign: 'center', background: 'linear-gradient(135deg,rgba(66,169,46,0.06) 0%,rgba(19,123,57,0.03) 100%)', position: 'relative', overflow: 'hidden' }}>
             <ParticleField count={30} opacity={0.5} />
-            <div className="ghost" style={{ fontSize: 'clamp(5rem,12vw,12rem)', marginBottom: -55, position: 'relative', zIndex: 0 }}>RIDE</div>
             <div style={{ position: 'relative', zIndex: 2 }}>
               <div className="hud-label" style={{ justifyContent: 'center' }}>Ready to Switch?</div>
               <h2 style={{ fontSize: 'clamp(2rem,4vw,3.5rem)', fontWeight: 900, letterSpacing: '-2px', marginBottom: 20 }}>

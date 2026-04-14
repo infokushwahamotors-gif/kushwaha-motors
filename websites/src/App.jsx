@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AIChatbot from './components/AIChatbot';
-import WhatsAppButton from './components/WhatsAppButton';
 import ScrollToTop from './components/ScrollToTop';
 
 // Lazy loading components for performance 
@@ -42,7 +41,6 @@ function App() {
         </main>
         <Footer />
         {/* Global Floating Action Buttons */}
-        <WhatsAppButton />
         <AIChatbot />
       </div>
     </Router>

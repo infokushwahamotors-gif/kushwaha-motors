@@ -42,12 +42,13 @@ const ProductCard = ({ product: p }) => {
         <img src={p.image} alt={p.name}
           style={{ maxHeight:185, maxWidth:'100%', objectFit:'contain', position:'relative', zIndex:1,
             transition:'transform 0.5s cubic-bezier(0.16,1,0.3,1)' }}
+          onError={e => { e.target.style.opacity='0.3'; e.target.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'120\' height=\'80\'%3E%3Crect width=\'120\' height=\'80\' fill=\'%23f0f0f0\'/%3E%3C/svg%3E'; }}
         />
 
         {/* Type badge */}
         <div style={{ position:'absolute', top:12, right:12 }}>
           <span style={{
-            fontFamily: nepali ? NP_FONT : "'Space Mono',monospace",
+            fontFamily: nepali ? NP_FONT : "'Inter',sans-serif",
             background:`${p.accent}15`,
             border:`1px solid ${p.accent}40`,
             color:'#000',
@@ -68,7 +69,7 @@ const ProductCard = ({ product: p }) => {
         {/* Tagline + Name */}
         <div>
           <div style={{
-            fontFamily: nepali ? NP_FONT : "'Space Mono',monospace",
+            fontFamily: nepali ? NP_FONT : "'Inter',sans-serif",
             fontSize: nepali ? '1rem' : '0.75rem',
             fontWeight: 800,
             color: '#000',
@@ -96,7 +97,7 @@ const ProductCard = ({ product: p }) => {
                 {/* Label */}
                 <div style={{
                   display:'flex', alignItems:'center', gap:5,
-                  fontFamily: nepali ? NP_FONT : "'Space Mono',monospace",
+                  fontFamily: nepali ? NP_FONT : "'Inter',sans-serif",
                   fontSize: nepali ? '0.85rem' : '0.7rem',
                   fontWeight: 800,
                   color: '#4B6358', // Muted green for better contrast vs value
