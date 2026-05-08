@@ -51,7 +51,7 @@ const Navbar = () => {
           {/* Desktop Nav */}
           <div className="nav-links">
             <Link to="/" className={location.pathname === '/' ? 'active' : ''}>Home</Link>
-            <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>About</Link>
+            <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>About Us</Link>
             
             {/* Vehicles Dropdown */}
             <div ref={dropdownRef} style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
@@ -86,7 +86,7 @@ const Navbar = () => {
                   >
                     {/* Category Toggles */}
                     <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
-                      {[['twoWheeler', '🛵 2 Wheeler'], ['threeWheeler', '🛺 3 Wheeler']].map(([cat, label]) => (
+                      {[['twoWheeler', '🛵 २ पाङ्ग्रे'], ['threeWheeler', '🛺 ३ पाङ्ग्रे']].map(([cat, label]) => (
                         <button 
                           key={cat}
                           onMouseEnter={() => setHoveredCategory(cat)}
@@ -138,7 +138,7 @@ const Navbar = () => {
                       display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px',
                       paddingTop: '16px', borderTop: '1px solid rgba(0,0,0,0.05)'
                     }}>
-                      Explore {hoveredCategory === 'twoWheeler' ? '2 Wheeler' : '3 Wheeler'} Category <ChevronRight size={14} />
+                      {hoveredCategory === 'twoWheeler' ? '२ पाङ्ग्रे' : '३ पाङ्ग्रे'} श्रेणी अन्वेषण गर्नुहोस् <ChevronRight size={14} />
                     </Link>
                   </motion.div>
                 )}
@@ -166,7 +166,7 @@ const Navbar = () => {
               style={{ paddingBottom: '32px' }}
             >
               <Link to="/" onClick={() => setIsMenuOpen(false)} className={location.pathname === '/' ? 'active' : ''}>Home</Link>
-              <Link to="/about" onClick={() => setIsMenuOpen(false)} className={location.pathname === '/about' ? 'active' : ''}>About</Link>
+              <Link to="/about" onClick={() => setIsMenuOpen(false)} className={location.pathname === '/about' ? 'active' : ''}>About Us</Link>
               
               {/* Mobile Vehicles Accordion */}
               <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -193,7 +193,7 @@ const Navbar = () => {
                       style={{ overflow: 'hidden', display: 'flex', flexDirection: 'column', gap: '16px' }}
                     >
                       <div style={{ display: 'flex', gap: '8px' }}>
-                        {[['twoWheeler', '2 Wheeler'], ['threeWheeler', '3 Wheeler']].map(([cat, label]) => (
+                        {[['twoWheeler', '२ पाङ्ग्रे'], ['threeWheeler', '३ पाङ्ग्रे']].map(([cat, label]) => (
                           <button 
                             key={cat}
                             onClick={() => setHoveredCategory(cat)}
@@ -228,7 +228,7 @@ const Navbar = () => {
                           </Link>
                         ))}
                       </div>
-                      <Link to={`/vehicles?category=${hoveredCategory}`} onClick={() => setIsMenuOpen(false)} style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--elec)', textDecoration: 'underline' }}>Explore All {hoveredCategory === 'twoWheeler' ? '2 Wheelers' : '3 Wheelers'}</Link>
+                      <Link to={`/vehicles?category=${hoveredCategory}`} onClick={() => setIsMenuOpen(false)} style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--elec)', textDecoration: 'underline' }}>सबै {hoveredCategory === 'twoWheeler' ? '२ पाङ्ग्रेहरू' : '३ पाङ्ग्रेहरू'} हेर्नुहोस्</Link>
                     </motion.div>
                   )}
                 </AnimatePresence>

@@ -84,10 +84,10 @@ const Vehicles = () => {
           <div className="container text-center" style={{ position: 'relative', zIndex: 2 }}>
             <div style={{ position: 'relative', zIndex: 3 }}>
               <div className="hud-label" style={{ justifyContent: 'center', marginBottom: 14, borderColor: 'rgba(255,255,255,0.3)', color: '#fff' }}>
-                {isTwoWheeler ? 'Scooter Portfolio' : isThreeWheeler ? 'E-Rickshaw Fleet' : 'Model Catalogue'}
+                {isTwoWheeler ? 'Scooter Portfolio' : isThreeWheeler ? 'E-Rickshaw Fleet' : 'Model Catalog'}
               </div>
               <h1 style={{ fontSize: 'clamp(2.5rem,6vw,5.5rem)', fontWeight: 900, letterSpacing: '-3px', marginBottom: 20, color: '#fff', textShadow: '0 4px 30px rgba(0,0,0,0.6)' }}>
-                {isTwoWheeler ? 'Electric Scooter Lineup' : isThreeWheeler ? 'Powerful E-Rickshaw Solutions' : 'Premium Vehicles Catalog'}
+                {isTwoWheeler ? 'Electric Scooter Lineup' : isThreeWheeler ? 'Powerful E-Rickshaw Solutions' : 'Premium Vehicle Catalog'}
               </h1>
               <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: '1.15rem', maxWidth: 650, margin: '0 auto', lineHeight: 1.8, fontWeight: 500, textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
                 {isTwoWheeler

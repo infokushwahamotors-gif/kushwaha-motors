@@ -43,8 +43,8 @@ const ProductDetails = () => {
   if (!product) {
     return (
       <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <h2 style={{ fontSize: '2rem', marginBottom: 20 }}>Vehicle Not Found</h2>
-        <Link to="/vehicles" className="btn-outline">Return to Fleet</Link>
+        <h2 style={{ fontSize: '2rem', marginBottom: 20 }}>सवारी साधन फेला परेन</h2>
+        <Link to="/vehicles" className="btn-outline">फ्लिटमा फर्कनुहोस्</Link>
       </div>
     );
   }
@@ -77,7 +77,7 @@ const ProductDetails = () => {
           }}
           title="Ex-Showroom Price"
         >
-          <span style={{ fontSize: '0.6rem', fontWeight: 700, color: '#888', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 2 }}>Ex-Showroom</span>
+          <span style={{ fontSize: '0.6rem', fontWeight: 700, color: '#888', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 2 }}>एक्स-शोरुम</span>
           <span style={{ fontSize: '1.05rem', fontWeight: 900, color: '#111', letterSpacing: '-0.5px', lineHeight: 1.2 }}>
             Rs.{product.price.amount}
           </span>
@@ -97,7 +97,7 @@ const ProductDetails = () => {
               letterSpacing: '0.3px',
             }}
           >
-            <MessageCircle size={11} fill="#25D366" /> Enquire
+            <MessageCircle size={11} fill="#25D366" /> सोधपुछ गर्नुहोस्
           </a>
         </motion.div>
       )}
@@ -110,7 +110,7 @@ const ProductDetails = () => {
         <div className="container">
           <div style={{ position: 'relative', zIndex: 2 }}>
             <Link to="/vehicles" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'var(--txt-2)', textDecoration: 'none', marginBottom: 40, fontSize: '0.95rem', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 18px', borderRadius: 30, background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(10px)', transition: 'all 0.3s ease' }} onMouseOver={e => e.currentTarget.style.borderColor = product.accent} onMouseOut={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}>
-              <ArrowLeft size={16} /> Back to Fleet Portfolio
+              <ArrowLeft size={16} /> फ्लिट पोर्टफोलियोमा फर्कनुहोस्
             </Link>
             
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 60, alignItems: 'center' }}>
@@ -129,7 +129,7 @@ const ProductDetails = () => {
                   
                   <div style={{ padding: '20px', background: 'rgba(255,255,255,0.03)', borderRadius: 16, borderLeft: `4px solid ${product.accent}`, marginBottom: 30 }}>
                     <p style={{ color: 'var(--txt-2)', lineHeight: 1.8, fontSize: '1.1rem' }}>
-                      Experience the pinnacle of electric mobility with the {product.name}. Designed for peak performance, extreme longevity, and seamless operation under heavy workloads.
+                      नेपालको बाटोको लागि डिजाइन गरिएको उत्कृष्ट विद्युतीय सवारीको अनुभव लिनुहोस्। उच्च प्रदर्शन र लामो आयुको लागि निर्मित।
                     </p>
                   </div>
 
@@ -137,7 +137,7 @@ const ProductDetails = () => {
                   {product.availableColors && (
                     <div style={{ marginBottom: 35 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 15, color: 'var(--txt-2)', fontSize: '0.9rem', fontWeight: 700, textTransform: 'uppercase' }}>
-                        <Palette size={16} color={product.accent} /> Available Colors: <span style={{ color: '#fff' }}>{selectedColor?.name}</span>
+                        <Palette size={16} color={product.accent} /> उपलब्ध रङहरू: <span style={{ color: '#fff' }}>{selectedColor?.name}</span>
                       </div>
                       <div style={{ display: 'flex', gap: 12 }}>
                         {product.availableColors.map((color) => (
@@ -168,7 +168,7 @@ const ProductDetails = () => {
 
                   <div style={{ display: 'flex', gap: 20 }}>
                     <Link to="/contact" className="btn-primary" style={{ background: `linear-gradient(135deg, ${product.accent}, #000)`, color: '#fff', border: `1px solid ${product.accent}`, padding: '16px 32px', fontSize: '1.1rem', boxShadow: `0 10px 30px ${product.accent}40` }}>
-                      Book Test Ride <Zap size={18} />
+                      टेस्ट राइड बुक गर्नुहोस् <Zap size={18} />
                     </Link>
                   </div>
                 </motion.div>
@@ -211,10 +211,10 @@ const ProductDetails = () => {
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
               {[
-                { label: 'Motor Rating', val: product.specs.motor, ic: <Zap size={18} color="var(--txt-2)" /> },
-                { label: 'Energy Capacity', val: product.specs.battery, ic: <Battery size={18} color="var(--txt-2)" /> },
-                { label: 'Estimated Range', val: product.specs.range, ic: <TrendingUp size={18} color="var(--txt-2)" /> },
-                { label: product.specs.speed ? 'Max Velocity' : 'Load / Seating Capacity', val: product.specs.speed || product.specs.capacity, ic: <Shield size={18} color="var(--txt-2)" /> }
+                { label: 'मोटर क्षमता', val: product.specs.motor, ic: <Zap size={18} color="var(--txt-2)" /> },
+                { label: 'ब्याट्री क्षमता', val: product.specs.battery, ic: <Battery size={18} color="var(--txt-2)" /> },
+                { label: 'अनुमानित रेन्ज', val: product.specs.range, ic: <TrendingUp size={18} color="var(--txt-2)" /> },
+                { label: product.specs.speed ? 'अधिकतम गति' : 'भार / बस्ने क्षमता', val: product.specs.speed || product.specs.capacity, ic: <Shield size={18} color="var(--txt-2)" /> }
               ].map((spec, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: 15 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -232,7 +232,7 @@ const ProductDetails = () => {
             <div style={{ position: 'absolute', top: 0, right: 0, width: 150, height: 150, background: `radial-gradient(circle at top right, ${product.accent}20, transparent)`, pointerEvents: 'none' }}></div>
 
             <h3 style={{ fontSize: '1.4rem', marginBottom: 35, display: 'flex', alignItems: 'center', gap: 12, fontWeight: 800 }}>
-              <Star size={24} color={product.accent} /> Premium Add-ons
+              <Star size={24} color={product.accent} /> Premium Features
             </h3>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
@@ -249,7 +249,7 @@ const ProductDetails = () => {
                     <div style={{ background: `${product.accent}20`, padding: 8, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <Calendar color={product.accent} size={20} />
                     </div>
-                    <span style={{ fontWeight: 600, fontSize: '1.05rem', letterSpacing: '0.5px' }}>Comprehensive Warranty Included</span>
+                    <span style={{ fontWeight: 600, fontSize: '1.05rem', letterSpacing: '0.5px' }}>विस्तृत वारेन्टी समावेश</span>
                 </div>
               )}
             </div>
@@ -263,9 +263,9 @@ const ProductDetails = () => {
         <section className="container" style={{ marginBottom: 100 }}>
           <div style={{ textAlign: 'center', marginBottom: 60 }}>
             <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 900, letterSpacing: '-1px' }}>
-              Gallery <span style={{ color: product.accent }}>&</span> Highlights
+              Gallery <span style={{ color: product.accent }}>&</span> Features
             </h2>
-            <p style={{ color: 'var(--txt-2)', marginTop: 10, fontSize: '1.1rem' }}>Immerse yourself in the details of the {product.name}</p>
+            <p style={{ color: 'var(--txt-2)', marginTop: 10, fontSize: '1.1rem' }}>{product.name} को विस्तृत जानकारी हेर्नुहोस्</p>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 80 }}>
@@ -350,7 +350,7 @@ const ProductDetails = () => {
                           <div style={{ background: `${product.accent}15`, padding: 8, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <Calendar color={product.accent} size={20} />
                           </div>
-                          <span style={{ fontWeight: 600, fontSize: '1.1rem', letterSpacing: '0.5px', color: 'var(--txt)' }}>Experience the ultimate ride</span>
+                          <span style={{ fontWeight: 600, fontSize: '1.1rem', letterSpacing: '0.5px', color: 'var(--txt)' }}>उत्कृष्ट यात्राको अनुभव लिनुहोस्</span>
                         </div>
                       )}
                     </div>
@@ -371,7 +371,7 @@ const ProductDetails = () => {
               <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 900, letterSpacing: '-1px' }}>
                 Similar <span style={{ color: product.accent }}>Vehicles</span>
               </h2>
-              <p style={{ color: 'var(--txt-2)', marginTop: 10, fontSize: '1.1rem' }}>Explore other top-tier options in the {categoryName === 'threeWheeler' ? 'Three Wheeler' : 'Two Wheeler'} series.</p>
+              <p style={{ color: 'var(--txt-2)', marginTop: 10, fontSize: '1.1rem' }}>यस शृंखलाका अन्य उत्कृष्ट विकल्पहरू अन्वेषण गर्नुहोस्।</p>
             </div>
             
             <motion.div layout className="grid-auto">

@@ -47,7 +47,7 @@ const Dealers = () => {
                 type="text"
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
-                placeholder="Search by city or location…"
+                placeholder="सहर वा स्थान अनुसार खोज्नुहोस्…"
                 style={{ paddingLeft: 52, borderRadius: 999, fontSize: '1rem' }}
               />
             </div>
@@ -61,9 +61,9 @@ const Dealers = () => {
           {filtered.length === 0 && (
             <div style={{ textAlign: 'center', padding: '80px 0' }}>
               <Globe size={64} style={{ color: 'var(--c-muted)', margin: '0 auto 24px', opacity: 0.3 }} />
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: 12 }}>No dealers found for "{searchTerm}"</h3>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: 12 }}>"{searchTerm}" को लागि कुनै डिलर फेला परेन</h3>
               <button onClick={() => setSearchTerm('')} style={{ background: 'none', border: 'none', color: 'var(--c-orange)', fontWeight: 700, cursor: 'pointer', fontSize: '1rem' }}>
-                Clear search
+                खोज खाली गर्नुहोस्
               </button>
             </div>
           )}
@@ -105,7 +105,7 @@ const Dealers = () => {
 
                   {/* CTA */}
                   <a href={`tel:${d.phone}`} className="btn-ghost" style={{ textAlign: 'center', textDecoration: 'none', marginTop: 4 }}>
-                    Call Now <ArrowRight size={14} />
+                    कल गर्नुहोस् <ArrowRight size={14} />
                   </a>
                 </motion.div>
               ))}

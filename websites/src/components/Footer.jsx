@@ -18,8 +18,8 @@ const Footer = () => (
             <Zap size={20} color="#000" />
           </div>
           <div>
-            <div style={{ fontWeight: 900, fontSize: '0.95rem', letterSpacing: '-0.3px', lineHeight: 1.1 }}>KUSHWAHA MOTORS</div>
-            <div style={{ fontSize: '0.65rem', color: 'var(--nature)', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase' }}>Electric Vehicles</div>
+            <div style={{ fontWeight: 900, fontSize: '0.95rem', letterSpacing: '-0.3px', lineHeight: 1.1 }}>कुशवाहा मोटर्स</div>
+            <div style={{ fontSize: '0.65rem', color: 'var(--nature)', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase' }}>विद्युतीय सवारी</div>
           </div>
         </div>
         <p>नेपालको अग्रणी विद्युतीय सवारी वितरक। सन् २०१५ देखि दिगो र किफायती यातायातको पहिचान।</p>
@@ -51,17 +51,17 @@ const Footer = () => (
       <div className="footer-col">
         <h4>Vehicles</h4>
         <ul>
-          <li><Link to="/vehicles?category=twoWheeler">Electric Scooters</Link></li>
-          <li><Link to="/vehicles?category=threeWheeler&type=passenger">Passenger Rickshaws</Link></li>
-          <li><Link to="/vehicles?category=threeWheeler&type=cargo">Cargo Loaders</Link></li>
-          <li><Link to="/vehicles?category=threeWheeler&type=school">School Transport</Link></li>
+          <li><Link to="/vehicles?category=twoWheeler">विद्युतीय स्कुटरहरू</Link></li>
+          <li><Link to="/vehicles?category=threeWheeler&type=passenger">यात्री रिक्शाहरू</Link></li>
+          <li><Link to="/vehicles?category=threeWheeler&type=cargo">कार्गो लोडरहरू</Link></li>
+          <li><Link to="/vehicles?category=threeWheeler&type=school">स्कूल यातायात</Link></li>
         </ul>
       </div>
 
       {/* Contact */}
       <div className="footer-col">
         <h4>Contact</h4>
-        <div className="footer-contact-item"><MapPin size={16} color="var(--elec)" style={{ flexShrink: 0, marginTop: 2 }} /><span>Trimurti Chowk, Birgunj, Nepal</span></div>
+        <div className="footer-contact-item"><MapPin size={16} color="var(--elec)" style={{ flexShrink: 0, marginTop: 2 }} /><span>त्रिमूर्ति चोक, वीरगन्ज, नेपाल</span></div>
         <div className="footer-contact-item"><Phone size={16} color="var(--nature)" style={{ flexShrink: 0 }} /><span>+977-9821107355</span></div>
         <div className="footer-contact-item"><Mail size={16} color="var(--elec)" style={{ flexShrink: 0 }} /><span>info@kushwahamotors.com.np</span></div>
         <div className="footer-contact-item"><Globe size={16} color="var(--nature)" style={{ flexShrink: 0 }} /><span>www.kushwahamotors.com.np</span></div>
@@ -70,9 +70,9 @@ const Footer = () => (
 
     <div className="container">
       <div className="footer-bottom">
-        <span>© {new Date().getFullYear()} Kushwaha Motors Pvt. Ltd. All rights reserved.</span>
+        <span>© {new Date().getFullYear()} कुशवाहा मोटर्स प्रा. लि. सर्वाधिकार सुरक्षित।</span>
         <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-          <Zap size={12} color="var(--elec)" /> Powered by Clean Energy · Made for Nepal
+          <Zap size={12} color="var(--elec)" /> स्वच्छ ऊर्जाद्वारा सञ्चालित · नेपालको लागि निर्मित
         </span>
       </div>
     </div>

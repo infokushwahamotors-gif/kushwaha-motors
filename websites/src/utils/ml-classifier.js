@@ -10,13 +10,16 @@ class NaiveBayesClassifier {
   }
 
   tokenize(text) {
-    return text.toLowerCase().match(/\b\w+\b/g) || [];
+    // Improved tokenizer to handle both English and Nepali (Devanagari) characters
+    return text.toLowerCase().match(/[\u0900-\u097F\w]+/g) || [];
   }
 
   train(text, className) {
     const tokens = this.tokenize(text);
+    if (tokens.length === 0) return;
+
     if (!this.classes[className]) {
-      this.classes[className] = { docCount: 0, tokens: {} };
+      this.classes[className] = { docCount: 0, tokens: {}, tokenTotal: 0 };
     }
     
     this.classes[className].docCount++;
@@ -25,29 +28,28 @@ class NaiveBayesClassifier {
     tokens.forEach(token => {
       this.vocabulary.add(token);
       this.classes[className].tokens[token] = (this.classes[className].tokens[token] || 0) + 1;
+      this.classes[className].tokenTotal++;
     });
   }
 
   predict(text) {
     const tokens = this.tokenize(text);
-    if (tokens.length === 0) return null;
+    if (tokens.length === 0 || this.totalDocuments === 0) return null;
 
-    let maxProb = -Infinity;
     let bestClass = null;
+    let maxProb = -Infinity;
 
+    // We calculate scores for each class
     for (const className in this.classes) {
       const classData = this.classes[className];
       
-      // Prior probability of this class: P(C)
+      // Initial score is the prior probability of the class: P(C)
       let prob = Math.log(classData.docCount / this.totalDocuments);
       
-      // Likelihood of words given this class: P(W|C)
-      const totalClassTokens = Object.values(classData.tokens).reduce((sum, count) => sum + count, 0);
-
       tokens.forEach(token => {
         // Laplace Smoothing: (count + 1) / (totalClassTokens + vocabularySize)
         const tokenCount = classData.tokens[token] || 0;
-        const wordProb = (tokenCount + 1) / (totalClassTokens + this.vocabulary.size);
+        const wordProb = (tokenCount + 1) / (classData.tokenTotal + this.vocabulary.size);
         prob += Math.log(wordProb);
       });
 
@@ -56,7 +58,11 @@ class NaiveBayesClassifier {
         bestClass = className;
       }
     }
-    
+
+    // Confidence check: If the user input is completely unrelated to anything trained, 
+    // the maxProb will be extremely low. 
+    // For a local naive bayes with small data, we return the best match,
+    // but the AIChatbot component can decide to fallback if the result is 'unknown'
     return bestClass;
   }
 }

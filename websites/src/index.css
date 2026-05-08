@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Yantramanav:wght@300;400;500;700;900&display=swap');
 
 /* ════════════════════════════════════════════════
    KUSHWAHA MOTORS — LIGHT NATURE DESIGN SYSTEM
@@ -48,7 +48,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{
-  font-family:'Inter',system-ui,sans-serif;
+  font-family:'Yantramanav','Inter',system-ui,sans-serif;
   background:var(--bg);
   color:var(--txt);
   line-height:1.65;
@@ -311,18 +311,26 @@ section{position:relative;z-index:1;}
 
 /* ─── Inputs ─────────────────────────────────── */
 input,textarea,select{
-  background:#fff;border:1px solid var(--glass-b);
+  width:100%;
+  padding:14px 18px;
+  background:#fff;border:1px solid rgba(19,123,57,0.15);
   border-radius:var(--r1);color:var(--txt);
-  padding:16px 20px;width:100%;
-  font-family:'Outfit',sans-serif;font-size:1rem;
-  transition:all 0.3s var(--ease);appearance:none;
-  box-shadow:inset 0 2px 4px rgba(0,0,0,0.02);
+  font-family:'Yantramanav','Inter',sans-serif;font-size:0.95rem;
+  transition:all 0.3s var(--ease);
+  box-shadow:inset 0 2px 4px rgba(0,0,0,0.01);
+}
+select {
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23137B39' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 16px center;
+  padding-right:40px;
 }
 input:focus,textarea:focus,select:focus{
   outline:none;border-color:var(--elec);
-  box-shadow:0 0 0 3px rgba(19,123,57,0.1);
+  box-shadow:0 0 0 4px rgba(19,123,57,0.1);
 }
-input::placeholder,textarea::placeholder{color:var(--txt-3);}
+input::placeholder,textarea::placeholder{color:var(--txt-3);opacity:0.6;}
 select option{background:#fff;color:var(--txt);}
 
 /* ─── Layout utils ───────────────────────────── */
@@ -331,9 +339,15 @@ select option{background:#fff;color:var(--txt);}
 .grid-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:var(--s4);}
 .bento{display:grid;gap:16px;}
 .bento-3{grid-template-columns:repeat(3,1fr);}
+.contact-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:28px;align-items:start;}
 .span-2{grid-column:span 2;}
 .span-r2{grid-row:span 2;}
-@media(max-width:900px){.grid-2{grid-template-columns:1fr;}.grid-3,.bento-3{grid-template-columns:1fr 1fr;}.span-2{grid-column:auto;}}
+@media(max-width:900px){
+  .grid-2{grid-template-columns:1fr;}
+  .grid-3,.bento-3{grid-template-columns:1fr 1fr;}
+  .span-2{grid-column:auto;}
+  .contact-grid{grid-template-columns:1fr;}
+}
 @media(max-width:600px){.grid-3,.bento-3,.grid-auto{grid-template-columns:1fr;}.span-r2{grid-row:auto;}}
 
 /* ─── Footer ─────────────────────────────────── */

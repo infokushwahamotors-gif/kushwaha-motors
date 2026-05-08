@@ -126,19 +126,19 @@ const Home = () => {
               animate={{ opacity: 1, x: 0 }}
               style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 20, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 100, padding: '6px 16px' }}>
               <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--elec)', boxShadow: '0 0 10px var(--elec)', display: 'block', animation: 'pulse-dot 2s infinite' }} />
-              <span style={{ fontSize: '0.62rem', fontWeight: 800, color: '#fff', textTransform: 'uppercase', letterSpacing: '1px' }}>Authorized Dealer - Nepal</span>
+              <span style={{ fontSize: '0.62rem', fontWeight: 800, color: '#fff', textTransform: 'uppercase', letterSpacing: '1px' }}>आधिकारिक बिक्रेता - नेपाल</span>
             </motion.div>
 
             {/* Main headline */}
             <h1 style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', fontWeight: 900, lineHeight: 0.95, letterSpacing: '-2px', marginBottom: 20 }}>
               <motion.span className="text-outline-white" style={{ display: 'block' }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.7 }}>
-                Electric.
+                विद्युतीय.
               </motion.span>
               <motion.span className="electric-text text-outline-white" style={{ display: 'block', fontSize: '105%' }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }}>
-                Natural.
+                प्राकृतिक.
               </motion.span>
               <motion.span className="text-outline-white" style={{ display: 'block' }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.7 }}>
-                Powerful.
+                शक्तिशाली.
               </motion.span>
             </h1>
 
@@ -152,10 +152,10 @@ const Home = () => {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.7 }}
               style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
               <Link to="/vehicles" className="btn-cyber" style={{ padding: '16px 36px', fontSize: '0.95rem' }}>
-                Explore Fleet <ArrowRight size={17} />
+                सवारी साधनहरू हेर्नुहोस् <ArrowRight size={17} />
               </Link>
               <button onClick={() => setVideoOpen(true)} className="btn-ghost" style={{ border: '1px solid rgba(255,255,255,0.3)', color: '#fff' }}>
-                <PlayCircle size={17} /> Video Tour
+                <PlayCircle size={17} /> भिडियो टुर
               </button>
             </motion.div>
           </div>
@@ -203,15 +203,15 @@ const Home = () => {
           <div style={{ textAlign: 'center', marginBottom: 60 }}>
             <div className="hud-label" style={{ justifyContent: 'center' }}>Core Principles</div>
             <h2 style={{ fontSize: 'clamp(2rem,4vw,3.5rem)', fontWeight: 900, letterSpacing: '-2px' }}>
-              The <span className="electric-text">Eternal</span> Triangle
+              <span className="electric-text">Infinite</span> Power
             </h2>
           </div>
 
           <div className="grid-3">
             {[
-              { icon: <Zap size={32} />, title: 'Electricity', color: 'var(--elec)', cls: '', stat: '3500W', stl: 'Max Motor', desc: 'Cutting-edge 72V lithium cells, smart power management, regenerative braking — performance you can feel.' },
-              { icon: <Leaf size={32} />, title: 'Nature', color: 'var(--nature)', cls: 'nature', stat: '0g', stl: 'CO₂/KM', desc: 'Zero direct emissions. Nepal\'s hydroelectric power means your ride is powered by mountains, not fuel.' },
-              { icon: <Shield size={32} />, title: 'Power', color: 'var(--power)', cls: 'power', stat: '100%', stl: 'All-terrain', desc: 'Hill-climb sensors, anti-theft systems, dual-disc brakes — unstoppable, safe, and smart.' },
+              { icon: <Zap size={32} />, title: 'विद्युत्', color: 'var(--elec)', cls: '', stat: '3500W', stl: 'अधिकतम मोटर', desc: 'अत्याधुनिक 72V लिथियम सेल, स्मार्ट पावर व्यवस्थापन, र रिजेनेरेटिभ ब्रेकिङ — शक्ति जसको अनुभव तपाईंले गर्न सक्नुहुन्छ।' },
+              { icon: <Leaf size={32} />, title: 'प्रकृति', color: 'var(--nature)', cls: 'nature', stat: '0g', stl: 'CO₂/KM', desc: 'शून्य प्रत्यक्ष उत्सर्जन। नेपालको जलविद्युतको अर्थ हो तपाईंको यात्रा ईन्धनले होइन, पहाडले चलाउँछ।' },
+              { icon: <Shield size={32} />, title: 'शक्ति', color: 'var(--power)', cls: 'power', stat: '100%', stl: 'सबै बाटोको लागि', desc: 'हिल-क्लाइम्ब सेन्सर, एन्टी-थेफ्ट प्रणाली, डुअल-डिस्क ब्रेक — रोक्न नसकिने, सुरक्षित, र स्मार्ट।' },
             ].map((item, i) => (
               <TiltCard key={item.title}>
                 <motion.div className={`cyber-card holo ${item.cls}`} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.12 }}
@@ -253,10 +253,10 @@ const Home = () => {
         <div className="container" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
           <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
             <h2 style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', fontWeight: 900, color: '#fff', letterSpacing: '-2px', marginBottom: 20 }}>
-              The Road <span className="electric-text">Reimagined</span>
+              A New <span className="electric-text">Road Experience</span>
             </h2>
             <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.2rem', maxWidth: 600, margin: '0 auto' }}>
-              Designed for the mountains, built for the city. Experience the next generation of mobility.
+              पहाडको लागि डिजाइन गरिएको, सहरको लागि निर्माण गरिएको। गतिशीलताको अर्को पुस्ताको अनुभव लिनुहोस्।
             </p>
           </motion.div>
         </div>
@@ -276,18 +276,18 @@ const Home = () => {
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 56 }}>
             <div>
-              <div className="hud-label">Vehicle Lineup</div>
+              <div className="hud-label">Our Vehicles</div>
               <h2 style={{ fontSize: 'clamp(2rem,4vw,3.5rem)', fontWeight: 900, letterSpacing: '-2px' }}>
                 Choose Your <span className="electric-text">Power</span>
               </h2>
             </div>
-            <Link to="/vehicles" className="btn-ghost" style={{ textDecoration: 'none' }}>View All Models <ArrowRight size={14} /></Link>
+            <Link to="/vehicles" className="btn-ghost" style={{ textDecoration: 'none' }}>सबै मोडलहरू हेर्नुहोस् <ArrowRight size={14} /></Link>
           </div>
 
           <div className="grid-2">
             {[
-              { title: '2-Wheeler', sub: 'Urban Scooters', desc: 'Nimble & stylish. Built for Nepal\'s city roads.', img: '/red_scooter.webp', color: 'var(--elec)', badge: 'Starting 1.8L' },
-              { title: '3-Wheeler', sub: 'Utility Fleet', desc: 'Passenger transport or cargo — raw power on every terrain.', img: '/auto.webp', color: 'var(--nature)', badge: 'Starting 2.8L' },
+              { title: '२-पाङ्ग्रे', sub: 'सहरी स्कुटर', desc: 'छरितो र आकर्षक। नेपालको सहरी सडकको लागि निर्माण गरिएको।', img: '/red_scooter.webp', color: 'var(--elec)', badge: '१.८ लाख देखि' },
+              { title: '३-पाङ्ग्रे', sub: 'यात्री तथा कार्गो', desc: 'यात्री वा कार्गो ढुवानी — हरेक बाटोमा उत्कृष्ट शक्ति।', img: '/auto.webp', color: 'var(--nature)', badge: '२.८ लाख देखि' },
             ].map((m, i) => (
               <TiltCard key={m.title}>
                 <motion.div className="cyber-card holo" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }}
@@ -305,7 +305,7 @@ const Home = () => {
                         NPR {m.badge}
                       </div>
                       <Link to="/vehicles" className="btn-outline" style={{ textDecoration: 'none', borderColor: `${m.color}40`, color: m.color, alignSelf: 'flex-start', marginTop: 'auto' }}>
-                        See All Models <ArrowRight size={13} />
+                        सबै मोडलहरू हेर्नुहोस् <ArrowRight size={13} />
                       </Link>
                     </div>
 
@@ -331,7 +331,7 @@ const Home = () => {
 
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <div style={{ textAlign: 'center', marginBottom: 60 }}>
-            <div className="hud-label" style={{ justifyContent: 'center' }}>Rider Stories</div>
+            <div className="hud-label" style={{ justifyContent: 'center' }}>Rider Experiences</div>
             <h2 style={{ fontSize: 'clamp(2rem,4vw,3.5rem)', fontWeight: 900, letterSpacing: '-2px' }}>
               Trusted by <span className="electric-text">Nepal</span>
             </h2>
@@ -339,9 +339,9 @@ const Home = () => {
 
           <div className="grid-3">
             {[
-              { name: 'Ramesh Thapa', role: 'Daily Commuter', text: 'Switching to TM007 Pro was the best decision. Zero petrol costs and it easily handles the uphill roads in my area. Highly recommended!', rating: 5, color: 'var(--elec)' },
-              { name: 'Sita Logistics', role: 'Fleet Operator', text: 'The 3-Wheeler Cargo e-rickshaws are incredibly robust. Our delivery costs dropped significantly, and the load capacity is unmatched in Birgunj.', rating: 5, color: 'var(--nature)' },
-              { name: 'Bikash KC', role: 'Electric Enthusiast', text: 'The smart power management and regenerative braking make these vehicles feel so futuristic. Plus, silent operation means a greener neighborhood.', rating: 4, color: 'var(--power)' }
+              { name: 'रमेश थापा', role: 'दैनिक यात्रु', text: 'TM007 Pro मा स्विच गर्नु मेरो सबैभन्दा राम्रो निर्णय थियो। पेट्रोल खर्च शून्य छ र यसले मेरो क्षेत्रको उकालो बाटो सजिलै पार गर्छ।', rating: 5, color: 'var(--elec)' },
+              { name: 'सीता लजिस्टिक', role: 'फ्लिट अपरेटर', text: '३-पाङ्ग्रे कार्गो ई-रिक्सा अत्यन्तै बलियो छ। हाम्रो ढुवानी खर्च उल्लेखनीय रूपमा घटेको छ, र लोड क्षमता वीरगन्जमै बेजोड छ।', rating: 5, color: 'var(--nature)' },
+              { name: 'विकास केसी', role: 'इलेक्ट्रिक उत्साही', text: 'स्मार्ट पावर व्यवस्थापन र रिजेनेरेटिभ ब्रेकिङले यी गाडीहरूलाई धेरै भविष्यमुखी बनाउँछ। साथै, मौन सञ्चालनको अर्थ हरियाली छिमेक हो।', rating: 4, color: 'var(--power)' }
             ].map((t, i) => (
               <TiltCard key={t.name}>
                 <motion.div className="cyber-card" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }}
@@ -377,15 +377,15 @@ const Home = () => {
           <div className="cyber-card holo" style={{ padding: '80px 60px', textAlign: 'center', background: 'linear-gradient(135deg,rgba(66,169,46,0.06) 0%,rgba(19,123,57,0.03) 100%)', position: 'relative', overflow: 'hidden' }}>
             <ParticleField count={30} opacity={0.5} />
             <div style={{ position: 'relative', zIndex: 2 }}>
-              <div className="hud-label" style={{ justifyContent: 'center' }}>Ready to Switch?</div>
+              <div className="hud-label" style={{ justifyContent: 'center' }}>Ready for a Change?</div>
               <h2 style={{ fontSize: 'clamp(2rem,4vw,3.5rem)', fontWeight: 900, letterSpacing: '-2px', marginBottom: 20 }}>
-                Book Your <span className="electric-text">Free Test Ride</span>
+                Book a <span className="electric-text">Free Test Ride</span>
               </h2>
               <p style={{ color: 'var(--txt-2)', fontSize: '1.05rem', maxWidth: 500, margin: '0 auto 40px', lineHeight: 1.85 }}>
-                हाम्रो नजिकैको शोरुममा आउनुहोस् र Nepal को सर्वश्रेष्ठ विद्युतीय यात्राको अनुभव लिनुहोस्।
+                हाम्रो नजिकैको शोरुममा आउनुहोस् र नेपालको सर्वश्रेष्ठ विद्युतीय यात्राको अनुभव लिनुहोस्।
               </p>
               <Link to="/contact" className="btn-cyber" style={{ textDecoration: 'none', fontSize: '0.95rem', padding: '17px 48px' }}>
-                Reserve Now <ArrowRight size={18} />
+                अहिले नै बुक गर्नुहोस् <ArrowRight size={18} />
               </Link>
             </div>
           </div>
@@ -408,8 +408,8 @@ const Home = () => {
                 <ParticleField count={40} opacity={0.4} />
                 <div style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
                   <PlayCircle size={80} color="var(--nature)" style={{ filter: 'drop-shadow(0 4px 12px rgba(66,169,46,0.3))', marginBottom: 20 }} />
-                  <h3 style={{ fontSize: '1.5rem', fontWeight: 800 }}>Kushwaha Motors — The Green Way</h3>
-                  <p style={{ color: 'var(--txt-2)', marginTop: 8 }}>Video coming soon. Visit our showroom for a live demo.</p>
+                  <h3 style={{ fontSize: '1.5rem', fontWeight: 800 }}>कुशवाहा मोटर्स — हरित बाटो</h3>
+                  <p style={{ color: 'var(--txt-2)', marginTop: 8 }}>भिडियो छिटै आउँदैछ। प्रत्यक्ष डेमोको लागि हाम्रो शोरुममा आउनुहोस्।</p>
                 </div>
               </div>
             </motion.div>

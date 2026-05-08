@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import { Shield, Zap, Target, Award, Leaf, ChevronRight } from 'lucide-react';
 import ParticleField from '../components/ParticleField';
 
-const STATS = [['9', '+', 'Years'], ['12', '+', 'Cities'], ['5000', '+', 'Riders'], ['100', '%', 'Electric']];
+const STATS = [['9', '+', 'वर्ष'], ['12', '+', 'सहरहरू'], ['5000', '+', 'यात्रुहरू'], ['100', '%', 'विद्युतीय']];
 const VALUES = [
-  { icon: <Target size={26} />, title: 'Mission', color: 'var(--elec)', desc: 'Make affordable, reliable electric vehicles accessible across every corner of Nepal.' },
-  { icon: <Leaf size={26} />, title: 'Sustainability', color: 'var(--nature)', desc: 'Every KM ridden on our vehicles offsets harmful CO₂. Nepal\'s green transport future starts here.' },
-  { icon: <Shield size={26} />, title: 'Safety', color: 'var(--power)', desc: 'Japanese-standard engineering with hill-climb sensors, anti-theft, and disc brakes built in.' },
-  { icon: <Award size={26} />, title: 'Quality', color: 'var(--elec)', desc: 'Lithium batteries with best-in-class range. Factory-backed warranty on all models.' },
+  { icon: <Target size={26} />, title: 'लक्ष्य', color: 'var(--elec)', desc: 'नेपालको हरेक कुनामा किफायती, भरपर्दो विद्युतीय सवारी साधनहरू पहुँचयोग्य बनाउने।' },
+  { icon: <Leaf size={26} />, title: 'दिगोपन', color: 'var(--nature)', desc: 'हाम्रा गाडीहरूमा यात्रा गरिएको हरेक किमीले हानिकारक CO₂ लाई कम गर्छ। नेपालको हरियो यातायात भविष्य यहाँबाट सुरु हुन्छ।' },
+  { icon: <Shield size={26} />, title: 'सुरक्षा', color: 'var(--power)', desc: 'जापानी स्तरको इन्जिनियरिङ, हिल-क्लाइम्ब सेन्सर, एन्टी-थेफ्ट, र डिस्क ब्रेकको साथ।' },
+  { icon: <Award size={26} />, title: 'गुणस्तर', color: 'var(--elec)', desc: 'उत्कृष्ट दायरा सहितको लिथियम ब्याट्री। सबै मोडेलहरूमा फ्याक्ट्री-समर्थित वारेन्टी।' },
 ];
 
 const About = () => (
@@ -24,18 +24,18 @@ const About = () => (
         <motion.div initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.9 }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(0,255,135,0.08)', border: '1px solid rgba(0,255,135,0.2)', borderRadius: 999, padding: '7px 18px', marginBottom: 28 }}>
             <Leaf size={14} color="var(--nature)" />
-            <span style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--nature)', textTransform: 'uppercase', letterSpacing: '3px' }}>Est. 2015 — Birgunj, Nepal</span>
+            <span style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--nature)', textTransform: 'uppercase', letterSpacing: '3px' }}>स्थापना २०१५ — वीरगन्ज, नेपाल</span>
           </div>
 
           <h1 style={{ fontSize: 'clamp(3rem, 5.5vw, 5.5rem)', fontWeight: 900, letterSpacing: '-3px', lineHeight: 1.05, marginBottom: 28, position: 'relative', zIndex: 2 }}>
-            Story &amp; <span className="electric-text">Mission</span>
+            Story & <span className="electric-text">Mission</span>
           </h1>
           <p style={{ color: 'var(--txt-2)', fontSize: '1.1rem', lineHeight: 1.85, maxWidth: 480, marginBottom: 40 }}>
             सन् २०१५ देखि कुशवाहा मोटर्सले नेपालमा गुणस्तरीय र किफायती विद्युतीय सवारी साधनहरू उपलब्ध गराउँदै आएको छ।
             हाम्रो लक्ष्य नेपालको हरियो भविष्यको लागि दिगो यातायात समाधान प्रदान गर्नु हो।
           </p>
           <Link to="/contact" className="btn-nature" style={{ textDecoration: 'none' }}>
-            Get in Touch <ChevronRight size={18} />
+            सम्पर्क गर्नुहोस् <ChevronRight size={18} />
           </Link>
         </motion.div>
 

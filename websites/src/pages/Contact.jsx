@@ -17,7 +17,7 @@ const CONTACT_INFO = [
   { icon: <MapPin size={20} />, label: 'Address',  value: 'Trimurti Chowk, Birgunj, Parsa, Nepal', color: 'var(--elec)' },
   { icon: <Phone size={20} />, label: 'Hotline',   value: '+977-9821107355 / 9801082474',           color: 'var(--nature)' },
   { icon: <Mail  size={20} />, label: 'Email',     value: 'info@kushwahamotors.com.np',             color: 'var(--elec)' },
-  { icon: <Clock size={20} />, label: 'Hours',     value: 'Sun–Fri: 9:00 AM – 6:00 PM',            color: 'var(--nature)' },
+  { icon: <Clock size={20} />, label: 'Timing',     value: 'Sun–Fri: 9:00 AM – 6:00 PM',            color: 'var(--nature)' },
 ];
 
 const VEHICLES = [
@@ -118,12 +118,12 @@ const Contact = () => {
         
         <div className="container text-center" style={{ position: 'relative', zIndex: 1 }}>
           <div style={{ position: 'relative', zIndex: 2 }}>
-            <div className="hud-label" style={{ justifyContent: 'center', borderColor: '#fff' }}>Get In Touch</div>
+            <div className="hud-label" style={{ justifyContent: 'center', borderColor: '#fff' }}>Contact Us</div>
             <h1 style={{ fontSize: 'clamp(2.5rem,5vw,4.5rem)', fontWeight: 900, letterSpacing: '-2px', marginBottom: 20, color: '#fff' }}>
               Let's <span className="electric-text">Talk</span>
             </h1>
             <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.1rem', maxWidth: 600, margin: '0 auto', fontWeight: 500 }}>
-              Test ride बुक गर्नुहोस्, मूल्य जान्नुहोस्, वा जुनसुकै प्रश्नको उत्तर पाउनुहोस् — हामी यहाँ छौं।
+              Book a test ride, get pricing, or find answers to any questions — we are here to help.
             </p>
           </div>
         </div>
@@ -132,7 +132,7 @@ const Contact = () => {
 
       {/* ── Main Grid ── */}
       <section style={{ padding: '20px 0 120px' }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 28, alignItems: 'start' }}>
+        <div className="container contact-grid">
 
           {/* ─ Left: Info ─ */}
           <motion.div initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }}
@@ -161,8 +161,8 @@ const Contact = () => {
             <div className="cyber-card" style={{ padding: 28, textAlign: 'center', background: 'var(--bg-card)' }}>
               <Zap size={32} color="var(--nature)" style={{ margin: '0 auto 12px' }} />
               <div style={{ fontSize: '1.4rem', fontWeight: 900, letterSpacing: '-1px', marginBottom: 8 }}>Free Test Ride</div>
-              <p style={{ color: 'var(--txt-2)', marginBottom: 18, fontSize: '0.88rem', lineHeight: 1.7 }}>हाम्रो कुनै पनि शोरुममा आउनुहोस् र निःशुल्क टेस्ट राइड लिनुहोस्।</p>
-              <a href="tel:9821107355" className="btn-cyber" style={{ textDecoration: 'none' }}>📞 Call for Appointment</a>
+              <p style={{ color: 'var(--txt-2)', marginBottom: 18, fontSize: '0.88rem', lineHeight: 1.7 }}>Visit any of our showrooms and get a free test ride.</p>
+              <a href="tel:9821107355" className="btn-cyber" style={{ textDecoration: 'none' }}>📞 Call for an Appointment</a>
             </div>
           </motion.div>
 
@@ -179,13 +179,13 @@ const Contact = () => {
                         style={{ position: 'absolute', inset: -8, borderRadius: '50%', border: '2px solid var(--nature)' }} />
                     </div>
                     <h3 style={{ fontSize: '2rem', fontWeight: 900, letterSpacing: '-1px', marginBottom: 12, color: 'var(--nature)' }}>Message Sent!</h3>
-                    <p style={{ color: 'var(--txt-2)', lineHeight: 1.8, marginBottom: 8 }}>हाम्रो टिमले तपाईंलाई २४ घण्टाभित्र सम्पर्क गर्नेछ।</p>
+                    <p style={{ color: 'var(--txt-2)', lineHeight: 1.8, marginBottom: 8 }}>Our team will contact you within 24 hours.</p>
                   </motion.div>
                 ) : status === 'error' ? (
                   <motion.div key="error" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}
                     style={{ textAlign: 'center', padding: '40px 20px' }}>
                     <AlertTriangle size={64} color="var(--power)" style={{ margin: '0 auto 16px' }} />
-                    <h3 style={{ fontSize: '1.6rem', fontWeight: 900, marginBottom: 12, color: 'var(--power)' }}>Send Failed</h3>
+                    <h3 style={{ fontSize: '1.6rem', fontWeight: 900, marginBottom: 12, color: 'var(--power)' }}>Failed to Send</h3>
                     <p style={{ color: 'var(--txt-2)', marginBottom: 20, lineHeight: 1.7 }}>
                       Please contact us directly at <strong style={{ color: 'var(--txt)' }}>+977-9821107355</strong>
                     </p>
@@ -201,7 +201,7 @@ const Contact = () => {
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                         <div>
                           <label style={{ display: 'block', fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>Full Name *</label>
-                          <input type="text" name="name" required value={form.name} onChange={handleChange} placeholder="Your name" />
+                          <input type="text" name="name" required value={form.name} onChange={handleChange} placeholder="Your Name" />
                         </div>
                         <div>
                           <label style={{ display: 'block', fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>Phone *</label>
@@ -212,14 +212,14 @@ const Contact = () => {
                       {/* Email */}
                       <div>
                         <label style={{ display: 'block', fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>Email Address</label>
-                        <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="your@email.com (optional)" />
+                        <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="your@email.com (Optional)" />
                       </div>
 
                       {/* Vehicle */}
                       <div>
-                        <label style={{ display: 'block', fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>Vehicle Interest</label>
+                        <label style={{ display: 'block', fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>Interested Vehicle</label>
                         <select name="vehicle" value={form.vehicle} onChange={handleChange}>
-                          <option value="">Select a model…</option>
+                          <option value="">Choose Model…</option>
                           {VEHICLES.map(v => <option key={v}>{v}</option>)}
                         </select>
                       </div>
@@ -227,11 +227,11 @@ const Contact = () => {
                       {/* Message */}
                       <div>
                         <label style={{ display: 'block', fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>Message *</label>
-                        <textarea name="message" required rows={5} value={form.message} onChange={handleChange} placeholder="How can we help you? Ask about price, test ride, specs…" />
+                        <textarea name="message" required rows={5} value={form.message} onChange={handleChange} placeholder="How can we help you? Ask about pricing, test rides, etc..." />
                       </div>
 
                       <button type="submit" className="btn-cyber" disabled={status === 'loading'}
-                        style={{ marginTop: 4, opacity: status === 'loading' ? 0.7 : 1, cursor: status === 'loading' ? 'wait' : 'pointer' }}>
+                        style={{ marginTop: 4, width: '100%', opacity: status === 'loading' ? 0.7 : 1, cursor: status === 'loading' ? 'wait' : 'pointer' }}>
                         {status === 'loading' ? (
                           <>
                             <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }} style={{ width: 16, height: 16, border: '2px solid #fff', borderTopColor: 'transparent', borderRadius: '50%' }} />
