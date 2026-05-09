@@ -1,41 +1,88 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Globe, Check } from 'lucide-react';
+import { Globe, Check, ChevronDown } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
-const LanguageSwitcher = () => {
+const LanguageSwitcher = ({ isMobile = false }) => {
   const { language, toggleLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const langs = [
     { code: 'ne', label: 'नेपाली', flag: '🇳🇵' },
     { code: 'en', label: 'English', flag: '🇺🇸' }
   ];
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  if (isMobile) {
+    return (
+      <div style={{ padding: '16px 0', borderTop: '1px solid rgba(0,0,0,0.05)', marginTop: '8px' }}>
+        <div style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--txt-3)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>
+          {language === 'ne' ? 'भाषा छान्नुहोस्' : 'Select Language'}
+        </div>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          {langs.map((l) => (
+            <button
+              key={l.code}
+              onClick={() => toggleLanguage(l.code)}
+              style={{
+                flex: 1,
+                padding: '12px',
+                borderRadius: '12px',
+                border: '1px solid ' + (language === l.code ? 'var(--nature)' : 'rgba(0,0,0,0.1)'),
+                background: language === l.code ? 'rgba(66, 169, 46, 0.08)' : '#fff',
+                color: language === l.code ? 'var(--nature)' : 'var(--txt)',
+                fontWeight: 700,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                cursor: 'pointer'
+              }}
+            >
+              <span>{l.flag}</span>
+              <span>{l.label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div style={{ position: 'fixed', top: 20, right: 20, zIndex: 9999 }}>
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+    <div ref={dropdownRef} style={{ position: 'relative' }}>
+      <button
         onClick={() => setIsOpen(!isOpen)}
         style={{
-          background: 'rgba(255, 255, 255, 0.9)',
-          backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(66, 169, 46, 0.2)',
+          background: 'rgba(0,0,0,0.03)',
+          border: '1px solid rgba(0,0,0,0.08)',
           borderRadius: '999px',
-          padding: '10px 18px',
+          padding: '8px 16px',
           display: 'flex',
           alignItems: 'center',
-          gap: 10,
-          boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+          gap: 8,
           cursor: 'pointer',
           fontWeight: 700,
-          color: 'var(--txt)'
+          color: 'var(--txt)',
+          fontSize: '0.85rem',
+          transition: 'all 0.2s ease'
         }}
+        onMouseOver={e => e.currentTarget.style.background = 'rgba(0,0,0,0.05)'}
+        onMouseOut={e => e.currentTarget.style.background = 'rgba(0,0,0,0.03)'}
       >
-        <Globe size={18} color="var(--nature)" />
+        <Globe size={16} color="var(--nature)" />
         <span>{language === 'ne' ? 'नेपाली' : 'English'}</span>
-      </motion.button>
+        <ChevronDown size={14} style={{ transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }} />
+      </button>
 
       <AnimatePresence>
         {isOpen && (
@@ -48,12 +95,12 @@ const LanguageSwitcher = () => {
               top: '120%',
               right: 0,
               background: '#fff',
-              borderRadius: '20px',
-              padding: '8px',
-              minWidth: '160px',
-              boxShadow: '0 20px 50px rgba(0,0,0,0.15)',
+              borderRadius: '16px',
+              padding: '6px',
+              minWidth: '150px',
+              boxShadow: '0 15px 35px rgba(0,0,0,0.12)',
               border: '1px solid rgba(0,0,0,0.05)',
-              overflow: 'hidden'
+              zIndex: 1000
             }}
           >
             {langs.map((l) => (
@@ -65,24 +112,25 @@ const LanguageSwitcher = () => {
                 }}
                 style={{
                   width: '100%',
-                  padding: '12px 16px',
+                  padding: '10px 14px',
                   border: 'none',
-                  background: language === l.code ? 'rgba(66, 169, 46, 0.1)' : 'transparent',
+                  background: language === l.code ? 'rgba(66, 169, 46, 0.08)' : 'transparent',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  borderRadius: '12px',
+                  borderRadius: '10px',
                   cursor: 'pointer',
                   transition: 'all 0.2s ease',
                   color: language === l.code ? 'var(--nature)' : 'var(--txt)',
-                  fontWeight: language === l.code ? 800 : 600
+                  fontWeight: language === l.code ? 800 : 600,
+                  fontSize: '0.85rem'
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                  <span style={{ fontSize: '1.2rem' }}>{l.flag}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <span style={{ fontSize: '1rem' }}>{l.flag}</span>
                   <span>{l.label}</span>
                 </div>
-                {language === l.code && <Check size={16} />}
+                {language === l.code && <Check size={14} />}
               </button>
             ))}
           </motion.div>

@@ -6,38 +6,34 @@ const WhatsAppButton = () => {
       href="https://wa.me/9779801235567"
       target="_blank"
       rel="noopener noreferrer"
+      className="whatsapp-float"
       style={{
         position: 'fixed',
-        bottom: '30px',
-        left: '30px',
+        bottom: '24px',
+        left: '16px',
         zIndex: 9999,
-        width: '64px',
-        height: '64px',
+        width: '50px',
+        height: '50px',
         borderRadius: '50%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         cursor: 'pointer',
-        filter: 'drop-shadow(0 15px 25px rgba(0,0,0,0.25)) drop-shadow(0 5px 10px rgba(0,0,0,0.15))',
-        transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
+        background: '#25D366',
+        boxShadow: '0 4px 12px rgba(37,211,102,0.4)',
+        transition: 'all 0.3s var(--ease)',
       }}
       onMouseOver={(e) => {
-        e.currentTarget.style.transform = 'scale(1.15) translateY(-8px)';
-        e.currentTarget.style.filter = 'drop-shadow(0 25px 35px rgba(0,0,0,0.3)) drop-shadow(0 10px 15px rgba(0,0,0,0.2))';
+        e.currentTarget.style.transform = 'scale(1.1) translateY(-5px)';
       }}
       onMouseOut={(e) => {
         e.currentTarget.style.transform = 'scale(1) translateY(0)';
-        e.currentTarget.style.filter = 'drop-shadow(0 15px 25px rgba(0,0,0,0.25)) drop-shadow(0 5px 10px rgba(0,0,0,0.15))';
       }}
     >
       <img 
         src="/whatsapp.png" 
-        alt="Chat on WhatsApp" 
-        style={{ 
-          width: '100%', 
-          height: '100%', 
-          objectFit: 'contain' 
-        }} 
+        alt="WhatsApp" 
+        style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
       />
     </a>
   );

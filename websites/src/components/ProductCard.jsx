@@ -41,7 +41,7 @@ const ProductCard = ({ product: p }) => {
       exit={{ opacity:0, scale:0.95 }}
       whileHover={{ y: -8, scale: 1.02 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className="cyber-card"
+      className="cyber-card product-card"
       style={{ display:'flex', flexDirection:'column', height:'100%', overflow:'hidden', borderColor:`${p.accent}30`, background: '#fff' }}
     >
       {/* ── Image ── */}
@@ -92,18 +92,18 @@ const ProductCard = ({ product: p }) => {
         </div>
 
         {/* Specs grid */}
-        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:10 }}>
+        <div className="specs-grid" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:10 }}>
           {specRows.map(([key, val]) => {
             const label = isNep ? SPEC_LABELS[key]?.np : SPEC_LABELS[key]?.en;
             const Icon = key==='motor' ? Zap : key==='range' ? Battery : key==='battery' ? Shield : Cpu;
             return (
-              <div key={key} style={{
+              <div key={key} className="spec-item" style={{
                 background:`${p.accent}0A`,
                 border:`1px solid ${p.accent}30`,
                 borderRadius:12, padding:'12px 14px',
               }}>
                 {/* Label */}
-                <div style={{
+                <div className="spec-label" style={{
                   display:'flex', alignItems:'center', gap:5,
                   fontFamily: isNep ? NP_FONT : "'Inter',sans-serif",
                   fontSize: isNep ? '0.85rem' : '0.7rem',
@@ -116,7 +116,7 @@ const ProductCard = ({ product: p }) => {
                   <Icon size={12} color={p.accent} /> {label}
                 </div>
                 {/* Value */}
-                <div style={{
+                <div className="spec-value" style={{
                   fontSize:'1.15rem',
                   fontWeight:900,
                   color:'#000',
@@ -128,7 +128,7 @@ const ProductCard = ({ product: p }) => {
         </div>
 
         {/* Features */}
-        <div style={{ display:'flex', flexWrap:'wrap', gap:8 }}>
+        <div className="features-list" style={{ display:'flex', flexWrap:'wrap', gap:8 }}>
           {p.features.map((f, idx) => (
             <span key={idx} style={{
               display:'flex', alignItems:'center', gap:6,

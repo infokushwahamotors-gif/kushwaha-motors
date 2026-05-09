@@ -64,19 +64,25 @@ const Vehicles = () => {
         width: '100%',
         position: 'relative',
         overflow: 'hidden',
-        background: '#000',
-        minHeight: '60vh' // Fallback
+        background: '#000'
       }}>
-        {/* Banner Aspect Ratio Wrapper */}
-        <div style={{
-          width: '100%',
-          aspectRatio: hasDedicatedBanner ? '1.8 / 1' : 'auto',
-          position: 'relative',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
-
+        <style>{`
+          .fleet-hero-container {
+            width: 100%;
+            aspect-ratio: 1.8 / 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          @media (max-width: 1024px) {
+            .fleet-hero-container { aspect-ratio: 1 / 1; min-height: 450px; }
+          }
+          @media (max-width: 640px) {
+            .fleet-hero-container { aspect-ratio: 1 / 1.3; }
+          }
+        `}</style>
+        <div className="fleet-hero-container">
           {/* Particle Overlay */}
           <div style={{ position: 'absolute', inset: 0, zIndex: 1 }}>
             <ParticleField count={hasDedicatedBanner ? 30 : 60} opacity={0.4} />
@@ -97,19 +103,17 @@ const Vehicles = () => {
               <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 80% at 50% 20%, rgba(0,240,255,0.12) 0%, transparent 70%)' }} />
             )}
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.3), transparent 60%, rgba(0,0,0,0.7))' }} />
-
           </div>
-
 
           <div className="container text-center" style={{ position: 'relative', zIndex: 2 }}>
             <div style={{ position: 'relative', zIndex: 3 }}>
               <div className="hud-label" style={{ justifyContent: 'center', marginBottom: 14, borderColor: 'rgba(255,255,255,0.3)', color: '#fff' }}>
                 {getHeroLabel()}
               </div>
-              <h1 style={{ fontSize: 'clamp(2.5rem,6vw,5.5rem)', fontWeight: 900, letterSpacing: '-3px', marginBottom: 20, color: '#fff', textShadow: '0 4px 30px rgba(0,0,0,0.6)' }}>
+              <h1 style={{ fontWeight: 900, letterSpacing: '-3px', marginBottom: 20, color: '#fff', textShadow: '0 4px 30px rgba(0,0,0,0.6)' }}>
                 {getHeroTitle()}
               </h1>
-              <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: '1.15rem', maxWidth: 650, margin: '0 auto', lineHeight: 1.8, fontWeight: 500, textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
+              <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: '1.1rem', maxWidth: 650, margin: '0 auto', fontWeight: 500 }}>
                 {getHeroSubtitle()}
               </p>
             </div>

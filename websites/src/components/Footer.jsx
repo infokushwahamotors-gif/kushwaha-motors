@@ -77,7 +77,7 @@ const Footer = () => {
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} {isNep ? 'कुशवाहा मोटर्स प्रा. लि. सर्वाधिकार सुरक्षित।' : 'Kushwaha Motors Pvt. Ltd. All rights reserved.'}</span>
           <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <Zap size={12} color="var(--elec)" /> {isNep ? 'स्वच्छ ऊर्जाद्वारा सञ्चालित · नेपालको लागि निर्मित' : 'Powered by Clean Energy · Built for Nepal'}
+            <Zap size={12} color="var(--elec)" /> {isNep ? 'निर्माण: ' : 'Built by '} <a href="https://kumarsonu.com.np" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--elec)', fontWeight: 800, textDecoration: 'none', borderBottom: '1px dashed var(--elec)' }}>SK</a>
           </span>
         </div>
       </div>

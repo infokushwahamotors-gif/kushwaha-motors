@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown, ChevronRight } from 'lucide-react';
+import { Menu, X, ChevronDown, ChevronRight, Globe } from 'lucide-react';
 import { PRODUCTS } from '../data/products';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../data/translations';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Navbar = () => {
   const { language } = useLanguage();
@@ -27,22 +28,21 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close menus on route change
   useEffect(() => {
     setVehiclesDropdownOpen(false);
     setIsMenuOpen(false);
   }, [location.pathname]);
 
-  // Click outside to close dropdown
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      // Only handle outside clicks for the desktop dropdown
+      if (!isMenuOpen && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setVehiclesDropdownOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [isMenuOpen]);
 
   return (
     <>
@@ -58,7 +58,6 @@ const Navbar = () => {
             <Link to="/" className={location.pathname === '/' ? 'active' : ''}>{t.home}</Link>
             <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>{t.about}</Link>
             
-            {/* Vehicles Dropdown */}
             <div ref={dropdownRef} style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
               <button 
                 onClick={() => setVehiclesDropdownOpen(!vehiclesDropdownOpen)}
@@ -89,7 +88,6 @@ const Navbar = () => {
                       display: 'flex', flexDirection: 'column', gap: '24px'
                     }}
                   >
-                    {/* Category Toggles */}
                     <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
                       {[[ 'twoWheeler', language === 'ne' ? '🛵 २ पाङ्ग्रे' : '🛵 2-Wheelers' ], [ 'threeWheeler', language === 'ne' ? '🛺 ३ पाङ्ग्रे' : '🛺 3-Wheelers' ]].map(([cat, label]) => (
                         <button 
@@ -108,7 +106,6 @@ const Navbar = () => {
                       ))}
                     </div>
 
-                    {/* Products Grid */}
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
                       {PRODUCTS[hoveredCategory].map(prod => (
                         <Link 
@@ -152,6 +149,10 @@ const Navbar = () => {
 
             <Link to="/dealers" className={location.pathname === '/dealers' ? 'active' : ''}>{t.dealers}</Link>
             <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''}>{t.contact}</Link>
+            
+            <div style={{ width: '1px', height: '20px', background: 'rgba(0,0,0,0.1)', margin: '0 8px' }} />
+            <LanguageSwitcher />
+
             <Link to="/contact" className="btn-ride">{language === 'ne' ? 'टेस्ट राइड बुक गर्नुहोस्' : 'Book Test Ride'}</Link>
           </div>
 
@@ -170,78 +171,82 @@ const Navbar = () => {
               className="mobile-menu"
               style={{ paddingBottom: '32px' }}
             >
-              <Link to="/" onClick={() => setIsMenuOpen(false)} className={location.pathname === '/' ? 'active' : ''}>{t.home}</Link>
-              <Link to="/about" onClick={() => setIsMenuOpen(false)} className={location.pathname === '/about' ? 'active' : ''}>{t.about}</Link>
-              
-              {/* Mobile Vehicles Accordion */}
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <button 
-                  onClick={() => setVehiclesDropdownOpen(!vehiclesDropdownOpen)}
-                  style={{
-                    background: 'none', border: 'none', cursor: 'pointer',
-                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                    fontSize: '0.8rem', fontWeight: 700,
-                    color: location.pathname.startsWith('/vehicles') ? 'var(--elec)' : 'var(--txt)',
-                    textTransform: 'uppercase', letterSpacing: '2px', fontFamily: 'inherit',
-                    padding: 0, textAlign: 'left'
-                  }}
-                >
-                  {t.vehicles} <ChevronDown size={14} style={{ transform: vehiclesDropdownOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }}/>
-                </button>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <Link to="/" onClick={() => setIsMenuOpen(false)} className={location.pathname === '/' ? 'active' : ''}>{t.home}</Link>
+                <Link to="/about" onClick={() => setIsMenuOpen(false)} className={location.pathname === '/about' ? 'active' : ''}>{t.about}</Link>
                 
-                <AnimatePresence>
-                  {vehiclesDropdownOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                      animate={{ height: 'auto', opacity: 1, marginTop: 16 }}
-                      exit={{ height: 0, opacity: 0, marginTop: 0 }}
-                      style={{ overflow: 'hidden', display: 'flex', flexDirection: 'column', gap: '16px' }}
-                    >
-                      <div style={{ display: 'flex', gap: '8px' }}>
-                        {[[ 'twoWheeler', language === 'ne' ? '२ पाङ्ग्रे' : '2 Wheeler' ], [ 'threeWheeler', language === 'ne' ? '३ पाङ्ग्रे' : '3 Wheeler' ]].map(([cat, label]) => (
-                          <button 
-                            key={cat}
-                            onClick={() => setHoveredCategory(cat)}
-                            style={{ 
-                              flex: 1, padding: '8px', borderRadius: 'var(--r1)', 
-                              border: '1px solid ' + (hoveredCategory === cat ? 'var(--nature)' : 'rgba(0,0,0,0.05)'), 
-                              background: hoveredCategory === cat ? 'rgba(66,169,46,0.08)' : 'rgba(0,0,0,0.02)', 
-                              color: hoveredCategory === cat ? 'var(--elec)' : 'var(--txt-2)', 
-                              fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer', transition: 'all 0.3s' 
-                            }}
-                          >
-                            {label}
-                          </button>
-                        ))}
-                      </div>
-                      
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-                        {PRODUCTS[hoveredCategory].slice(0,4).map(prod => (
-                          <Link 
-                            key={prod.id} 
-                            to={`/vehicles/${prod.id}`}
-                            onClick={() => setIsMenuOpen(false)}
-                            style={{ 
-                              display: 'flex', alignItems: 'center', gap: '8px',
-                              textDecoration: 'none', background: 'rgba(0,0,0,0.02)', 
-                              borderRadius: 'var(--r1)', padding: '8px',
-                              border: '1px solid rgba(0,0,0,0.03)' 
-                            }}
-                          >
-                            <img src={prod.image} alt={prod.name} style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                            <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--txt)' }}>{prod.name}</span>
-                          </Link>
-                        ))}
-                      </div>
-                      <Link to={`/vehicles?category=${hoveredCategory}`} onClick={() => setIsMenuOpen(false)} style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--elec)', textDecoration: 'underline' }}>{language === 'ne' ? `सबै ${hoveredCategory === 'twoWheeler' ? '२ पाङ्ग्रेहरू' : '३ पाङ्ग्रेहरू'} हेर्नुहोस्` : `View all ${hoveredCategory === 'twoWheeler' ? 'Two Wheelers' : 'Three Wheelers'}`}</Link>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  <button 
+                    onClick={() => setVehiclesDropdownOpen(!vehiclesDropdownOpen)}
+                    style={{
+                      background: 'none', border: 'none', cursor: 'pointer',
+                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                      fontSize: '0.85rem', fontWeight: 700,
+                      color: location.pathname.startsWith('/vehicles') ? 'var(--elec)' : 'var(--txt)',
+                      textTransform: 'uppercase', letterSpacing: '2px', fontFamily: 'inherit',
+                      padding: '8px 0'
+                    }}
+                  >
+                    {t.vehicles} <ChevronDown size={14} style={{ transform: vehiclesDropdownOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }}/>
+                  </button>
+                  
+                  <AnimatePresence>
+                    {vehiclesDropdownOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                        animate={{ height: 'auto', opacity: 1, marginTop: 12 }}
+                        exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                        style={{ overflow: 'hidden', display: 'flex', flexDirection: 'column', gap: '12px', paddingLeft: '12px' }}
+                      >
+                        <div style={{ display: 'flex', gap: '8px' }}>
+                          {[[ 'twoWheeler', language === 'ne' ? '२ पाङ्ग्रे' : '2-Wheelers' ], [ 'threeWheeler', language === 'ne' ? '३ पाङ्ग्रे' : '3-Wheelers' ]].map(([cat, label]) => (
+                            <button 
+                              key={cat}
+                              onClick={() => setHoveredCategory(cat)}
+                              style={{ 
+                                flex: 1, padding: '10px', borderRadius: '12px', 
+                                border: '1px solid ' + (hoveredCategory === cat ? 'var(--nature)' : 'rgba(0,0,0,0.1)'), 
+                                background: hoveredCategory === cat ? 'rgba(66,169,46,0.08)' : '#fff', 
+                                color: hoveredCategory === cat ? 'var(--elec)' : 'var(--txt-2)', 
+                                fontWeight: 700, fontSize: '0.7rem', cursor: 'pointer'
+                              }}
+                            >
+                              {label}
+                            </button>
+                          ))}
+                        </div>
+                        
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                          {PRODUCTS[hoveredCategory].slice(0,4).map(prod => (
+                            <Link 
+                              key={prod.id} 
+                              to={`/vehicles/${prod.id}`}
+                              onClick={() => setIsMenuOpen(false)}
+                              style={{ 
+                                display: 'flex', alignItems: 'center', gap: '8px',
+                                textDecoration: 'none', background: '#fff', 
+                                borderRadius: '12px', padding: '10px',
+                                border: '1px solid rgba(0,0,0,0.05)' 
+                              }}
+                            >
+                              <img src={prod.image} alt={prod.name} style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                              <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--txt)' }}>{prod.name}</span>
+                            </Link>
+                          ))}
+                        </div>
+                        <Link to={`/vehicles?category=${hoveredCategory}`} onClick={() => setIsMenuOpen(false)} style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--elec)', textDecoration: 'underline' }}>{language === 'ne' ? `सबै ${hoveredCategory === 'twoWheeler' ? '२ पाङ्ग्रेहरू' : '३ पाङ्ग्रेहरू'} हेर्नुहोस्` : `View all ${hoveredCategory === 'twoWheeler' ? 'Two Wheelers' : 'Three Wheelers'}`}</Link>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                <Link to="/dealers" onClick={() => setIsMenuOpen(false)} className={location.pathname === '/dealers' ? 'active' : ''}>{t.dealers}</Link>
+                <Link to="/contact" onClick={() => setIsMenuOpen(false)} className={location.pathname === '/contact' ? 'active' : ''}>{t.contact}</Link>
               </div>
 
-              <Link to="/dealers" onClick={() => setIsMenuOpen(false)} className={location.pathname === '/dealers' ? 'active' : ''}>{t.dealers}</Link>
-              <Link to="/contact" onClick={() => setIsMenuOpen(false)} className={location.pathname === '/contact' ? 'active' : ''}>{t.contact}</Link>
-              <Link to="/contact" className="btn-ride" style={{ textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>{language === 'ne' ? 'टेस्ट राइड बुक गर्नुहोस्' : 'Book Test Ride'}</Link>
+              <LanguageSwitcher isMobile={true} />
+
+              <Link to="/contact" className="btn-ride" style={{ textAlign: 'center', marginTop: '16px' }} onClick={() => setIsMenuOpen(false)}>{language === 'ne' ? 'टेस्ट राइड बुक गर्नुहोस्' : 'Book Test Ride'}</Link>
             </motion.div>
           )}
         </AnimatePresence>

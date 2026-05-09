@@ -67,17 +67,16 @@ const Dealers = () => {
   return (
     <div style={{ background: '#fcfdfd' }}>
       {/* Hero */}
-      <section style={{ padding: '160px 0 60px', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: '60%', height: '80%', background: 'radial-gradient(ellipse, rgba(66,169,46,0.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
+      <section style={{ padding: 'clamp(100px, 15vw, 160px) 0 60px', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: '80%', height: '80%', background: 'radial-gradient(ellipse, rgba(66,169,46,0.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
         <div className="container text-center" style={{ position: 'relative', zIndex: 1 }}>
-          <div className="ghost-text" style={{ marginBottom: -50, color: 'rgba(66,169,46,0.05)' }}>{language === 'ne' ? 'नेटवर्क' : 'NETWORK'}</div>
           <div style={{ position: 'relative', zIndex: 2 }}>
             <div className="hud-label" style={{ justifyContent: 'center', marginBottom: 12 }}>{language === 'ne' ? 'डिलर खोज्नुहोस्' : 'Find a Dealer'}</div>
-            <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', fontWeight: 900, letterSpacing: '-2px', marginBottom: 20 }}>
+            <h1 style={{ fontWeight: 900, letterSpacing: '-2px', marginBottom: 20 }}>
               {language === 'ne' ? 'हाम्रो' : 'Our'} <span className="electric-text">{language === 'ne' ? 'नेपालभरि' : 'Nationwide'}</span> {language === 'ne' ? 'नेटवर्क' : 'Network'}
             </h1>
-            <p style={{ color: 'var(--txt-2)', fontSize: '1.1rem', maxWidth: 540, margin: '0 auto 40px' }}>
+            <p style={{ color: 'var(--txt-2)', maxWidth: 540, margin: '0 auto 40px' }}>
               {t.subtitle}
             </p>
 
@@ -110,21 +109,11 @@ const Dealers = () => {
       <section style={{ padding: '20px 0 60px' }}>
         <div className="container">
           <div style={{ marginBottom: 30, textAlign: 'center' }}>
-            <h2 style={{ fontSize: '2.2rem', fontWeight: 900, color: 'var(--txt)', display: 'inline-flex', alignItems: 'center', gap: 15 }}>
-              <Building2 size={32} color="var(--nature)" /> {t.branches}
+            <h2 style={{ fontWeight: 900, color: 'var(--txt)', display: 'inline-flex', alignItems: 'center', gap: 15 }}>
+              <Building2 size={28} color="var(--nature)" /> {t.branches}
             </h2>
           </div>
           
-          {filteredDealers.length === 0 && filteredAdditional.length === 0 && (
-            <div style={{ textAlign: 'center', padding: '80px 0' }}>
-              <Globe size={64} style={{ color: 'var(--txt-3)', margin: '0 auto 24px', opacity: 0.3 }} />
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: 12 }}>{language === 'ne' ? `"${searchTerm}" को लागि कुनै डिलर फेला परएन` : `No dealers found for "${searchTerm}"`}</h3>
-              <button onClick={() => setSearchTerm('')} style={{ background: 'none', border: 'none', color: 'var(--nature)', fontWeight: 700, cursor: 'pointer', fontSize: '1rem' }}>
-                {language === 'ne' ? 'खोज खाली गर्नुहोस्' : 'Clear Search'}
-              </button>
-            </div>
-          )}
-
           <AnimatePresence mode="popLayout">
             <motion.div layout className="grid-3">
               {filteredDealers.map((d, index) => (
@@ -136,14 +125,15 @@ const Dealers = () => {
                   exit={{ opacity: 0, scale: 0.96 }}
                   className="cyber-card"
                   style={{ 
-                    padding: 32, 
+                    padding: '16px 12px', 
                     display: 'flex', 
                     flexDirection: 'column', 
-                    gap: 20,
+                    gap: 12,
                     background: '#fff',
                     transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
                     borderColor: 'rgba(0,0,0,0.05)',
-                    boxShadow: '0 10px 30px rgba(0,0,0,0.03)',
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.02)',
+                    borderRadius: 20,
                     ...(d.isHead ? { borderBottom: `4px solid var(--nature)` } : {}) 
                   }}
                 >
@@ -159,24 +149,39 @@ const Dealers = () => {
                     <Zap size={18} color="var(--nature)" style={{ opacity: 0.4 }} />
                   </div>
 
-                  <div>
-                    <h2 style={{ fontSize: '2rem', fontWeight: 900, letterSpacing: '-1px', marginBottom: 4, color: 'var(--txt)' }}>{getVal(d.city)}</h2>
-                    <div style={{ display: 'flex', gap: 8, alignItems: 'flex-start', color: 'var(--txt-2)', fontSize: '0.9rem' }}>
-                      <MapPin size={16} color="var(--nature)" style={{ marginTop: 2, flexShrink: 0 }} /> {getVal(d.location)}
+                  <div style={{ marginTop: 'auto' }}>
+                    <h2 style={{ fontSize: '1.25rem', fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 4, color: 'var(--txt)', lineHeight: 1.2 }}>{getVal(d.city)}</h2>
+                    <div style={{ display: 'flex', gap: 6, alignItems: 'flex-start', color: 'var(--txt-2)', fontSize: '0.75rem', marginBottom: 8 }}>
+                      <MapPin size={14} color="var(--nature)" style={{ marginTop: 2, flexShrink: 0 }} /> {getVal(d.location)}
+                    </div>
+                    <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+                      <Phone size={14} color="var(--nature)" />
+                      <span style={{ fontWeight: 800, fontSize: '0.9rem', color: 'var(--txt)' }}>{d.phone}</span>
                     </div>
                   </div>
 
-                  <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                    <Phone size={16} color="var(--nature)" />
-                    <span style={{ fontWeight: 800, fontSize: '1.1rem', color: 'var(--txt)' }}>{d.phone}</span>
-                  </div>
-
-                  <div style={{ display: 'flex', gap: 10, marginTop: 4 }}>
-                    <a href={`tel:${d.phone}`} className="btn-outline" style={{ flex: 1, textAlign: 'center', textDecoration: 'none', padding: '10px' }}>
-                      {t.contactBtn}
+                  <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 6, marginTop: 4 }}>
+                    <a href={`tel:${d.phone}`} className="btn-outline" style={{ 
+                      textAlign: 'center', 
+                      textDecoration: 'none', 
+                      padding: '10px 4px',
+                      fontSize: '0.75rem',
+                      fontWeight: 800,
+                      borderRadius: 12,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: 4
+                    }}>
+                      <Phone size={12} /> {language === 'ne' ? 'कल' : 'Call'}
                     </a>
-                    <button onClick={() => handleViewOnMap(d.query)} className="btn-nature" style={{ flex: 1, fontSize: '0.8rem', padding: '10px' }}>
-                      {language === 'ne' ? 'नक्सामा हेर्नुहोस्' : 'View on Map'}
+                    <button onClick={() => handleViewOnMap(d.query)} className="btn-nature" style={{ 
+                      fontSize: '0.75rem', 
+                      padding: '10px 4px',
+                      borderRadius: 12,
+                      fontWeight: 800
+                    }}>
+                      {language === 'ne' ? 'नक्सा' : 'Map'}
                     </button>
                   </div>
                 </motion.div>
@@ -188,10 +193,10 @@ const Dealers = () => {
 
       {/* Additional Presence Section: Dealers */}
       {filteredAdditional.length > 0 && (
-        <section style={{ padding: '40px 0 120px' }}>
+        <section style={{ padding: '40px 0 80px' }}>
           <div className="container">
             <div style={{ 
-              padding: '60px 40px', 
+              padding: 'clamp(30px, 8vw, 60px) clamp(16px, 4vw, 40px)', 
               background: 'rgba(66,169,46,0.03)', 
               borderRadius: 32, 
               border: '1px solid rgba(66,169,46,0.1)',
@@ -199,44 +204,32 @@ const Dealers = () => {
               position: 'relative',
               overflow: 'hidden'
             }}>
-              <div style={{ position: 'absolute', top: 0, right: 0, width: 200, height: 200, background: 'radial-gradient(circle at top right, rgba(66,169,46,0.1), transparent)', pointerEvents: 'none' }} />
-              
-              <h3 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: 12, color: 'var(--txt)' }}>
+              <h3 style={{ fontWeight: 900, marginBottom: 12, color: 'var(--txt)' }}>
                 {language === 'ne' ? 'आधिकारिक' : 'Authorized'} <span className="electric-text">{language === 'ne' ? 'डिलरहरू' : 'Dealers'}</span>
               </h3>
-              <p style={{ color: 'var(--txt-2)', marginBottom: 40, fontSize: '1.1rem' }}>{language === 'ne' ? 'हाम्रा आधिकारिक डिलरहरू निम्न स्थानहरूमा पनि उपलब्ध छन्। क्लिक गरेर नक्सामा हेर्नुहोस्। ' : 'Our authorized dealers are also available in the following locations. Click to view on map.'}</p>
+              <p style={{ color: 'var(--txt-2)', marginBottom: 40 }}>{language === 'ne' ? 'हाम्रा आधिकारिक डिलरहरू निम्न स्थानहरूमा पनि उपलब्ध छन्।' : 'Our authorized dealers are also available in the following locations.'}</p>
               
-              <div style={{ 
-                display: 'flex', 
-                flexWrap: 'wrap', 
-                justifyContent: 'center', 
-                gap: 15 
-              }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 12 }}>
                 {filteredAdditional.map((loc, i) => (
                   <motion.div 
                     key={i}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    whileHover={{ scale: 1.05, borderColor: 'var(--nature)', color: 'var(--nature)' }}
                     onClick={() => handleViewOnMap(loc.query)}
-                    transition={{ delay: i * 0.05 }}
                     style={{ 
-                      padding: '14px 28px', 
+                      padding: '12px 20px', 
                       background: '#fff', 
                       borderRadius: 16, 
-                      fontSize: '1rem', 
+                      fontSize: '0.9rem', 
                       fontWeight: 800,
                       color: 'var(--txt)',
                       boxShadow: '0 10px 25px rgba(0,0,0,0.04)',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: 10,
+                      gap: 8,
                       border: '1px solid rgba(0,0,0,0.05)',
                       cursor: 'pointer',
-                      transition: 'all 0.3s ease'
                     }}
                   >
-                    <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--nature)', boxShadow: '0 0 10px var(--nature)' }} />
+                    <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--nature)' }} />
                     {getVal(loc)}
                   </motion.div>
                 ))}
@@ -256,28 +249,25 @@ const Dealers = () => {
             boxShadow: '0 30px 60px rgba(0,0,0,0.08)',
             border: '1px solid rgba(66,169,46,0.1)'
           }}>
-            <div style={{ padding: '40px 40px 0', textAlign: 'center' }}>
-              <h3 style={{ fontSize: '2.2rem', fontWeight: 900, marginBottom: 12 }}>
+            <div style={{ padding: 'clamp(24px, 5vw, 40px) clamp(16px, 4vw, 40px) 0', textAlign: 'center' }}>
+              <h3 style={{ fontWeight: 900, marginBottom: 12 }}>
                 {language === 'ne' ? 'हाम्रो' : 'Map'} <span className="electric-text">{language === 'ne' ? 'स्थानहरू' : 'Locations'}</span>
               </h3>
-              <p style={{ color: 'var(--txt-2)', fontSize: '1.1rem', marginBottom: 24 }}>
+              <p style={{ color: 'var(--txt-2)', marginBottom: 24 }}>
                 {language === 'ne' ? 'हाम्रा सबै शाखा र डिलरहरू नक्सामा हेर्नुहोस्।' : 'Find all our branches and dealers on the map.'}
               </p>
 
-              <div style={{ maxWidth: 500, margin: '0 auto 40px', display: 'flex', gap: 10 }}>
+              <div style={{ maxWidth: 500, margin: '0 auto 40px' }}>
                 <select 
                   value={selectedMapQuery}
                   onChange={(e) => setSelectedMapQuery(e.target.value)}
                   style={{ 
-                    flex: 1,
+                    width: '100%',
                     padding: '14px 20px', 
                     borderRadius: '16px', 
                     border: '1px solid rgba(66,169,46,0.2)',
-                    background: '#f9fbf9',
                     fontSize: '1rem',
                     fontWeight: 600,
-                    cursor: 'pointer',
-                    boxShadow: '0 4px 15px rgba(0,0,0,0.02)'
                   }}
                 >
                   <optgroup label={language === 'ne' ? 'शाखाहरू' : 'Branches'}>
@@ -294,7 +284,7 @@ const Dealers = () => {
               </div>
             </div>
 
-            <div style={{ height: 650, width: '100%', position: 'relative', background: '#e5e3df' }}>
+            <div style={{ height: 'clamp(400px, 70vh, 650px)', width: '100%', position: 'relative', background: '#e5e3df' }}>
               <iframe
                 key={selectedMapQuery}
                 title="Kushwaha Motors Locations"
@@ -314,12 +304,12 @@ const Dealers = () => {
                   rel="noopener noreferrer"
                   className="btn-nature"
                   style={{ 
-                    padding: '10px 20px', 
-                    fontSize: '0.85rem', 
+                    padding: '10px 16px', 
+                    fontSize: '0.75rem', 
                     textDecoration: 'none', 
                     display: 'flex', 
                     alignItems: 'center', 
-                    gap: 8,
+                    gap: 6,
                     background: 'rgba(255,255,255,0.95)',
                     color: 'var(--txt)',
                     border: '1px solid rgba(66,169,46,0.2)',
@@ -327,32 +317,32 @@ const Dealers = () => {
                     boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
                   }}
                 >
-                  <Globe size={16} color="var(--nature)" /> {language === 'ne' ? 'नक्सामा खोल्नुहोस्' : 'Open in Maps'}
+                  <Globe size={14} color="var(--nature)" /> {language === 'ne' ? 'नक्सा' : 'Maps'}
                 </a>
               </div>
 
               <div style={{
                 position: 'absolute',
-                bottom: 30,
+                bottom: 20,
                 right: 20,
                 background: 'rgba(255,255,255,0.95)',
                 backdropFilter: 'blur(10px)',
-                padding: '15px 20px',
+                padding: '12px 16px',
                 borderRadius: 16,
                 boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
                 border: '1px solid rgba(66,169,46,0.1)',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 10,
+                gap: 8,
                 zIndex: 10
               }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: '0.85rem', fontWeight: 700 }}>
-                  <div style={{ width: 12, height: 12, borderRadius: '50%', background: 'var(--nature)' }} />
-                  {language === 'ne' ? 'मुख्य कार्यालय / शाखा' : 'Head Office / Branch'}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: '0.75rem', fontWeight: 700 }}>
+                  <div style={{ width: 10, height: 10, borderRadius: '50%', background: 'var(--nature)' }} />
+                  {language === 'ne' ? 'शाखा' : 'Branch'}
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: '0.85rem', fontWeight: 700 }}>
-                  <div style={{ width: 12, height: 12, borderRadius: '50%', background: 'var(--elec)' }} />
-                  {language === 'ne' ? 'आधिकारिक डिलर' : 'Authorized Dealer'}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: '0.75rem', fontWeight: 700 }}>
+                  <div style={{ width: 10, height: 10, borderRadius: '50%', background: 'var(--elec)' }} />
+                  {language === 'ne' ? 'डिलर' : 'Dealer'}
                 </div>
               </div>
             </div>

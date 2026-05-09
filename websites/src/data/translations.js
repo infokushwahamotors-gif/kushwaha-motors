@@ -21,6 +21,17 @@ export const translations = {
       branches: "मुख्य शाखाहरू",
       authorizedDealers: "आधिकारिक डिलरहरू",
       contactBtn: "सम्पर्क गर्नुहोस्"
+    },
+    contact: {
+      title: "सम्पर्क गर्नुहोस्",
+      subtitle: "हाम्रा विद्युतीय सवारी साधनहरूको बारेमा कुनै प्रश्न छ? हाम्रो टोली तपाईंलाई सही सवारी रोज्न मद्दत गर्न यहाँ छ।",
+      formName: "पूरा नाम",
+      formPhone: "फोन नम्बर",
+      formEmail: "इमेल ठेगाना",
+      formVehicle: "रुचि भएको गाडी",
+      formMessage: "सन्देश",
+      formPlaceholder: "हामी तपाईंलाई कसरी मद्दत गर्न सक्छौं?",
+      formBtn: "सन्देश पठाउनुहोस्"
     }
   },
   en: {
@@ -45,6 +56,17 @@ export const translations = {
       branches: "Main Branches",
       authorizedDealers: "Authorized Dealers",
       contactBtn: "Contact Us"
+    },
+    contact: {
+      title: "Contact Us",
+      subtitle: "Have questions about our electric vehicles? Our team is here to help you choose the right ride.",
+      formName: "Full Name",
+      formPhone: "Phone Number",
+      formEmail: "Email Address",
+      formVehicle: "Interested Vehicle",
+      formMessage: "Message",
+      formPlaceholder: "How can we help you?",
+      formBtn: "Send Message"
     }
   }
 };
