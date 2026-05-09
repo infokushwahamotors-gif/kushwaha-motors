@@ -130,7 +130,7 @@ section{position:relative;z-index:1;}
 .nav-logo img { height: 38px; width: auto; object-fit: contain; }
 
 @media (max-width: 480px) {
-  .nav-logo { padding: 4px 10px; }
+  .nav-logo { padding: 4px 8px; background: rgba(255,255,255,0.4); border-color: rgba(19,123,57,0.05); }
   .nav-logo img { height: 26px !important; }
 }
 
@@ -479,4 +479,18 @@ footer{
   color: transparent !important;
   -webkit-text-fill-color: transparent !important;
   background: none !important;
+}
+.text-outline-white-mobile {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+@media (min-width: 1025px) {
+  .text-outline-white-mobile {
+    -webkit-text-stroke: 1.2px #fff;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+    background: none !important;
+    text-shadow: none;
+  }
 }

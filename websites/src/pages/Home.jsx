@@ -78,6 +78,9 @@ const Home = () => {
           align-items: center;
           padding-left: 8vw;
           background: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
         }
         .model-card-inner {
           display: flex;
@@ -86,11 +89,12 @@ const Home = () => {
         @media (max-width: 1024px) {
           .hud-sidebar {
             width: 100%;
-            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0.9) 100%);
-            align-items: flex-end;
-            padding-bottom: 80px;
-            padding-left: 24px;
-            padding-right: 24px;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 30%, rgba(0,0,0,0.9) 100%);
+            justify-content: flex-end;
+            align-items: flex-start;
+            padding-bottom: clamp(60px, 15vh, 120px);
+            padding-left: 20px;
+            padding-right: 20px;
           }
           .banner-slider-container { aspect-ratio: 1 / 1.1; }
           .model-card-inner { flex-direction: column; height: auto; }
@@ -134,19 +138,24 @@ const Home = () => {
         <div className="hud-sidebar">
           <div style={{ maxWidth: 540 }}>
             {/* HUD top badge */}
-            <div className="hud-label" style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.2)', background: 'rgba(255,255,255,0.1)' }}>
+            <div className="hud-label" style={{ 
+              color: '#fff', 
+              borderColor: 'rgba(255,255,255,0.2)', 
+              background: 'rgba(255,255,255,0.1)',
+              marginBottom: 12
+            }}>
               {language === 'ne' ? 'आधिकारिक बिक्रेता - नेपाल' : 'Official Dealer - Nepal'}
             </div>
 
             {/* Main headline */}
-            <h1 style={{ fontWeight: 900, lineHeight: 0.95, letterSpacing: '-2px', marginBottom: 20 }}>
-              <motion.span className="text-outline-white" style={{ display: 'block' }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.7 }}>
+            <h1 style={{ fontWeight: 900, lineHeight: 0.9, letterSpacing: '-2px', marginBottom: 16 }}>
+              <motion.span className="text-outline-white-mobile" style={{ display: 'block' }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.7 }}>
                 {language === 'ne' ? 'विद्युतीय.' : 'Electric.'}
               </motion.span>
-              <motion.span className="electric-text text-outline-white" style={{ display: 'block', fontSize: '105%' }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }}>
+              <motion.span className="electric-text text-outline-white-mobile" style={{ display: 'block', fontSize: '105%' }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }}>
                 {language === 'ne' ? 'प्राकृतिक.' : 'Nature.'}
               </motion.span>
-              <motion.span className="text-outline-white" style={{ display: 'block' }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.7 }}>
+              <motion.span className="text-outline-white-mobile" style={{ display: 'block' }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.7 }}>
                 {language === 'ne' ? 'शक्तिशाली.' : 'Powerful.'}
               </motion.span>
             </h1>
@@ -240,7 +249,7 @@ const Home = () => {
                   onMouseEnter={() => setHoverFeature(i)} onMouseLeave={() => setHoverFeature(null)}
                 >
                   <div style={{ position: 'absolute', top: -30, left: -30, width: 200, height: 200, background: `radial-gradient(circle, ${item.color}15 0%, transparent 65%)`, pointerEvents: 'none' }} />
-                  <div style={{ width: 64, height: 64, borderRadius: '50%', background: `${item.color}15`, color: item.color, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 24 }}>
+                  <div style={{ width: 'clamp(48px, 12vw, 64px)', height: 'clamp(48px, 12vw, 64px)', borderRadius: '50%', background: `${item.color}15`, color: item.color, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 24 }}>
                     {item.icon}
                   </div>
                   <h3 style={{ fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 14, color: 'var(--txt)' }}>{item.title}</h3>

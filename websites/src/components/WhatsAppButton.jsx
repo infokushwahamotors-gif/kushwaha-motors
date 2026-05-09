@@ -9,18 +9,18 @@ const WhatsAppButton = () => {
       className="whatsapp-float"
       style={{
         position: 'fixed',
-        bottom: '24px',
-        left: '16px',
+        bottom: '20px',
+        left: '20px',
         zIndex: 9999,
-        width: 'clamp(44px, 12vw, 54px)',
-        height: 'clamp(44px, 12vw, 54px)',
+        width: 'clamp(40px, 11vw, 48px)',
+        height: 'clamp(40px, 11vw, 48px)',
         borderRadius: '50%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         cursor: 'pointer',
         background: '#25D366',
-        boxShadow: '0 4px 12px rgba(37,211,102,0.4)',
+        boxShadow: '0 4px 12px rgba(37,211,102,0.3)',
         transition: 'all 0.3s var(--ease)',
       }}
       onMouseOver={(e) => {

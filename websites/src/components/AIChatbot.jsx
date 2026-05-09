@@ -496,9 +496,9 @@ const AIChatbot = () => {
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              position: 'fixed', bottom: 90, right: 20, width: 'clamp(300px, 90vw, 380px)', zIndex: 9000,
+              position: 'fixed', bottom: 84, right: 20, width: 'clamp(300px, 90vw, 380px)', zIndex: 9000,
               display: 'flex', flexDirection: 'column',
-              maxHeight: 'calc(100vh - 120px)',
+              maxHeight: 'calc(100vh - 110px)',
             }}
           >
             {/* Main Panel — White & Green */}
@@ -633,7 +633,7 @@ const AIChatbot = () => {
 
       {/* FAB Button */}
       <motion.button onClick={() => setOpen(o => !o)} whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.95 }}
-        style={{ position: 'fixed', bottom: 24, right: 20, width: 'clamp(50px, 14vw, 58px)', height: 'clamp(50px, 14vw, 58px)', borderRadius: '50%', zIndex: 9001, cursor: 'pointer', border: 'none', background: open ? '#fff' : 'linear-gradient(135deg,var(--elec),var(--nature))', border: open ? '2px solid rgba(220,53,69,0.3)' : 'none', boxShadow: open ? '0 4px 20px rgba(0,0,0,0.1)' : '0 6px 24px rgba(19,123,57,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.3s' }}>
+        style={{ position: 'fixed', bottom: 20, right: 20, width: 'clamp(46px, 13vw, 54px)', height: 'clamp(46px, 13vw, 54px)', borderRadius: '50%', zIndex: 9001, cursor: 'pointer', border: 'none', background: open ? '#fff' : 'linear-gradient(135deg,var(--elec),var(--nature))', border: open ? '2px solid rgba(220,53,69,0.3)' : 'none', boxShadow: open ? '0 4px 20px rgba(0,0,0,0.1)' : '0 6px 24px rgba(19,123,57,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.3s' }}>
         {/* Pulse ring when closed */}
         {!open && (
           <motion.div style={{ position: 'absolute', inset: -5, borderRadius: '50%', border: '2px solid rgba(19,123,57,0.3)' }}
