@@ -52,7 +52,8 @@ const ProductDetails = () => {
   return (
     <div style={{ paddingBottom: '100px' }}>
 
-      {/* ── Floating Price Widget (Left, Simple Circle Style) ── */}
+      {/* ── Floating Price Widget (Hidden as per request) ── */}
+      {/* 
       {product.price && (
         <motion.div
           initial={{ opacity: 0, scale: 0.7 }}
@@ -101,6 +102,7 @@ const ProductDetails = () => {
           </a>
         </motion.div>
       )}
+      */}
 
       {/* Hero Section */}
       <section style={{ padding: '160px 0 60px', position: 'relative', overflow: 'hidden', minHeight: '80vh', display: 'flex', alignItems: 'center' }}>
@@ -202,26 +204,26 @@ const ProductDetails = () => {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 30 }}>
           
           {/* Engineering / Specifications */}
-          <motion.div initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }} transition={{ delay: 0.1 }} className="cyber-card" style={{ padding: 45, borderColor: `${product.accent}30`, position: 'relative', overflow: 'hidden' }}>
+          <motion.div initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }} transition={{ delay: 0.1 }} className="cyber-card" style={{ padding: 45, borderColor: `${product.accent}30`, position: 'relative', overflow: 'hidden', background: '#fff' }}>
             <div style={{ position: 'absolute', top: 0, right: 0, width: 150, height: 150, background: `radial-gradient(circle at top right, ${product.accent}20, transparent)`, pointerEvents: 'none' }}></div>
             
-            <h3 style={{ fontSize: '1.4rem', marginBottom: 35, display: 'flex', alignItems: 'center', gap: 12, fontWeight: 800 }}>
+            <h3 style={{ fontSize: '1.4rem', marginBottom: 35, display: 'flex', alignItems: 'center', gap: 12, fontWeight: 800, color: '#111' }}>
               <Cpu size={24} color={product.accent} /> Core Engineering
             </h3>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
               {[
-                { label: 'मोटर क्षमता', val: product.specs.motor, ic: <Zap size={18} color="var(--txt-2)" /> },
-                { label: 'ब्याट्री क्षमता', val: product.specs.battery, ic: <Battery size={18} color="var(--txt-2)" /> },
-                { label: 'अनुमानित रेन्ज', val: product.specs.range, ic: <TrendingUp size={18} color="var(--txt-2)" /> },
-                { label: product.specs.speed ? 'अधिकतम गति' : 'भार / बस्ने क्षमता', val: product.specs.speed || product.specs.capacity, ic: <Shield size={18} color="var(--txt-2)" /> }
+                { label: 'मोटर क्षमता', val: product.specs.motor, ic: <Zap size={18} color="#444" /> },
+                { label: 'ब्याट्री क्षमता', val: product.specs.battery, ic: <Battery size={18} color="#444" /> },
+                { label: 'अनुमानित रेन्ज', val: product.specs.range, ic: <TrendingUp size={18} color="#444" /> },
+                { label: product.specs.speed ? 'अधिकतम गति' : 'भार / बस्ने क्षमता', val: product.specs.speed || product.specs.capacity, ic: <Shield size={18} color="#444" /> }
               ].map((spec, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: 15 }}>
+                <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(0,0,0,0.05)', paddingBottom: 15 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                     {spec.ic}
-                    <span style={{ color: 'var(--txt-2)', fontSize: '1.05rem' }}>{spec.label}</span>
+                    <span style={{ color: '#444', fontSize: '1.05rem', fontWeight: 600 }}>{spec.label}</span>
                   </div>
-                  <span style={{ fontWeight: 800, fontSize: '1.1rem', color: '#fff' }}>{spec.val}</span>
+                  <span style={{ fontWeight: 800, fontSize: '1.15rem', color: '#111' }}>{spec.val}</span>
                 </div>
               ))}
             </div>

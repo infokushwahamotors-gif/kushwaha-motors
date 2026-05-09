@@ -301,9 +301,11 @@ const Home = () => {
                         <h3 style={{ fontSize: '1.8rem', fontWeight: 900, letterSpacing: '-1px', lineHeight: 1.1, marginBottom: 8, marginTop: 16, color: 'var(--txt)' }}>{m.sub}</h3>
                         <p style={{ color: 'var(--txt-2)', lineHeight: 1.7, fontSize: '0.98rem' }}>{m.desc}</p>
                       </div>
+                      {/* 
                       <div style={{ fontSize: '0.75rem', fontWeight: 800, color: m.color, letterSpacing: '0.5px', border: `2px solid ${m.color}30`, borderRadius: 100, padding: '8px 16px', display: 'inline-block', alignSelf: 'flex-start' }}>
                         NPR {m.badge}
                       </div>
+                      */}
                       <Link to="/vehicles" className="btn-outline" style={{ textDecoration: 'none', borderColor: `${m.color}40`, color: m.color, alignSelf: 'flex-start', marginTop: 'auto' }}>
                         सबै मोडलहरू हेर्नुहोस् <ArrowRight size={13} />
                       </Link>
