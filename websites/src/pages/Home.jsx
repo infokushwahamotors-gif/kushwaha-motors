@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Zap, Shield, Leaf, PlayCircle, X, ChevronRight, Radio, MessageSquare, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ParticleField from '../components/ParticleField';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../data/translations';
 
 // ── Mouse parallax tilt ─────────────────────────────────────────────────
 const TiltCard = ({ children, style = {}, className = '' }) => {
@@ -32,6 +34,9 @@ const Counter = ({ target, suffix = '' }) => {
 };
 
 const Home = () => {
+  const { language } = useLanguage();
+  const t = translations[language].home;
+  
   const [videoOpen, setVideoOpen] = useState(false);
   const [hoverFeature, setHoverFeature] = useState(null);
   const [currentBanner, setCurrentBanner] = useState(0);
@@ -126,36 +131,36 @@ const Home = () => {
               animate={{ opacity: 1, x: 0 }}
               style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 20, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 100, padding: '6px 16px' }}>
               <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--elec)', boxShadow: '0 0 10px var(--elec)', display: 'block', animation: 'pulse-dot 2s infinite' }} />
-              <span style={{ fontSize: '0.62rem', fontWeight: 800, color: '#fff', textTransform: 'uppercase', letterSpacing: '1px' }}>आधिकारिक बिक्रेता - नेपाल</span>
+              <span style={{ fontSize: '0.62rem', fontWeight: 800, color: '#fff', textTransform: 'uppercase', letterSpacing: '1px' }}>{language === 'ne' ? 'आधिकारिक बिक्रेता - नेपाल' : 'Official Dealer - Nepal'}</span>
             </motion.div>
 
             {/* Main headline */}
             <h1 style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', fontWeight: 900, lineHeight: 0.95, letterSpacing: '-2px', marginBottom: 20 }}>
               <motion.span className="text-outline-white" style={{ display: 'block' }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.7 }}>
-                विद्युतीय.
+                {language === 'ne' ? 'विद्युतीय.' : 'Electric.'}
               </motion.span>
               <motion.span className="electric-text text-outline-white" style={{ display: 'block', fontSize: '105%' }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }}>
-                प्राकृतिक.
+                {language === 'ne' ? 'प्राकृतिक.' : 'Nature.'}
               </motion.span>
               <motion.span className="text-outline-white" style={{ display: 'block' }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.7 }}>
-                शक्तिशाली.
+                {language === 'ne' ? 'शक्तिशाली.' : 'Powerful.'}
               </motion.span>
             </h1>
 
             {/* Subtext */}
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 0.7 }}
               style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.85)', maxWidth: 450, lineHeight: 1.6, marginBottom: 36, fontWeight: 500 }}>
-              शून्य उत्सर्जन, अधिकतम शक्ति — आधुनिक विद्युतीय प्रविधि र प्रकृतिसँगको हाम्रो प्रतिबद्धता।
+              {t.heroDesc}
             </motion.p>
 
             {/* CTA buttons */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.7 }}
               style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
               <Link to="/vehicles" className="btn-cyber" style={{ padding: '16px 36px', fontSize: '0.95rem' }}>
-                सवारी साधनहरू हेर्नुहोस् <ArrowRight size={17} />
+                {t.ctaVehicles} <ArrowRight size={17} />
               </Link>
               <button onClick={() => setVideoOpen(true)} className="btn-ghost" style={{ border: '1px solid rgba(255,255,255,0.3)', color: '#fff' }}>
-                <PlayCircle size={17} /> भिडियो टुर
+                <PlayCircle size={17} /> {language === 'ne' ? 'भिडियो टुर' : 'Video Tour'}
               </button>
             </motion.div>
           </div>
@@ -186,7 +191,7 @@ const Home = () => {
 
         {/* Scroll indicator */}
         <div style={{ position: 'absolute', bottom: 28, right: 40, zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '1.5px', fontWeight: 700 }}>Scroll</span>
+          <span style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '1.5px', fontWeight: 700 }}>{language === 'ne' ? 'तल स्क्रोल गर्नुहोस्' : 'Scroll Down'}</span>
           <motion.div animate={{ y: [0, 7, 0] }} transition={{ duration: 1.5, repeat: Infinity }}
             style={{ width: 22, height: 36, border: '2px solid rgba(255,255,255,0.2)', borderRadius: 12, display: 'flex', justifyContent: 'center', paddingTop: 6 }}>
             <div style={{ width: 4, height: 8, borderRadius: 2, background: 'var(--elec)' }} />
@@ -201,17 +206,41 @@ const Home = () => {
 
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <div style={{ textAlign: 'center', marginBottom: 60 }}>
-            <div className="hud-label" style={{ justifyContent: 'center' }}>Core Principles</div>
+            <div className="hud-label" style={{ justifyContent: 'center' }}>{language === 'ne' ? 'मुख्य सिद्धान्तहरू' : 'Core Principles'}</div>
             <h2 style={{ fontSize: 'clamp(2rem,4vw,3.5rem)', fontWeight: 900, letterSpacing: '-2px' }}>
-              <span className="electric-text">Infinite</span> Power
+              <span className="electric-text">{language === 'ne' ? 'अनन्त' : 'Infinite'}</span> {language === 'ne' ? 'शक्ति' : 'Power'}
             </h2>
           </div>
 
           <div className="grid-3">
             {[
-              { icon: <Zap size={32} />, title: 'विद्युत्', color: 'var(--elec)', cls: '', stat: '3500W', stl: 'अधिकतम मोटर', desc: 'अत्याधुनिक 72V लिथियम सेल, स्मार्ट पावर व्यवस्थापन, र रिजेनेरेटिभ ब्रेकिङ — शक्ति जसको अनुभव तपाईंले गर्न सक्नुहुन्छ।' },
-              { icon: <Leaf size={32} />, title: 'प्रकृति', color: 'var(--nature)', cls: 'nature', stat: '0g', stl: 'CO₂/KM', desc: 'शून्य प्रत्यक्ष उत्सर्जन। नेपालको जलविद्युतको अर्थ हो तपाईंको यात्रा ईन्धनले होइन, पहाडले चलाउँछ।' },
-              { icon: <Shield size={32} />, title: 'शक्ति', color: 'var(--power)', cls: 'power', stat: '100%', stl: 'सबै बाटोको लागि', desc: 'हिल-क्लाइम्ब सेन्सर, एन्टी-थेफ्ट प्रणाली, डुअल-डिस्क ब्रेक — रोक्न नसकिने, सुरक्षित, र स्मार्ट।' },
+              { 
+                icon: <Zap size={32} />, 
+                title: language === 'ne' ? 'विद्युत्' : 'Electricity', 
+                color: 'var(--elec)', 
+                cls: '', 
+                stat: '3500W', 
+                stl: language === 'ne' ? 'अधिकतम मोटर' : 'Peak Motor', 
+                desc: language === 'ne' ? 'अत्याधुनिक 72V लिथियम सेल, स्मार्ट पावर व्यवस्थापन, र रिजेनेरेटिभ ब्रेकिङ — शक्ति जसको अनुभव तपाईंले गर्न सक्नुहुन्छ।' : 'Advanced 72V lithium cells, smart power management, and regenerative braking — power you can feel.' 
+              },
+              { 
+                icon: <Leaf size={32} />, 
+                title: language === 'ne' ? 'प्रकृति' : 'Nature', 
+                color: 'var(--nature)', 
+                cls: 'nature', 
+                stat: '0g', 
+                stl: 'CO₂/KM', 
+                desc: language === 'ne' ? 'शून्य प्रत्यक्ष उत्सर्जन। नेपालको जलविद्युतको अर्थ हो तपाईंको यात्रा ईन्धनले होइन, पहाडले चलाउँछ।' : 'Zero direct emissions. Nepal\'s hydropower means your journey is powered by the mountains, not fuel.' 
+              },
+              { 
+                icon: <Shield size={32} />, 
+                title: language === 'ne' ? 'शक्ति' : 'Security', 
+                color: 'var(--power)', 
+                cls: 'power', 
+                stat: '100%', 
+                stl: language === 'ne' ? 'सबै बाटोको लागि' : 'For Every Road', 
+                desc: language === 'ne' ? 'हिल-क्लाइम्ब सेन्सर, एन्टी-थेफ्ट प्रणाली, डुअल-डिस्क ब्रेक — रोक्न नसकिने, सुरक्षित, र स्मार्ट।' : 'Hill-climb sensors, anti-theft systems, dual-disc brakes — unstoppable, safe, and smart.' 
+              },
             ].map((item, i) => (
               <TiltCard key={item.title}>
                 <motion.div className={`cyber-card holo ${item.cls}`} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.12 }}
@@ -253,10 +282,10 @@ const Home = () => {
         <div className="container" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
           <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
             <h2 style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', fontWeight: 900, color: '#fff', letterSpacing: '-2px', marginBottom: 20 }}>
-              A New <span className="electric-text">Road Experience</span>
+              {language === 'ne' ? 'एक नयाँ' : 'A New'} <span className="electric-text">{language === 'ne' ? 'सडक अनुभव' : 'Road Experience'}</span>
             </h2>
             <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.2rem', maxWidth: 600, margin: '0 auto' }}>
-              पहाडको लागि डिजाइन गरिएको, सहरको लागि निर्माण गरिएको। गतिशीलताको अर्को पुस्ताको अनुभव लिनुहोस्।
+              {language === 'ne' ? 'पहाडको लागि डिजाइन गरिएको, सहरको लागि निर्माण गरिएको। गतिशीलताको अर्को पुस्ताको अनुभव लिनुहोस्।' : 'Designed for the mountains, built for the city. Experience the next generation of mobility.'}
             </p>
           </motion.div>
         </div>
@@ -276,18 +305,32 @@ const Home = () => {
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 56 }}>
             <div>
-              <div className="hud-label">Our Vehicles</div>
+              <div className="hud-label">{language === 'ne' ? 'हाम्रा सवारीहरू' : 'Our Vehicles'}</div>
               <h2 style={{ fontSize: 'clamp(2rem,4vw,3.5rem)', fontWeight: 900, letterSpacing: '-2px' }}>
-                Choose Your <span className="electric-text">Power</span>
+                {language === 'ne' ? 'आफ्नो' : 'Choose Your'} <span className="electric-text">{language === 'ne' ? 'शक्ति' : 'Power'}</span> {language === 'ne' ? 'छान्नुहोस्' : ''}
               </h2>
             </div>
-            <Link to="/vehicles" className="btn-ghost" style={{ textDecoration: 'none' }}>सबै मोडलहरू हेर्नुहोस् <ArrowRight size={14} /></Link>
+            <Link to="/vehicles" className="btn-ghost" style={{ textDecoration: 'none' }}>{language === 'ne' ? 'सबै मोडलहरू हेर्नुहोस्' : 'View All Models'} <ArrowRight size={14} /></Link>
           </div>
 
           <div className="grid-2">
             {[
-              { title: '२-पाङ्ग्रे', sub: 'सहरी स्कुटर', desc: 'छरितो र आकर्षक। नेपालको सहरी सडकको लागि निर्माण गरिएको।', img: '/red_scooter.webp', color: 'var(--elec)', badge: '१.८ लाख देखि' },
-              { title: '३-पाङ्ग्रे', sub: 'यात्री तथा कार्गो', desc: 'यात्री वा कार्गो ढुवानी — हरेक बाटोमा उत्कृष्ट शक्ति।', img: '/auto.webp', color: 'var(--nature)', badge: '२.८ लाख देखि' },
+              { 
+                title: language === 'ne' ? '२-पाङ्ग्रे' : '2-Wheelers', 
+                sub: language === 'ne' ? 'सहरी स्कुटर' : 'Urban Scooters', 
+                desc: language === 'ne' ? 'छरितो र आकर्षक। नेपालको सहरी सडकको लागि निर्माण गरिएको।' : 'Agile and stylish. Built for Nepal\'s urban roads.', 
+                img: '/red_scooter.webp', 
+                color: 'var(--elec)', 
+                badge: language === 'ne' ? '१.८ लाख देखि' : 'From 1.8 Lakhs' 
+              },
+              { 
+                title: language === 'ne' ? '३-पाङ्ग्रे' : '3-Wheelers', 
+                sub: language === 'ne' ? 'यात्री तथा कार्गो' : 'Passenger & Cargo', 
+                desc: language === 'ne' ? 'यात्री वा कार्गो ढुवानी — हरेक बाटोमा उत्कृष्ट शक्ति।' : 'Passenger or cargo transport — peak power on every road.', 
+                img: '/auto.webp', 
+                color: 'var(--nature)', 
+                badge: language === 'ne' ? '२.८ लाख देखि' : 'From 2.8 Lakhs' 
+              },
             ].map((m, i) => (
               <TiltCard key={m.title}>
                 <motion.div className="cyber-card holo" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }}
@@ -301,13 +344,9 @@ const Home = () => {
                         <h3 style={{ fontSize: '1.8rem', fontWeight: 900, letterSpacing: '-1px', lineHeight: 1.1, marginBottom: 8, marginTop: 16, color: 'var(--txt)' }}>{m.sub}</h3>
                         <p style={{ color: 'var(--txt-2)', lineHeight: 1.7, fontSize: '0.98rem' }}>{m.desc}</p>
                       </div>
-                      {/* 
-                      <div style={{ fontSize: '0.75rem', fontWeight: 800, color: m.color, letterSpacing: '0.5px', border: `2px solid ${m.color}30`, borderRadius: 100, padding: '8px 16px', display: 'inline-block', alignSelf: 'flex-start' }}>
-                        NPR {m.badge}
-                      </div>
-                      */}
+                      
                       <Link to="/vehicles" className="btn-outline" style={{ textDecoration: 'none', borderColor: `${m.color}40`, color: m.color, alignSelf: 'flex-start', marginTop: 'auto' }}>
-                        सबै मोडलहरू हेर्नुहोस् <ArrowRight size={13} />
+                        {language === 'ne' ? 'सबै मोडलहरू हेर्नुहोस्' : 'View All Models'} <ArrowRight size={13} />
                       </Link>
                     </div>
 
@@ -333,17 +372,35 @@ const Home = () => {
 
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <div style={{ textAlign: 'center', marginBottom: 60 }}>
-            <div className="hud-label" style={{ justifyContent: 'center' }}>Rider Experiences</div>
+            <div className="hud-label">{language === 'ne' ? 'राइडर अनुभवहरू' : 'Rider Experiences'}</div>
             <h2 style={{ fontSize: 'clamp(2rem,4vw,3.5rem)', fontWeight: 900, letterSpacing: '-2px' }}>
-              Trusted by <span className="electric-text">Nepal</span>
+              {language === 'ne' ? 'नेपालको' : 'Trusted by'} <span className="electric-text">{language === 'ne' ? 'भरोसा' : 'Nepal'}</span>
             </h2>
           </div>
 
           <div className="grid-3">
             {[
-              { name: 'रमेश थापा', role: 'दैनिक यात्रु', text: 'TM007 Pro मा स्विच गर्नु मेरो सबैभन्दा राम्रो निर्णय थियो। पेट्रोल खर्च शून्य छ र यसले मेरो क्षेत्रको उकालो बाटो सजिलै पार गर्छ।', rating: 5, color: 'var(--elec)' },
-              { name: 'सीता लजिस्टिक', role: 'फ्लिट अपरेटर', text: '३-पाङ्ग्रे कार्गो ई-रिक्सा अत्यन्तै बलियो छ। हाम्रो ढुवानी खर्च उल्लेखनीय रूपमा घटेको छ, र लोड क्षमता वीरगन्जमै बेजोड छ।', rating: 5, color: 'var(--nature)' },
-              { name: 'विकास केसी', role: 'इलेक्ट्रिक उत्साही', text: 'स्मार्ट पावर व्यवस्थापन र रिजेनेरेटिभ ब्रेकिङले यी गाडीहरूलाई धेरै भविष्यमुखी बनाउँछ। साथै, मौन सञ्चालनको अर्थ हरियाली छिमेक हो।', rating: 4, color: 'var(--power)' }
+              { 
+                name: language === 'ne' ? 'रमेश थापा' : 'Ramesh Thapa', 
+                role: language === 'ne' ? 'दैनिक यात्रु' : 'Daily Commuter', 
+                text: language === 'ne' ? 'TM007 Pro मा स्विच गर्नु मेरो सबैभन्दा राम्रो निर्णय थियो। पेट्रोल खर्च शून्य छ र यसले मेरो क्षेत्रको उकालो बाटो सजिलै पार गर्छ।' : 'Switching to TM007 Pro was my best decision. Fuel cost is zero and it tackles uphill roads in my area easily.', 
+                rating: 5, 
+                color: 'var(--elec)' 
+              },
+              { 
+                name: language === 'ne' ? 'सीता लजिस्टिक' : 'Sita Logistics', 
+                role: language === 'ne' ? 'फ्लिट अपरेटर' : 'Fleet Operator', 
+                text: language === 'ne' ? '३-पाङ्ग्रे कार्गो ई-रिक्सा अत्यन्तै बलियो छ। हाम्रो ढुवानी खर्च उल्लेखनीय रूपमा घटेको छ, र लोड क्षमता वीरगन्जमै बेजोड छ।' : 'The 3-wheeler cargo e-rickshaw is incredibly strong. Our transport costs have dropped significantly, and the load capacity is unmatched in Birgunj.', 
+                rating: 5, 
+                color: 'var(--nature)' 
+              },
+              { 
+                name: language === 'ne' ? 'विकास केसी' : 'Bikas KC', 
+                role: language === 'ne' ? 'इलेक्ट्रिक उत्साही' : 'EV Enthusiast', 
+                text: language === 'ne' ? 'स्मार्ट पावर व्यवस्थापन र रिजेनेरेटिभ ब्रेकिङले यी गाडीहरूलाई धेरै भविष्यमुखी बनाउँछ। साथै, मौन सञ्चालनको अर्थ हरियाली छिमेक हो।' : 'Smart power management and regenerative braking make these vehicles very future-oriented. Plus, silent operation means a greener neighborhood.', 
+                rating: 4, 
+                color: 'var(--power)' 
+              }
             ].map((t, i) => (
               <TiltCard key={t.name}>
                 <motion.div className="cyber-card" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }}
@@ -379,15 +436,15 @@ const Home = () => {
           <div className="cyber-card holo" style={{ padding: '80px 60px', textAlign: 'center', background: 'linear-gradient(135deg,rgba(66,169,46,0.06) 0%,rgba(19,123,57,0.03) 100%)', position: 'relative', overflow: 'hidden' }}>
             <ParticleField count={30} opacity={0.5} />
             <div style={{ position: 'relative', zIndex: 2 }}>
-              <div className="hud-label" style={{ justifyContent: 'center' }}>Ready for a Change?</div>
+              <div className="hud-label" style={{ justifyContent: 'center' }}>{language === 'ne' ? 'परिवर्तनको लागि तयार हुनुहुन्छ?' : 'Ready for a Change?'}</div>
               <h2 style={{ fontSize: 'clamp(2rem,4vw,3.5rem)', fontWeight: 900, letterSpacing: '-2px', marginBottom: 20 }}>
-                Book a <span className="electric-text">Free Test Ride</span>
+                {language === 'ne' ? 'नि:शुल्क' : 'Book a'} <span className="electric-text">{language === 'ne' ? 'टेस्ट राइड' : 'Free Test Ride'}</span> {language === 'ne' ? 'बुक गर्नुहोस्' : ''}
               </h2>
               <p style={{ color: 'var(--txt-2)', fontSize: '1.05rem', maxWidth: 500, margin: '0 auto 40px', lineHeight: 1.85 }}>
-                हाम्रो नजिकैको शोरुममा आउनुहोस् र नेपालको सर्वश्रेष्ठ विद्युतीय यात्राको अनुभव लिनुहोस्।
+                {language === 'ne' ? 'हाम्रो नजिकैको शोरुममा आउनुहोस् र नेपालको सर्वश्रेष्ठ विद्युतीय यात्राको अनुभव लिनुहोस्।' : 'Visit our nearest showroom and experience Nepal\'s finest electric journey.'}
               </p>
               <Link to="/contact" className="btn-cyber" style={{ textDecoration: 'none', fontSize: '0.95rem', padding: '17px 48px' }}>
-                अहिले नै बुक गर्नुहोस् <ArrowRight size={18} />
+                {language === 'ne' ? 'अहिले नै बुक गर्नुहोस्' : 'Book Now'} <ArrowRight size={18} />
               </Link>
             </div>
           </div>
@@ -410,8 +467,8 @@ const Home = () => {
                 <ParticleField count={40} opacity={0.4} />
                 <div style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
                   <PlayCircle size={80} color="var(--nature)" style={{ filter: 'drop-shadow(0 4px 12px rgba(66,169,46,0.3))', marginBottom: 20 }} />
-                  <h3 style={{ fontSize: '1.5rem', fontWeight: 800 }}>कुशवाहा मोटर्स — हरित बाटो</h3>
-                  <p style={{ color: 'var(--txt-2)', marginTop: 8 }}>भिडियो छिटै आउँदैछ। प्रत्यक्ष डेमोको लागि हाम्रो शोरुममा आउनुहोस्।</p>
+                  <h3 style={{ fontSize: '1.5rem', fontWeight: 800 }}>{language === 'ne' ? 'कुशवाहा मोटर्स — हरित बाटो' : 'Kushwaha Motors — Green Road'}</h3>
+                  <p style={{ color: 'var(--txt-2)', marginTop: 8 }}>{language === 'ne' ? 'भिडियो छिटै आउँदैछ। प्रत्यक्ष डेमोको लागि हाम्रो शोरुममा आउनुहोस्।' : 'Video coming soon. Visit our showroom for a live demo.'}</p>
                 </div>
               </div>
             </motion.div>

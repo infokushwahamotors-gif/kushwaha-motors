@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Bot, User, RefreshCw } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import NaiveBayesClassifier from '../utils/ml-classifier';
+import { useLanguage } from '../context/LanguageContext';
 
 // Initialize EmailJS
 emailjs.init('lVQkPWqNEo_WbrR2h');
@@ -159,7 +160,7 @@ const TRAINING_DATA = {
       "Since you don't travel long distances, our **2-Wheeler EV Scooters (like the TM007)** are your absolute best match! 🛵\n\nIt gives you 150 KM per charge, meaning for short local rides, you might only need to charge it once a week. Plus, zero oil changes and zero petrol costs! Would you like to book a free test ride?"
     ],
     responses_ne: [
-      "तपाईं लामो दूरी यात्रा नगर्ने हुनाले, हाम्रो **२-पाङ्ग्रे EV स्कुटर (जस्तै TM007)** तपाईंको लागि उत्तम छ! 🛵\n\nयसले १५० किमी प्रति चार्ज दिन्छ, जसको मतलब छोटो स्थानीय यात्राको लागि तपाईंले हप्तामा एक पटक मात्र चार्ज गरे पुग्छ। साथै, पेट्रोल र सर्भिसिङको खर्च शून्य! के तपाईं नि:शुल्क टेस्ट राइड बुक गर्न चाहनुहुन्छ?"
+      "तपाईं लामो दूरी यात्रा नगर्ने हुनाले, हाम्रो **२-पाङ्ग्रे EV स्कुटर (जस्तै TM007)** तपाईंको लागि उत्तम छ! 🛵\n\nयसले १५० किमी प्रति charge दिन्छ, जसको मतलब छोटो स्थानीय यात्राको लागि तपाईंले हप्तामा एक पटक मात्र चार्ज गरे पुग्छ। साथै, पेट्रोल र सर्भिसिङको खर्च शून्य! के तपाईं नि:शुल्क टेस्ट राइड बुक गर्न चाहनुहुन्छ?"
     ]
   },
 
@@ -256,7 +257,6 @@ const TRAINING_DATA = {
   }
 };
 
-
 // ── Instantiate and Train Local ML Model ──────────────────────────────────
 const mlModel = new NaiveBayesClassifier();
 
@@ -298,7 +298,6 @@ const formatMsg = (text) => {
   });
 };
 
-const QUICK_REPLIES = ['Why are your vehicles the best?', 'Compare 2-Wheelers', 'Details of 3-Wheelers', 'Price list', 'Book test ride'];
 const TYPING_DELAY = 1200;
 
 // ── AI Persona Generator ──────────────────────────────────────────────────
@@ -336,6 +335,7 @@ const generateSalesPersona = (leadData, messages) => {
 
 // ── Main Chatbot Component ───────────────────────────────────────────────
 const AIChatbot = () => {
+  const { language: globalLanguage } = useLanguage();
   const [open, setOpen] = useState(false);
   const [language, setLanguage] = useState(null); // 'en' or 'ne'
   const [messages, setMessages] = useState([
@@ -360,6 +360,19 @@ const AIChatbot = () => {
   useEffect(() => {
     if (open && inputRef.current) setTimeout(() => inputRef.current?.focus(), 300);
   }, [open]);
+
+  // Sync with global language on open
+  useEffect(() => {
+    if (open && !language) {
+      if (globalLanguage === 'ne') {
+        setLanguage('ne');
+        setMessages([{ id: Date.now(), role: 'bot', text: "नमस्ते! 🙏 म KM-AI हुँ, Kushwaha Motors को आधिकारिक सहायक। के तपाईं व्यक्तिगत वा व्यापारिक प्रयोजनको लागि गाडी खोज्दै हुनुहुन्छ? तपाईंको आवश्यकता बताउनुहोस्, म उत्कृष्ट विकल्प खोज्न मद्दत गर्नेछु!" }]);
+      } else if (globalLanguage === 'en') {
+        setLanguage('en');
+        setMessages([{ id: Date.now(), role: 'bot', text: "Hello! 🙏 I'm KM-AI, Kushwaha Motors' official assistant. Are you looking for a vehicle for personal use or business? Tell me what you need, and I'll find the perfect match for you!" }]);
+      }
+    }
+  }, [open, globalLanguage, language]);
 
   const handleLeadFlow = async (msg) => {
     let nextState = 'idle';
@@ -639,5 +652,3 @@ const AIChatbot = () => {
 };
 
 export default AIChatbot;
-
-

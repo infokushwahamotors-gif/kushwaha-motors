@@ -4,6 +4,8 @@ import emailjs from '@emailjs/browser';
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle2, Zap, AlertTriangle } from 'lucide-react';
 import ParticleField from '../components/ParticleField';
 import WhatsAppButton from '../components/WhatsAppButton';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../data/translations';
 
 // ══════════════════════════════════════════════════════════════════
 const EMAILJS_SERVICE_ID  = 'service_u0ym8nu';       // ✅ Set
@@ -13,31 +15,33 @@ const EMAILJS_PUBLIC_KEY  = 'lVQkPWqNEo_WbrR2h';     // ✅ Set
 // Initialize EmailJS once at module level
 emailjs.init(EMAILJS_PUBLIC_KEY);
 
-const CONTACT_INFO = [
-  { icon: <MapPin size={20} />, label: 'Address',  value: 'Trimurti Chowk, Birgunj, Parsa, Nepal', color: 'var(--elec)' },
-  { icon: <Phone size={20} />, label: 'Hotline',   value: '+977-9821107355 / 9801082474',           color: 'var(--nature)' },
-  { icon: <Mail  size={20} />, label: 'Email',     value: 'info@kushwahamotors.com.np',             color: 'var(--elec)' },
-  { icon: <Clock size={20} />, label: 'Timing',     value: 'Sun–Fri: 9:00 AM – 6:00 PM',            color: 'var(--nature)' },
-];
-
-const VEHICLES = [
-  '2-Wheeler Scooter (TM007 Pro)',
-  '2-Wheeler Scooter (V7G Urban)',
-  '3-Wheeler Passenger (KM-E5L)',
-  '3-Wheeler Passenger (FT-3)',
-  '3-Wheeler School Bus (KM-V3)',
-  '3-Wheeler Cargo (MAX-60C)',
-  '3-Wheeler Cargo (LM-3)',
-  '3-Wheeler Cargo (JC-48)',
-  'Just Enquiring',
-];
-
 const EMPTY = { name: '', phone: '', email: '', vehicle: '', message: '' };
 
 const Contact = () => {
+  const { language } = useLanguage();
+  const t = translations[language].contact;
   const formRef = useRef(null);
   const [form, setForm]     = useState(EMPTY);
   const [status, setStatus] = useState('idle'); // idle | loading | success | error
+
+  const CONTACT_INFO = [
+    { icon: <MapPin size={20} />, label: language === 'ne' ? 'ठेगाना' : 'Address',  value: language === 'ne' ? 'त्रिमूर्ति चोक, वीरगन्ज, पर्सा, नेपाल' : 'Trimurti Chowk, Birgunj, Parsa, Nepal', color: 'var(--elec)' },
+    { icon: <Phone size={20} />, label: language === 'ne' ? 'हटलाइन' : 'Hotline',   value: '+977-9821107355 / 9801082474',           color: 'var(--nature)' },
+    { icon: <Mail  size={20} />, label: language === 'ne' ? 'इमेल' : 'Email',     value: 'info@kushwahamotors.com.np',             color: 'var(--elec)' },
+    { icon: <Clock size={20} />, label: language === 'ne' ? 'समय' : 'Timing',     value: language === 'ne' ? 'आइत–शुक्र: ९:०० AM – ६:०० PM' : 'Sun–Fri: 9:00 AM – 6:00 PM',            color: 'var(--nature)' },
+  ];
+
+  const VEHICLES = [
+    '2-Wheeler Scooter (TM007 Pro)',
+    '2-Wheeler Scooter (V7G Urban)',
+    '3-Wheeler Passenger (KM-E5L)',
+    '3-Wheeler Passenger (FT-3)',
+    '3-Wheeler School Bus (KM-V3)',
+    '3-Wheeler Cargo (MAX-60C)',
+    '3-Wheeler Cargo (LM-3)',
+    '3-Wheeler Cargo (JC-48)',
+    language === 'ne' ? 'सामान्य सोधपुछ' : 'Just Enquiring',
+  ];
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -118,12 +122,12 @@ const Contact = () => {
         
         <div className="container text-center" style={{ position: 'relative', zIndex: 1 }}>
           <div style={{ position: 'relative', zIndex: 2 }}>
-            <div className="hud-label" style={{ justifyContent: 'center', borderColor: '#fff' }}>Contact Us</div>
+            <div className="hud-label" style={{ justifyContent: 'center', borderColor: '#fff' }}>{language === 'ne' ? 'सम्पर्क गर्नुहोस्' : 'Contact Us'}</div>
             <h1 style={{ fontSize: 'clamp(2.5rem,5vw,4.5rem)', fontWeight: 900, letterSpacing: '-2px', marginBottom: 20, color: '#fff' }}>
-              Let's <span className="electric-text">Talk</span>
+              {language === 'ne' ? 'आउनुहोस्' : "Let's"} <span className="electric-text">{language === 'ne' ? 'कुरा' : 'Talk'}</span> {language === 'ne' ? 'गरौं' : ''}
             </h1>
             <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.1rem', maxWidth: 600, margin: '0 auto', fontWeight: 500 }}>
-              Book a test ride, get pricing, or find answers to any questions — we are here to help.
+              {t.subtitle}
             </p>
           </div>
         </div>
@@ -140,8 +144,8 @@ const Contact = () => {
 
             {/* Info card */}
             <div className="cyber-card" style={{ padding: 36 }}>
-              <div className="hud-label">Showroom Info</div>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 28 }}>Find Us</h2>
+              <div className="hud-label">{language === 'ne' ? 'शोरुम जानकारी' : 'Showroom Info'}</div>
+              <h2 style={{ fontSize: '1.5rem', fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 28 }}>{language === 'ne' ? 'हामीलाई भेट्नुहोस्' : 'Find Us'}</h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
                 {CONTACT_INFO.map(({ icon, label, value, color }) => (
                   <div key={label} style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
@@ -160,9 +164,9 @@ const Contact = () => {
             {/* CTA */}
             <div className="cyber-card" style={{ padding: 28, textAlign: 'center', background: 'var(--bg-card)' }}>
               <Zap size={32} color="var(--nature)" style={{ margin: '0 auto 12px' }} />
-              <div style={{ fontSize: '1.4rem', fontWeight: 900, letterSpacing: '-1px', marginBottom: 8 }}>Free Test Ride</div>
-              <p style={{ color: 'var(--txt-2)', marginBottom: 18, fontSize: '0.88rem', lineHeight: 1.7 }}>Visit any of our showrooms and get a free test ride.</p>
-              <a href="tel:9821107355" className="btn-cyber" style={{ textDecoration: 'none' }}>📞 Call for an Appointment</a>
+              <div style={{ fontSize: '1.4rem', fontWeight: 900, letterSpacing: '-1px', marginBottom: 8 }}>{language === 'ne' ? 'निःशुल्क टेस्ट राइड' : 'Free Test Ride'}</div>
+              <p style={{ color: 'var(--txt-2)', marginBottom: 18, fontSize: '0.88rem', lineHeight: 1.7 }}>{language === 'ne' ? 'हाम्रो कुनै पनि शोरुममा जानुहोस् र निःशुल्क टेस्ट राइड लिनुहोस्।' : 'Visit any of our showrooms and get a free test ride.'}</p>
+              <a href="tel:9821107355" className="btn-cyber" style={{ textDecoration: 'none' }}>{language === 'ne' ? '📞 अपोइन्टमेन्टको लागि कल गर्नुहोस्' : '📞 Call for an Appointment'}</a>
             </div>
           </motion.div>
 
@@ -178,56 +182,56 @@ const Contact = () => {
                       <motion.div animate={{ scale: [1, 1.4, 1], opacity: [0.8, 0, 0.8] }} transition={{ duration: 2, repeat: Infinity }}
                         style={{ position: 'absolute', inset: -8, borderRadius: '50%', border: '2px solid var(--nature)' }} />
                     </div>
-                    <h3 style={{ fontSize: '2rem', fontWeight: 900, letterSpacing: '-1px', marginBottom: 12, color: 'var(--nature)' }}>Message Sent!</h3>
-                    <p style={{ color: 'var(--txt-2)', lineHeight: 1.8, marginBottom: 8 }}>Our team will contact you within 24 hours.</p>
+                    <h3 style={{ fontSize: '2rem', fontWeight: 900, letterSpacing: '-1px', marginBottom: 12, color: 'var(--nature)' }}>{language === 'ne' ? 'सन्देश पठाइयो!' : 'Message Sent!'}</h3>
+                    <p style={{ color: 'var(--txt-2)', lineHeight: 1.8, marginBottom: 8 }}>{language === 'ne' ? 'हाम्रो टोलीले २४ घण्टाभित्र तपाईंलाई सम्पर्क गर्नेछ।' : 'Our team will contact you within 24 hours.'}</p>
                   </motion.div>
                 ) : status === 'error' ? (
                   <motion.div key="error" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}
                     style={{ textAlign: 'center', padding: '40px 20px' }}>
                     <AlertTriangle size={64} color="var(--power)" style={{ margin: '0 auto 16px' }} />
-                    <h3 style={{ fontSize: '1.6rem', fontWeight: 900, marginBottom: 12, color: 'var(--power)' }}>Failed to Send</h3>
+                    <h3 style={{ fontSize: '1.6rem', fontWeight: 900, marginBottom: 12, color: 'var(--power)' }}>{language === 'ne' ? 'पठाउन असफल भयो' : 'Failed to Send'}</h3>
                     <p style={{ color: 'var(--txt-2)', marginBottom: 20, lineHeight: 1.7 }}>
-                      Please contact us directly at <strong style={{ color: 'var(--txt)' }}>+977-9821107355</strong>
+                      {language === 'ne' ? 'कृपया हामीलाई सिधै सम्पर्क गर्नुहोस्' : 'Please contact us directly at'} <strong style={{ color: 'var(--txt)' }}>+977-9821107355</strong>
                     </p>
-                    <button onClick={() => setStatus('idle')} className="btn-outline">Try Again</button>
+                    <button onClick={() => setStatus('idle')} className="btn-outline">{language === 'ne' ? 'फेरि प्रयास गर्नुहोस्' : 'Try Again'}</button>
                   </motion.div>
                 ) : (
                   <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                    <div className="hud-label">Contact Form</div>
-                    <h2 style={{ fontSize: '1.8rem', fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 32 }}>Send a Message</h2>
+                    <div className="hud-label">{language === 'ne' ? 'सम्पर्क फारम' : 'Contact Form'}</div>
+                    <h2 style={{ fontSize: '1.8rem', fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 32 }}>{language === 'ne' ? 'सन्देश पठाउनुहोस्' : 'Send a Message'}</h2>
 
                     <form ref={formRef} onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
                       {/* Name + Phone */}
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                         <div>
-                          <label style={{ display: 'block', fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>Full Name *</label>
-                          <input type="text" name="name" required value={form.name} onChange={handleChange} placeholder="Your Name" />
+                          <label style={{ display: 'block', fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>{language === 'ne' ? 'पूरा नाम *' : 'Full Name *'}</label>
+                          <input type="text" name="name" required value={form.name} onChange={handleChange} placeholder={language === 'ne' ? 'तपाईंको नाम' : 'Your Name'} />
                         </div>
                         <div>
-                          <label style={{ display: 'block', fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>Phone *</label>
+                          <label style={{ display: 'block', fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>{language === 'ne' ? 'फोन *' : 'Phone *'}</label>
                           <input type="tel" name="phone" required value={form.phone} onChange={handleChange} placeholder="+977 98XXXXXXXX" />
                         </div>
                       </div>
 
                       {/* Email */}
                       <div>
-                        <label style={{ display: 'block', fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>Email Address</label>
-                        <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="your@email.com (Optional)" />
+                        <label style={{ display: 'block', fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>{language === 'ne' ? 'इमेल ठेगाना' : 'Email Address'}</label>
+                        <input type="email" name="email" value={form.email} onChange={handleChange} placeholder={language === 'ne' ? 'तपाईंको इमेल (वैकल्पिक)' : 'your@email.com (Optional)'} />
                       </div>
 
                       {/* Vehicle */}
                       <div>
-                        <label style={{ display: 'block', fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>Interested Vehicle</label>
+                        <label style={{ display: 'block', fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>{language === 'ne' ? 'रुचि भएको गाडी' : 'Interested Vehicle'}</label>
                         <select name="vehicle" value={form.vehicle} onChange={handleChange}>
-                          <option value="">Choose Model…</option>
+                          <option value="">{language === 'ne' ? 'मोडेल छान्नुहोस्…' : 'Choose Model…'}</option>
                           {VEHICLES.map(v => <option key={v}>{v}</option>)}
                         </select>
                       </div>
 
                       {/* Message */}
                       <div>
-                        <label style={{ display: 'block', fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>Message *</label>
-                        <textarea name="message" required rows={5} value={form.message} onChange={handleChange} placeholder="How can we help you? Ask about pricing, test rides, etc..." />
+                        <label style={{ display: 'block', fontSize: '0.62rem', fontWeight: 700, color: 'var(--txt-2)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>{language === 'ne' ? 'सन्देश *' : 'Message *'}</label>
+                        <textarea name="message" required rows={5} value={form.message} onChange={handleChange} placeholder={t.formPlaceholder} />
                       </div>
 
                       <button type="submit" className="btn-cyber" disabled={status === 'loading'}
@@ -235,10 +239,10 @@ const Contact = () => {
                         {status === 'loading' ? (
                           <>
                             <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }} style={{ width: 16, height: 16, border: '2px solid #fff', borderTopColor: 'transparent', borderRadius: '50%' }} />
-                            Sending…
+                            {language === 'ne' ? 'पठाउँदै…' : 'Sending…'}
                           </>
                         ) : (
-                          <><Send size={16} /> Send Message</>
+                          <><Send size={16} /> {t.formBtn}</>
                         )}
                       </button>
                     </form>
@@ -263,8 +267,8 @@ const Contact = () => {
         <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', pointerEvents: 'none' }}>
           <div className="cyber-card" style={{ padding: '12px 18px', textAlign: 'center', whiteSpace: 'nowrap', borderRadius: '100px', background: 'rgba(255,255,255,0.95)' }}>
             <MapPin size={16} color="var(--elec)" style={{ marginBottom: 4 }} />
-            <div style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--txt)' }}>KUSHWAHA MOTORS HQ</div>
-            <div style={{ fontSize: '0.76rem', color: 'var(--txt-2)', marginTop: 2 }}>Trimurti Chowk, Birgunj</div>
+            <div style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--txt)' }}>{language === 'ne' ? 'कुशवाहा मोटर्स मुख्य कार्यालय' : 'KUSHWAHA MOTORS HQ'}</div>
+            <div style={{ fontSize: '0.76rem', color: 'var(--txt-2)', marginTop: 2 }}>{language === 'ne' ? 'त्रिमूर्ति चोक, वीरगन्ज' : 'Trimurti Chowk, Birgunj'}</div>
           </div>
         </div>
       </div>

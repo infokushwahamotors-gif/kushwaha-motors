@@ -3,8 +3,13 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown, ChevronRight } from 'lucide-react';
 import { PRODUCTS } from '../data/products';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../data/translations';
 
 const Navbar = () => {
+  const { language } = useLanguage();
+  const t = translations[language].nav;
+  
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
@@ -50,8 +55,8 @@ const Navbar = () => {
 
           {/* Desktop Nav */}
           <div className="nav-links">
-            <Link to="/" className={location.pathname === '/' ? 'active' : ''}>Home</Link>
-            <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>About Us</Link>
+            <Link to="/" className={location.pathname === '/' ? 'active' : ''}>{t.home}</Link>
+            <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>{t.about}</Link>
             
             {/* Vehicles Dropdown */}
             <div ref={dropdownRef} style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
@@ -66,7 +71,7 @@ const Navbar = () => {
                   transition: 'color 0.3s'
                 }}
               >
-                Vehicles <ChevronDown size={14} style={{ transform: vehiclesDropdownOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }}/>
+                {t.vehicles} <ChevronDown size={14} style={{ transform: vehiclesDropdownOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }}/>
               </button>
 
               <AnimatePresence>
@@ -86,7 +91,7 @@ const Navbar = () => {
                   >
                     {/* Category Toggles */}
                     <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
-                      {[['twoWheeler', '🛵 २ पाङ्ग्रे'], ['threeWheeler', '🛺 ३ पाङ्ग्रे']].map(([cat, label]) => (
+                      {[[ 'twoWheeler', language === 'ne' ? '🛵 २ पाङ्ग्रे' : '🛵 2-Wheelers' ], [ 'threeWheeler', language === 'ne' ? '🛺 ३ पाङ्ग्रे' : '🛺 3-Wheelers' ]].map(([cat, label]) => (
                         <button 
                           key={cat}
                           onMouseEnter={() => setHoveredCategory(cat)}
@@ -138,16 +143,16 @@ const Navbar = () => {
                       display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px',
                       paddingTop: '16px', borderTop: '1px solid rgba(0,0,0,0.05)'
                     }}>
-                      {hoveredCategory === 'twoWheeler' ? '२ पाङ्ग्रे' : '३ पाङ्ग्रे'} श्रेणी अन्वेषण गर्नुहोस् <ChevronRight size={14} />
+                      {hoveredCategory === 'twoWheeler' ? (language === 'ne' ? '२ पाङ्ग्रे' : 'Two Wheeler') : (language === 'ne' ? '३ पाङ्ग्रे' : 'Three Wheeler')} {language === 'ne' ? 'श्रेणी अन्वेषण गर्नुहोस्' : 'Explore Category'} <ChevronRight size={14} />
                     </Link>
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
 
-            <Link to="/dealers" className={location.pathname === '/dealers' ? 'active' : ''}>Dealers</Link>
-            <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''}>Contact</Link>
-            <Link to="/contact" className="btn-ride">Book Test Ride</Link>
+            <Link to="/dealers" className={location.pathname === '/dealers' ? 'active' : ''}>{t.dealers}</Link>
+            <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''}>{t.contact}</Link>
+            <Link to="/contact" className="btn-ride">{language === 'ne' ? 'टेस्ट राइड बुक गर्नुहोस्' : 'Book Test Ride'}</Link>
           </div>
 
           <button className="menu-toggle" aria-label="Toggle Menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -165,8 +170,8 @@ const Navbar = () => {
               className="mobile-menu"
               style={{ paddingBottom: '32px' }}
             >
-              <Link to="/" onClick={() => setIsMenuOpen(false)} className={location.pathname === '/' ? 'active' : ''}>Home</Link>
-              <Link to="/about" onClick={() => setIsMenuOpen(false)} className={location.pathname === '/about' ? 'active' : ''}>About Us</Link>
+              <Link to="/" onClick={() => setIsMenuOpen(false)} className={location.pathname === '/' ? 'active' : ''}>{t.home}</Link>
+              <Link to="/about" onClick={() => setIsMenuOpen(false)} className={location.pathname === '/about' ? 'active' : ''}>{t.about}</Link>
               
               {/* Mobile Vehicles Accordion */}
               <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -181,7 +186,7 @@ const Navbar = () => {
                     padding: 0, textAlign: 'left'
                   }}
                 >
-                  Vehicles <ChevronDown size={14} style={{ transform: vehiclesDropdownOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }}/>
+                  {t.vehicles} <ChevronDown size={14} style={{ transform: vehiclesDropdownOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }}/>
                 </button>
                 
                 <AnimatePresence>
@@ -193,7 +198,7 @@ const Navbar = () => {
                       style={{ overflow: 'hidden', display: 'flex', flexDirection: 'column', gap: '16px' }}
                     >
                       <div style={{ display: 'flex', gap: '8px' }}>
-                        {[['twoWheeler', '२ पाङ्ग्रे'], ['threeWheeler', '३ पाङ्ग्रे']].map(([cat, label]) => (
+                        {[[ 'twoWheeler', language === 'ne' ? '२ पाङ्ग्रे' : '2 Wheeler' ], [ 'threeWheeler', language === 'ne' ? '३ पाङ्ग्रे' : '3 Wheeler' ]].map(([cat, label]) => (
                           <button 
                             key={cat}
                             onClick={() => setHoveredCategory(cat)}
@@ -228,15 +233,15 @@ const Navbar = () => {
                           </Link>
                         ))}
                       </div>
-                      <Link to={`/vehicles?category=${hoveredCategory}`} onClick={() => setIsMenuOpen(false)} style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--elec)', textDecoration: 'underline' }}>सबै {hoveredCategory === 'twoWheeler' ? '२ पाङ्ग्रेहरू' : '३ पाङ्ग्रेहरू'} हेर्नुहोस्</Link>
+                      <Link to={`/vehicles?category=${hoveredCategory}`} onClick={() => setIsMenuOpen(false)} style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--elec)', textDecoration: 'underline' }}>{language === 'ne' ? `सबै ${hoveredCategory === 'twoWheeler' ? '२ पाङ्ग्रेहरू' : '३ पाङ्ग्रेहरू'} हेर्नुहोस्` : `View all ${hoveredCategory === 'twoWheeler' ? 'Two Wheelers' : 'Three Wheelers'}`}</Link>
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
 
-              <Link to="/dealers" onClick={() => setIsMenuOpen(false)} className={location.pathname === '/dealers' ? 'active' : ''}>Dealers</Link>
-              <Link to="/contact" onClick={() => setIsMenuOpen(false)} className={location.pathname === '/contact' ? 'active' : ''}>Contact</Link>
-              <Link to="/contact" className="btn-ride" style={{ textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>Book Test Ride</Link>
+              <Link to="/dealers" onClick={() => setIsMenuOpen(false)} className={location.pathname === '/dealers' ? 'active' : ''}>{t.dealers}</Link>
+              <Link to="/contact" onClick={() => setIsMenuOpen(false)} className={location.pathname === '/contact' ? 'active' : ''}>{t.contact}</Link>
+              <Link to="/contact" className="btn-ride" style={{ textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>{language === 'ne' ? 'टेस्ट राइड बुक गर्नुहोस्' : 'Book Test Ride'}</Link>
             </motion.div>
           )}
         </AnimatePresence>

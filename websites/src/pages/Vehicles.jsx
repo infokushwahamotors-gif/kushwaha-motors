@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Zap, Battery, Shield, Users, ArrowRight, CheckCircle2, Cpu } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import ParticleField from '../components/ParticleField';
-
 import ProductCard from '../components/ProductCard';
 import { PRODUCTS } from '../data/products';
+import { useLanguage } from '../context/LanguageContext';
 
 // Map type param keywords to product type strings
 const TYPE_KEYWORDS = {
@@ -15,6 +15,7 @@ const TYPE_KEYWORDS = {
 };
 
 const Vehicles = () => {
+  const { language } = useLanguage();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const category = queryParams.get('category');
@@ -25,9 +26,10 @@ const Vehicles = () => {
     let pool = PRODUCTS[category];
     if (typeFilter && TYPE_KEYWORDS[typeFilter]) {
       const keywords = TYPE_KEYWORDS[typeFilter];
-      pool = pool.filter(p =>
-        keywords.some(kw => p.type.toLowerCase().includes(kw))
-      );
+      pool = pool.filter(p => {
+        const typeEn = typeof p.type === 'object' ? p.type.en : p.type;
+        return keywords.some(kw => typeEn.toLowerCase().includes(kw));
+      });
     }
     displayedProducts = pool;
   } else {
@@ -37,6 +39,24 @@ const Vehicles = () => {
   const isTwoWheeler = category === 'twoWheeler';
   const isThreeWheeler = category === 'threeWheeler';
   const hasDedicatedBanner = isTwoWheeler || isThreeWheeler;
+
+  const getHeroLabel = () => {
+    if (isTwoWheeler) return language === 'ne' ? 'स्कुटर पोर्टफोलियो' : 'Scooter Portfolio';
+    if (isThreeWheeler) return language === 'ne' ? 'इ-रिक्शा फ्लिट' : 'E-Rickshaw Fleet';
+    return language === 'ne' ? 'मोडेल क्याटलग' : 'Model Catalog';
+  };
+
+  const getHeroTitle = () => {
+    if (isTwoWheeler) return language === 'ne' ? 'इलेक्ट्रिक स्कुटर लाइनअप' : 'Electric Scooter Lineup';
+    if (isThreeWheeler) return language === 'ne' ? 'शक्तिशाली इ-रिक्शा समाधान' : 'Powerful E-Rickshaw Solutions';
+    return language === 'ne' ? 'प्रिमियम सवारी क्याटलग' : 'Premium Vehicle Catalog';
+  };
+
+  const getHeroSubtitle = () => {
+    if (isTwoWheeler) return language === 'ne' ? 'नेपालका सडकहरूका लागि निर्मित, पूर्ण इलेक्ट्रिक र उच्च प्रदर्शन गर्ने आधुनिक फ्युचरिस्टिक स्कुटरहरू।' : 'Built for Nepal\'s roads, fully electric and high-performance modern futuristic scooters.';
+    if (isThreeWheeler) return language === 'ne' ? 'नेपालमा व्यावसायिक र दिगो यातायातका लागि डिजाइन गरिएको शक्तिशाली एवं सुरक्षित विद्युतीय रिक्शाहरू।' : 'Powerful and safe electric rickshaws designed for commercial and sustainable transport in Nepal.';
+    return language === 'ne' ? 'नेपालका लागि डिज़ाइन गरिएको शक्तिशाली, भरपर्दो र किफायती विद्युतीय सवारी।' : 'Powerful, reliable and affordable electric vehicles designed for Nepal.';
+  };
 
   return (
     <div>
@@ -84,18 +104,13 @@ const Vehicles = () => {
           <div className="container text-center" style={{ position: 'relative', zIndex: 2 }}>
             <div style={{ position: 'relative', zIndex: 3 }}>
               <div className="hud-label" style={{ justifyContent: 'center', marginBottom: 14, borderColor: 'rgba(255,255,255,0.3)', color: '#fff' }}>
-                {isTwoWheeler ? 'Scooter Portfolio' : isThreeWheeler ? 'E-Rickshaw Fleet' : 'Model Catalog'}
+                {getHeroLabel()}
               </div>
               <h1 style={{ fontSize: 'clamp(2.5rem,6vw,5.5rem)', fontWeight: 900, letterSpacing: '-3px', marginBottom: 20, color: '#fff', textShadow: '0 4px 30px rgba(0,0,0,0.6)' }}>
-                {isTwoWheeler ? 'Electric Scooter Lineup' : isThreeWheeler ? 'Powerful E-Rickshaw Solutions' : 'Premium Vehicle Catalog'}
+                {getHeroTitle()}
               </h1>
               <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: '1.15rem', maxWidth: 650, margin: '0 auto', lineHeight: 1.8, fontWeight: 500, textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
-                {isTwoWheeler
-                  ? 'Nepal का सडकहरूका लागि निर्मित, पूर्ण इलेक्ट्रिक र उच्च प्रदर्शन गर्ने आधुनिक फ्युचरिस्टिक स्कुटरहरू।'
-                  : isThreeWheeler
-                    ? 'Nepal मा व्यावसायिक र दिगो यातायातका लागि डिजाइन गरिएको शक्तिशाली एवं सुरक्षित विद्युतीय रिक्शाहरू।'
-                    : 'Nepal का लागि डिज़ाइन गरिएको शक्तिशाली, भरपर्दो र किफायती विद्युतीय सवारी।'
-                }
+                {getHeroSubtitle()}
               </p>
             </div>
           </div>

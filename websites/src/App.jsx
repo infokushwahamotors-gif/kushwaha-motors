@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AIChatbot from './components/AIChatbot';
 import ScrollToTop from './components/ScrollToTop';
+import LanguageSwitcher from './components/LanguageSwitcher';
 
 // Lazy loading components for performance 
 const Home = React.lazy(() => import('./pages/Home'));
@@ -26,6 +27,7 @@ function App() {
     <Router>
       <div style={{ position: 'relative', minHeight: '100vh' }}>
       <ScrollToTop />
+        <LanguageSwitcher />
         <Navbar />
         <main>
           <Suspense fallback={<PageLoader />}>

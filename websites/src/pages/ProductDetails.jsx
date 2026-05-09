@@ -5,10 +5,13 @@ import { Zap, Battery, Shield, ArrowLeft, CheckCircle2, Cpu, Calendar, Star, Tre
 import { PRODUCTS } from '../data/products';
 import ParticleField from '../components/ParticleField';
 import ProductCard from '../components/ProductCard';
+import { useLanguage } from '../context/LanguageContext';
 
 const ProductDetails = () => {
+  const { language } = useLanguage();
   const { id } = useParams();
   const [selectedColor, setSelectedColor] = useState(null);
+  const isNep = language === 'ne';
 
   let product = null;
   let categoryName = '';
@@ -22,6 +25,13 @@ const ProductDetails = () => {
       break;
     }
   }
+
+  // Helper to handle bilingual data if present, else fallback
+  const getVal = (val) => {
+    if (!val) return '';
+    if (typeof val === 'object' && val[language]) return val[language];
+    return val;
+  };
 
   // Set default color when product is loaded
   useEffect(() => {
@@ -43,66 +53,14 @@ const ProductDetails = () => {
   if (!product) {
     return (
       <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <h2 style={{ fontSize: '2rem', marginBottom: 20 }}>सवारी साधन फेला परेन</h2>
-        <Link to="/vehicles" className="btn-outline">फ्लिटमा फर्कनुहोस्</Link>
+        <h2 style={{ fontSize: '2rem', marginBottom: 20 }}>{isNep ? 'सवारी साधन फेला परेन' : 'Vehicle Not Found'}</h2>
+        <Link to="/vehicles" className="btn-outline">{isNep ? 'फ्लिटमा फर्कनुहोस्' : 'Back to Fleet'}</Link>
       </div>
     );
   }
 
   return (
     <div style={{ paddingBottom: '100px' }}>
-
-      {/* ── Floating Price Widget (Hidden as per request) ── */}
-      {/* 
-      {product.price && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.7 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.9, type: 'spring', stiffness: 130, damping: 16 }}
-          style={{
-            position: 'fixed',
-            bottom: 40,
-            left: 40,
-            zIndex: 999,
-            width: 148,
-            height: 148,
-            borderRadius: '50%',
-            background: '#fff',
-            border: '2.5px dashed #E07B39',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.10)',
-            cursor: 'default',
-          }}
-          title="Ex-Showroom Price"
-        >
-          <span style={{ fontSize: '0.6rem', fontWeight: 700, color: '#888', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 2 }}>एक्स-शोरुम</span>
-          <span style={{ fontSize: '1.05rem', fontWeight: 900, color: '#111', letterSpacing: '-0.5px', lineHeight: 1.2 }}>
-            Rs.{product.price.amount}
-          </span>
-          <a
-            href={`https://wa.me/9779821107355?text=I'm%20interested%20in%20the%20${encodeURIComponent(product.name)}%20(Rs.${encodeURIComponent(product.price.amount)})`}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              marginTop: 8,
-              fontSize: '0.6rem',
-              fontWeight: 800,
-              color: '#25D366',
-              textDecoration: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 4,
-              letterSpacing: '0.3px',
-            }}
-          >
-            <MessageCircle size={11} fill="#25D366" /> सोधपुछ गर्नुहोस्
-          </a>
-        </motion.div>
-      )}
-      */}
 
       {/* Hero Section */}
       <section style={{ padding: '160px 0 60px', position: 'relative', overflow: 'hidden', minHeight: '80vh', display: 'flex', alignItems: 'center' }}>
@@ -112,7 +70,7 @@ const ProductDetails = () => {
         <div className="container">
           <div style={{ position: 'relative', zIndex: 2 }}>
             <Link to="/vehicles" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'var(--txt-2)', textDecoration: 'none', marginBottom: 40, fontSize: '0.95rem', border: '1px solid rgba(255,255,255,0.1)', padding: '8px 18px', borderRadius: 30, background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(10px)', transition: 'all 0.3s ease' }} onMouseOver={e => e.currentTarget.style.borderColor = product.accent} onMouseOut={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}>
-              <ArrowLeft size={16} /> फ्लिट पोर्टफोलियोमा फर्कनुहोस्
+              <ArrowLeft size={16} /> {isNep ? 'फ्लिट पोर्टफोलियोमा फर्कनुहोस्' : 'Back to Fleet Portfolio'}
             </Link>
             
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 60, alignItems: 'center' }}>
@@ -120,18 +78,18 @@ const ProductDetails = () => {
               <div style={{ flex: '1 1 400px' }}>
                 <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration: 0.5 }}>
                   <div className="hud-label" style={{ marginBottom: 16, borderColor: product.accent, color: product.accent }}>
-                    {product.type} Overview
+                    {getVal(product.type)} {isNep ? 'अवलोकन' : 'Overview'}
                   </div>
                   <h1 style={{ fontSize: 'clamp(3rem, 7vw, 5rem)', fontWeight: 900, letterSpacing: '-2px', marginBottom: 15, lineHeight: 1.05, textShadow: `0 0 40px ${product.accent}40` }}>
                     {product.name}
                   </h1>
                   <p style={{ color: 'var(--txt-2)', fontSize: '1.25rem', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: 25, fontWeight: 600 }}>
-                    <span style={{ color: product.accent, marginRight: 10 }}>//</span> {product.tagline}
+                    <span style={{ color: product.accent, marginRight: 10 }}>//</span> {getVal(product.tagline)}
                   </p>
                   
                   <div style={{ padding: '20px', background: 'rgba(255,255,255,0.03)', borderRadius: 16, borderLeft: `4px solid ${product.accent}`, marginBottom: 30 }}>
                     <p style={{ color: 'var(--txt-2)', lineHeight: 1.8, fontSize: '1.1rem' }}>
-                      नेपालको बाटोको लागि डिजाइन गरिएको उत्कृष्ट विद्युतीय सवारीको अनुभव लिनुहोस्। उच्च प्रदर्शन र लामो आयुको लागि निर्मित।
+                      {isNep ? 'नेपालको बाटोको लागि डिजाइन गरिएको उत्कृष्ट विद्युतीय सवारीको अनुभव लिनुहोस्। उच्च प्रदर्शन र लामो आयुको लागि निर्मित।' : 'Experience the best electric vehicle designed for Nepal\'s roads. Built for high performance and longevity.'}
                     </p>
                   </div>
 
@@ -139,7 +97,7 @@ const ProductDetails = () => {
                   {product.availableColors && (
                     <div style={{ marginBottom: 35 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 15, color: 'var(--txt-2)', fontSize: '0.9rem', fontWeight: 700, textTransform: 'uppercase' }}>
-                        <Palette size={16} color={product.accent} /> उपलब्ध रङहरू: <span style={{ color: '#fff' }}>{selectedColor?.name}</span>
+                        <Palette size={16} color={product.accent} /> {isNep ? 'उपलब्ध रङहरू' : 'Available Colors'}: <span style={{ color: '#fff' }}>{selectedColor?.name}</span>
                       </div>
                       <div style={{ display: 'flex', gap: 12 }}>
                         {product.availableColors.map((color) => (
@@ -170,7 +128,7 @@ const ProductDetails = () => {
 
                   <div style={{ display: 'flex', gap: 20 }}>
                     <Link to="/contact" className="btn-primary" style={{ background: `linear-gradient(135deg, ${product.accent}, #000)`, color: '#fff', border: `1px solid ${product.accent}`, padding: '16px 32px', fontSize: '1.1rem', boxShadow: `0 10px 30px ${product.accent}40` }}>
-                      टेस्ट राइड बुक गर्नुहोस् <Zap size={18} />
+                      {isNep ? 'टेस्ट राइड बुक गर्नुहोस्' : 'Book a Test Ride'} <Zap size={18} />
                     </Link>
                   </div>
                 </motion.div>
@@ -208,15 +166,15 @@ const ProductDetails = () => {
             <div style={{ position: 'absolute', top: 0, right: 0, width: 150, height: 150, background: `radial-gradient(circle at top right, ${product.accent}20, transparent)`, pointerEvents: 'none' }}></div>
             
             <h3 style={{ fontSize: '1.4rem', marginBottom: 35, display: 'flex', alignItems: 'center', gap: 12, fontWeight: 800, color: '#111' }}>
-              <Cpu size={24} color={product.accent} /> Core Engineering
+              <Cpu size={24} color={product.accent} /> {isNep ? 'कोर इन्जिनियरिङ' : 'Core Engineering'}
             </h3>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
               {[
-                { label: 'मोटर क्षमता', val: product.specs.motor, ic: <Zap size={18} color="#444" /> },
-                { label: 'ब्याट्री क्षमता', val: product.specs.battery, ic: <Battery size={18} color="#444" /> },
-                { label: 'अनुमानित रेन्ज', val: product.specs.range, ic: <TrendingUp size={18} color="#444" /> },
-                { label: product.specs.speed ? 'अधिकतम गति' : 'भार / बस्ने क्षमता', val: product.specs.speed || product.specs.capacity, ic: <Shield size={18} color="#444" /> }
+                { label: isNep ? 'मोटर क्षमता' : 'Motor Capacity', val: getVal(product.specs.motor), ic: <Zap size={18} color="#444" /> },
+                { label: isNep ? 'ब्याट्री क्षमता' : 'Battery Capacity', val: getVal(product.specs.battery), ic: <Battery size={18} color="#444" /> },
+                { label: isNep ? 'अनुमानित रेन्ज' : 'Estimated Range', val: getVal(product.specs.range), ic: <TrendingUp size={18} color="#444" /> },
+                { label: product.specs.speed ? (isNep ? 'अधिकतम गति' : 'Top Speed') : (isNep ? 'भार / बस्ने क्षमता' : 'Load / Seating Capacity'), val: getVal(product.specs.speed || product.specs.capacity), ic: <Shield size={18} color="#444" /> }
               ].map((spec, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(0,0,0,0.05)', paddingBottom: 15 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -234,7 +192,7 @@ const ProductDetails = () => {
             <div style={{ position: 'absolute', top: 0, right: 0, width: 150, height: 150, background: `radial-gradient(circle at top right, ${product.accent}20, transparent)`, pointerEvents: 'none' }}></div>
 
             <h3 style={{ fontSize: '1.4rem', marginBottom: 35, display: 'flex', alignItems: 'center', gap: 12, fontWeight: 800 }}>
-              <Star size={24} color={product.accent} /> Premium Features
+              <Star size={24} color={product.accent} /> {isNep ? 'प्रिमियम सुविधाहरू' : 'Premium Features'}
             </h3>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
@@ -243,7 +201,7 @@ const ProductDetails = () => {
                   <div style={{ background: `${product.accent}20`, padding: 8, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <CheckCircle2 color={product.accent} size={20} />
                   </div>
-                  <span style={{ fontWeight: 600, fontSize: '1.05rem', letterSpacing: '0.5px' }}>{f}</span>
+                  <span style={{ fontWeight: 600, fontSize: '1.05rem', letterSpacing: '0.5px' }}>{getVal(f)}</span>
                 </div>
               ))}
               {!(product.images && product.images.length > 0) && (
@@ -251,7 +209,7 @@ const ProductDetails = () => {
                     <div style={{ background: `${product.accent}20`, padding: 8, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <Calendar color={product.accent} size={20} />
                     </div>
-                    <span style={{ fontWeight: 600, fontSize: '1.05rem', letterSpacing: '0.5px' }}>विस्तृत वारेन्टी समावेश</span>
+                    <span style={{ fontWeight: 600, fontSize: '1.05rem', letterSpacing: '0.5px' }}>{isNep ? 'विस्तृत वारेन्टी समावेश' : 'Extended Warranty Included'}</span>
                 </div>
               )}
             </div>
@@ -265,9 +223,9 @@ const ProductDetails = () => {
         <section className="container" style={{ marginBottom: 100 }}>
           <div style={{ textAlign: 'center', marginBottom: 60 }}>
             <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 900, letterSpacing: '-1px' }}>
-              Gallery <span style={{ color: product.accent }}>&</span> Features
+              {isNep ? 'ग्यालरी' : 'Gallery'} <span style={{ color: product.accent }}>&</span> {isNep ? 'विशेषताहरू' : 'Features'}
             </h2>
-            <p style={{ color: 'var(--txt-2)', marginTop: 10, fontSize: '1.1rem' }}>{product.name} को विस्तृत जानकारी हेर्नुहोस्</p>
+            <p style={{ color: 'var(--txt-2)', marginTop: 10, fontSize: '1.1rem' }}>{isNep ? `${product.name} को विस्तृत जानकारी हेर्नुहोस्` : `Explore detailed features of ${product.name}`}</p>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 80 }}>
@@ -317,7 +275,7 @@ const ProductDetails = () => {
                     style={{ flex: '1 1 400px' }}
                   >
                     <h3 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: 30, color: 'var(--txt)', display: 'flex', alignItems: 'center', gap: 12 }}>
-                      <Star color={product.accent} /> Built for Excellence
+                      <Star color={product.accent} /> {isNep ? 'उत्कृष्टताको लागि निर्मित' : 'Built for Excellence'}
                     </h3>
                     
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -339,7 +297,7 @@ const ProductDetails = () => {
                           <div style={{ background: `${product.accent}15`, padding: 8, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <CheckCircle2 color={product.accent} size={20} />
                           </div>
-                          <span style={{ fontWeight: 600, fontSize: '1.1rem', letterSpacing: '0.5px', color: 'var(--txt)' }}>{f}</span>
+                          <span style={{ fontWeight: 600, fontSize: '1.1rem', letterSpacing: '0.5px', color: 'var(--txt)' }}>{getVal(f)}</span>
                         </div>
                       ))}
                       
@@ -352,7 +310,7 @@ const ProductDetails = () => {
                           <div style={{ background: `${product.accent}15`, padding: 8, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <Calendar color={product.accent} size={20} />
                           </div>
-                          <span style={{ fontWeight: 600, fontSize: '1.1rem', letterSpacing: '0.5px', color: 'var(--txt)' }}>उत्कृष्ट यात्राको अनुभव लिनुहोस्</span>
+                          <span style={{ fontWeight: 600, fontSize: '1.1rem', letterSpacing: '0.5px', color: 'var(--txt)' }}>{isNep ? 'उत्कृष्ट यात्राको अनुभव लिनुहोस्' : 'Experience an excellent journey'}</span>
                         </div>
                       )}
                     </div>
@@ -371,9 +329,9 @@ const ProductDetails = () => {
           <div className="container">
             <div style={{ textAlign: 'center', marginBottom: 60 }}>
               <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 900, letterSpacing: '-1px' }}>
-                Similar <span style={{ color: product.accent }}>Vehicles</span>
+                {isNep ? 'समान' : 'Similar'} <span style={{ color: product.accent }}>{isNep ? 'सवारी साधनहरू' : 'Vehicles'}</span>
               </h2>
-              <p style={{ color: 'var(--txt-2)', marginTop: 10, fontSize: '1.1rem' }}>यस शृंखलाका अन्य उत्कृष्ट विकल्पहरू अन्वेषण गर्नुहोस्।</p>
+              <p style={{ color: 'var(--txt-2)', marginTop: 10, fontSize: '1.1rem' }}>{isNep ? 'यस शृंखलाका अन्य उत्कृष्ट विकल्पहरू अन्वेषण गर्नुहोस्।' : 'Explore other great options from this series.'}</p>
             </div>
             
             <motion.div layout className="grid-auto">
