@@ -6,26 +6,26 @@ import { translations } from '../data/translations';
 
 const DEALERS = [
   { city: { ne: "वीरगन्ज", en: "Birgunj" }, location: { ne: "पर्सा", en: "Parsa" }, phone: "9821107355", type: "Head Office", isHead: true, query: "Kushwaha Motors Birgunj" },
-  { city: { ne: "कलैया", en: "Kalaiya" }, location: { ne: "बारा", en: "Bara" }, phone: "9802595086", type: "Branch", query: "Kushwaha Motors Kalaiya" },
-  { city: { ne: "सिमरा", en: "Simara" }, location: { ne: "बारा", en: "Bara" }, phone: "9812212699", type: "Branch", query: "Kushwaha Motors Simara" },
-  { city: { ne: "सुकदेव चोक", en: "Sukdew Chowk" }, location: { ne: "रौतहट", en: "Rautahat" }, phone: "9801287097", type: "Branch", query: "Sukdew Chowk Rautahat" },
-  { city: { ne: "हेटौंडा", en: "Hetauda" }, location: { ne: "मकवानपुर", en: "Makwanpur" }, phone: "9801235567", type: "Branch", query: "Kushwaha Motors Hetauda" },
-  { city: { ne: "टाँडी", en: "Tandi" }, location: { ne: "चितवन", en: "Chitwan" }, phone: "9843596487", type: "Branch", query: "Kushwaha Motors Tandi" },
-  { city: { ne: "भरतपुर", en: "Bharatpur" }, location: { ne: "चितवन", en: "Chitwan" }, phone: "9812287436", type: "Branch", query: "Kushwaha Motors Bharatpur" },
-  { city: { ne: "मलंगवा", en: "Malangwa" }, location: { ne: "सर्लाही", en: "Sarlahi" }, phone: "9866388988", type: "Branch", query: "Kushwaha Motors Malangwa" },
+  { city: { ne: "कलैया", en: "Kalaiya" }, location: { ne: "बारा", en: "Bara" }, phone: "9802595086", type: "Branch", query: "Kalaiya, Bara, Nepal" },
+  { city: { ne: "सिमरा", en: "Simara" }, location: { ne: "बारा", en: "Bara" }, phone: "9812212699", type: "Branch", query: "Simara, Bara, Nepal" },
+  { city: { ne: "सुकदेव चोक", en: "Sukdew Chowk" }, location: { ne: "रौतहट", en: "Rautahat" }, phone: "9801287097", type: "Branch", query: "Sukdew Chowk, Rautahat, Nepal" },
+  { city: { ne: "हेटौंडा", en: "Hetauda" }, location: { ne: "मकवानपुर", en: "Makwanpur" }, phone: "9801235567", type: "Branch", query: "Hetauda, Makwanpur, Nepal" },
+  { city: { ne: "टाँडी", en: "Tandi" }, location: { ne: "चितवन", en: "Chitwan" }, phone: "9843596487", type: "Branch", query: "Tandi, Chitwan, Nepal" },
+  { city: { ne: "भरतपुर", en: "Bharatpur" }, location: { ne: "चितवन", en: "Chitwan" }, phone: "9812287436", type: "Branch", query: "Bharatpur, Chitwan, Nepal" },
+  { city: { ne: "मलंगवा", en: "Malangwa" }, location: { ne: "सर्लाही", en: "Sarlahi" }, phone: "9866388988", type: "Branch", query: "Malangwa, Sarlahi, Nepal" },
 ];
 
 const ADDITIONAL_LOCATIONS = [
-  { ne: "दमक, झापा", en: "Damak, Jhapa", query: "Damak Jhapa" },
-  { ne: "विराटचोक, मोरङ", en: "Biratchowk, Morang", query: "Biratchowk Morang" },
-  { ne: "धरान, सुनसरी", en: "Dharan, Sunsari", query: "Dharan Sunsari" },
-  { ne: "लहान, सिराहा", en: "Lahan, Siraha", query: "Lahan Siraha" },
-  { ne: "लालबन्दी, सर्लाही", en: "Lalbandi, Sarlahi", query: "Lalbandi Sarlahi" },
-  { ne: "हरिवन, सर्लाही", en: "Hariwon, Sarlahi", query: "Hariwon Sarlahi" },
-  { ne: "चपुर, रौतहट", en: "Chapur, Rautahat", query: "Chapur Rautahat" },
-  { ne: "बुटवल, रुपन्देही", en: "Butwal, Rupandehi", query: "Butwal Rupandehi" },
-  { ne: "काठमाडौं", en: "Kathmandu", query: "Kathmandu" },
-  { ne: "भक्तपुर", en: "Bhaktapur", query: "Bhaktapur" }
+  { ne: "दमक, झापा", en: "Damak, Jhapa", query: "Damak, Jhapa, Nepal" },
+  { ne: "विराटचोक, मोरङ", en: "Biratchowk, Morang", query: "Biratchowk, Morang, Nepal" },
+  { ne: "धरान, सुनसरी", en: "Dharan, Sunsari", query: "Dharan, Sunsari, Nepal" },
+  { ne: "लहान, सिराहा", en: "Lahan, Siraha", query: "Lahan, Siraha, Nepal" },
+  { ne: "लालबन्दी, सर्लाही", en: "Lalbandi, Sarlahi", query: "Lalbandi, Sarlahi, Nepal" },
+  { ne: "हरिवन, सर्लाही", en: "Hariwon, Sarlahi", query: "Hariwon, Sarlahi, Nepal" },
+  { ne: "चपुर, रौतहट", en: "Chapur, Rautahat", query: "Chapur, Rautahat, Nepal" },
+  { ne: "बुटवल, रुपन्देही", en: "Butwal, Rupandehi", query: "Butwal, Rupandehi, Nepal" },
+  { ne: "काठमाडौं", en: "Kathmandu", query: "Kathmandu, Nepal" },
+  { ne: "भक्तपुर", en: "Bhaktapur", query: "Bhaktapur, Nepal" }
 ];
 
 const Dealers = () => {
@@ -50,7 +50,7 @@ const Dealers = () => {
     if (selectedMapQuery === 'Kushwaha Motors Birgunj') {
       return "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113941.56499645932!2d84.80801833549641!3d26.97723903175245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399355152a5c531d%3A0xe5f99233f260464f!2sKushwaha%20Motors!5e0!3m2!1sen!2snp!4v1715227000000!5m2!1sen!2snp";
     }
-    return `https://maps.google.com/maps?q=${encodeURIComponent(selectedMapQuery + (selectedMapQuery.includes('Motors') ? '' : ' Kushwaha Motors') + ' Nepal')}&t=&z=15&ie=UTF8&iwloc=A&output=embed`;
+    return `https://maps.google.com/maps?q=${encodeURIComponent(selectedMapQuery)}&t=&z=15&ie=UTF8&iwloc=A&output=embed`;
   };
   
   const filteredDealers = DEALERS.filter(d => {
