@@ -195,7 +195,7 @@ const Home = () => {
 
 
       {/* ══ THREE PILLARS ════════════════════════════════════════════ */}
-      <section style={{ padding: '80px 0', borderTop: '1px solid rgba(19,123,57,0.06)' }}>
+      <section style={{ padding: 'clamp(60px, 10vw, 100px) 0', borderTop: '1px solid rgba(19,123,57,0.06)' }}>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: 60 }}>
             <div className="hud-label" style={{ justifyContent: 'center' }}>{language === 'ne' ? 'मुख्य सिद्धान्तहरू' : 'Core Principles'}</div>
@@ -257,10 +257,10 @@ const Home = () => {
       </section>
 
       {/* ══ LIFESTYLE BANNER ══════════════════════════════════════════ */}
-      <section style={{ minHeight: '400px', height: '50vh', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <section style={{ minHeight: 'clamp(320px, 50vh, 500px)', height: 'auto', padding: '60px 0', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ position: 'absolute', inset: 0 }}>
-          <img src="/Banner/Banner.webp" alt="Lifestyle" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }} />
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(0,0,0,0.8), transparent, rgba(0,0,0,0.8))' }} />
+          <img src="/Banner/Banner.webp" alt="Lifestyle" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.6 }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 100%)' }} />
         </div>
         <div className="container" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
           <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
@@ -275,7 +275,7 @@ const Home = () => {
       </section>
 
       {/* ══ MODELS ═══════════════════════════════════════════════════ */}
-      <section style={{ padding: '80px 0', position: 'relative', overflow: 'hidden' }}>
+      <section style={{ padding: 'clamp(60px, 10vw, 100px) 0', position: 'relative', overflow: 'hidden' }}>
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: 20, marginBottom: 56 }}>
             <div>
@@ -330,7 +330,7 @@ const Home = () => {
       </section>
 
       {/* ══ TESTIMONIALS ════════════════════════════════════════════ */}
-      <section style={{ padding: '80px 0', borderTop: '1px solid rgba(66,169,46,0.06)' }}>
+      <section style={{ padding: 'clamp(60px, 10vw, 100px) 0', borderTop: '1px solid rgba(66,169,46,0.06)' }}>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: 60 }}>
             <div className="hud-label" style={{ justifyContent: 'center' }}>{language === 'ne' ? 'राइडर अनुभवहरू' : 'Rider Experiences'}</div>

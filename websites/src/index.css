@@ -388,10 +388,30 @@ select option{background:#fff;color:var(--txt);}
   .grid-2 { grid-template-columns: 1fr; gap: var(--s4); }
 }
 @media (max-width: 640px) {
-  .grid-3, .grid-auto { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .grid-3, .grid-auto { grid-template-columns: 1fr; gap: 20px; }
   .grid-2 { gap: var(--s3); }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 16px; }
+  .grid-3, .grid-auto { gap: 16px; }
   
-  .product-card { padding: 0 !important; }
+  /* Reduced padding for sections on small mobiles */
+  section { padding: clamp(40px, 8vw, 60px) 0 !important; }
+
+  /* Optimized card padding for small mobiles */
+  .cyber-card { padding: 24px 20px !important; }
+  
+  /* Feature cards specific tweaks */
+  .cyber-card h3 { font-size: 1.4rem !important; }
+  .cyber-card p { font-size: 0.9rem !important; }
+
+  /* Global heading tweaks for small mobile */
+  h1 { font-size: 2.8rem !important; line-height: 1.05 !important; }
+  h2 { font-size: 2.1rem !important; }
+  h3 { font-size: 1.6rem !important; }
+
+  .model-card-info { padding: 32px 24px !important; }
   .product-card > div:first-child { min-height: 120px !important; padding: 12px 10px 0 !important; }
   .product-card > div:first-child img { max-height: 90px !important; }
   .product-card > div:last-child { padding: 12px 12px 16px !important; gap: 6px !important; }
