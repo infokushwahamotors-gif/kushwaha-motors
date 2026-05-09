@@ -47,12 +47,10 @@ const Dealers = () => {
   };
 
   const getMapUrl = () => {
-    // If it's the Birgunj HQ, we use the high-precision specific embed
     if (selectedMapQuery === 'Kushwaha Motors Birgunj') {
       return "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113941.56499645932!2d84.80801833549641!3d26.97723903175245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399355152a5c531d%3A0xe5f99233f260464f!2sKushwaha%20Motors!5e0!3m2!1sen!2snp!4v1715227000000!5m2!1sen!2snp";
     }
-    // Otherwise use a search-based embed
-    return `https://maps.google.com/maps?q=${encodeURIComponent(selectedMapQuery + ' Nepal')}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
+    return `https://maps.google.com/maps?q=${encodeURIComponent(selectedMapQuery + (selectedMapQuery.includes('Motors') ? '' : ' Kushwaha Motors') + ' Nepal')}&t=&z=15&ie=UTF8&iwloc=A&output=embed`;
   };
   
   const filteredDealers = DEALERS.filter(d => {
@@ -149,7 +147,6 @@ const Dealers = () => {
                     ...(d.isHead ? { borderBottom: `4px solid var(--nature)` } : {}) 
                   }}
                 >
-                  {/* Header */}
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div style={{
                       background: d.isHead ? 'var(--nature)' : 'rgba(66,169,46,0.1)',
@@ -162,7 +159,6 @@ const Dealers = () => {
                     <Zap size={18} color="var(--nature)" style={{ opacity: 0.4 }} />
                   </div>
 
-                  {/* City */}
                   <div>
                     <h2 style={{ fontSize: '2rem', fontWeight: 900, letterSpacing: '-1px', marginBottom: 4, color: 'var(--txt)' }}>{getVal(d.city)}</h2>
                     <div style={{ display: 'flex', gap: 8, alignItems: 'flex-start', color: 'var(--txt-2)', fontSize: '0.9rem' }}>
@@ -170,13 +166,11 @@ const Dealers = () => {
                     </div>
                   </div>
 
-                  {/* Phone */}
                   <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                     <Phone size={16} color="var(--nature)" />
                     <span style={{ fontWeight: 800, fontSize: '1.1rem', color: 'var(--txt)' }}>{d.phone}</span>
                   </div>
 
-                  {/* CTA */}
                   <div style={{ display: 'flex', gap: 10, marginTop: 4 }}>
                     <a href={`tel:${d.phone}`} className="btn-outline" style={{ flex: 1, textAlign: 'center', textDecoration: 'none', padding: '10px' }}>
                       {t.contactBtn}
@@ -191,7 +185,6 @@ const Dealers = () => {
           </AnimatePresence>
         </div>
       </section>
-
 
       {/* Additional Presence Section: Dealers */}
       {filteredAdditional.length > 0 && (
@@ -211,7 +204,7 @@ const Dealers = () => {
               <h3 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: 12, color: 'var(--txt)' }}>
                 {language === 'ne' ? 'आधिकारिक' : 'Authorized'} <span className="electric-text">{language === 'ne' ? 'डिलरहरू' : 'Dealers'}</span>
               </h3>
-              <p style={{ color: 'var(--txt-2)', marginBottom: 40, fontSize: '1.1rem' }}>{language === 'ne' ? 'हाम्रा आधिकारिक डिलरहरू निम्न स्थानहरूमा पनि उपलब्ध छन्। क्लिक गरेर नक्सामा हेर्नुहोस्।' : 'Our authorized dealers are also available in the following locations. Click to view on map.'}</p>
+              <p style={{ color: 'var(--txt-2)', marginBottom: 40, fontSize: '1.1rem' }}>{language === 'ne' ? 'हाम्रा आधिकारिक डिलरहरू निम्न स्थानहरूमा पनि उपलब्ध छन्। क्लिक गरेर नक्सामा हेर्नुहोस्। ' : 'Our authorized dealers are also available in the following locations. Click to view on map.'}</p>
               
               <div style={{ 
                 display: 'flex', 
@@ -252,6 +245,7 @@ const Dealers = () => {
           </div>
         </section>
       )}
+
       {/* Map Section */}
       <section ref={mapSectionRef} style={{ padding: '40px 0 100px' }}>
         <div className="container">
@@ -262,28 +256,28 @@ const Dealers = () => {
             boxShadow: '0 30px 60px rgba(0,0,0,0.08)',
             border: '1px solid rgba(66,169,46,0.1)'
           }}>
-            <div style={{ padding: '40px 40px 0', textAlign: 'center', marginBottom: 40 }}>
+            <div style={{ padding: '40px 40px 0', textAlign: 'center' }}>
               <h3 style={{ fontSize: '2.2rem', fontWeight: 900, marginBottom: 12 }}>
                 {language === 'ne' ? 'हाम्रो' : 'Map'} <span className="electric-text">{language === 'ne' ? 'स्थानहरू' : 'Locations'}</span>
               </h3>
-              <p style={{ color: 'var(--txt-2)', fontSize: '1.1rem', marginBottom: 30 }}>
+              <p style={{ color: 'var(--txt-2)', fontSize: '1.1rem', marginBottom: 24 }}>
                 {language === 'ne' ? 'हाम्रा सबै शाखा र डिलरहरू नक्सामा हेर्नुहोस्।' : 'Find all our branches and dealers on the map.'}
               </p>
 
-              {/* Dynamic Map Selector */}
-              <div style={{ maxWidth: 500, margin: '0 auto', display: 'flex', gap: 10 }}>
+              <div style={{ maxWidth: 500, margin: '0 auto 40px', display: 'flex', gap: 10 }}>
                 <select 
                   value={selectedMapQuery}
                   onChange={(e) => setSelectedMapQuery(e.target.value)}
                   style={{ 
                     flex: 1,
-                    padding: '12px 20px', 
-                    borderRadius: '12px', 
+                    padding: '14px 20px', 
+                    borderRadius: '16px', 
                     border: '1px solid rgba(66,169,46,0.2)',
                     background: '#f9fbf9',
                     fontSize: '1rem',
                     fontWeight: 600,
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    boxShadow: '0 4px 15px rgba(0,0,0,0.02)'
                   }}
                 >
                   <optgroup label={language === 'ne' ? 'शाखाहरू' : 'Branches'}>
@@ -297,13 +291,10 @@ const Dealers = () => {
                     ))}
                   </optgroup>
                 </select>
-                <button className="btn-nature" style={{ padding: '0 25px' }}>
-                   <Search size={18} />
-                </button>
               </div>
             </div>
 
-            <div style={{ height: 600, width: '100%', position: 'relative', background: '#e5e3df', marginTop: 40 }}>
+            <div style={{ height: 650, width: '100%', position: 'relative', background: '#e5e3df' }}>
               <iframe
                 key={selectedMapQuery}
                 title="Kushwaha Motors Locations"
@@ -316,10 +307,33 @@ const Dealers = () => {
                 referrerPolicy="no-referrer-when-downgrade"
               ></iframe>
 
-              {/* Legend overlay */}
+              <div style={{ position: 'absolute', top: 20, left: 20, zIndex: 10 }}>
+                <a 
+                  href={`https://www.google.com/maps/search/${encodeURIComponent(selectedMapQuery + ' Nepal')}`} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="btn-nature"
+                  style={{ 
+                    padding: '10px 20px', 
+                    fontSize: '0.85rem', 
+                    textDecoration: 'none', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: 8,
+                    background: 'rgba(255,255,255,0.95)',
+                    color: 'var(--txt)',
+                    border: '1px solid rgba(66,169,46,0.2)',
+                    backdropFilter: 'blur(10px)',
+                    boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
+                  }}
+                >
+                  <Globe size={16} color="var(--nature)" /> {language === 'ne' ? 'नक्सामा खोल्नुहोस्' : 'Open in Maps'}
+                </a>
+              </div>
+
               <div style={{
                 position: 'absolute',
-                top: 20,
+                bottom: 30,
                 right: 20,
                 background: 'rgba(255,255,255,0.95)',
                 backdropFilter: 'blur(10px)',
